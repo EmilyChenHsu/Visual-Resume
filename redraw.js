@@ -1,0 +1,274 @@
+function redraw(data, id, type)
+{
+	var x = d3.scale.ordinal()
+		.rangeBands([0, global_width], .1);
+	  
+	var y = d3.scale.linear()
+		.rangeRound([global_height, 0]);
+	  
+	var barColor = d3.scale.ordinal()
+		.range(["#062170","#6d87d6","#133aac"]);
+		
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom");
+	  
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.orient("left")
+		.tickFormat(d3.format(".2s"))
+		.ticks(4);
+	
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin redraw of grouped bar chart ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	if(type === "grouped")
+	{
+		d3.select("#grouped_" + id).selectAll('svg').remove();
+		  var month_count = data.length;
+		  
+		  var svg = d3.select("#grouped_" + id).append("svg")
+			.attr("width", global_width + global_margin.left + global_margin.right)
+			.attr("height", global_height + global_margin.top + global_margin.bottom)
+		  .append("g")
+			.attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
+			.attr("id","grouped_svg_" + id);
+		  
+		  barColor.domain(["Answers","Comments","Questions"]);   
+		  
+		  x.domain(data.map(function(d,i)
+		  {
+			return parse_date(d.month,'mm/yy');
+		  }));
+	  
+		  y.domain([0, global_grouped_y_max]);
+			
+		  svg.append("text")
+			.attr("x",110)
+			.attr("y",-5)
+			.style("text-anchor", "middle")
+			.style("font-size",20)
+			.text("Contributions by Month");
+			
+		  svg.append("text")
+			.attr("x",250)
+			.attr("y",-5)
+			.text("stacked")
+			.style("text-anchor", "end")
+			.style("font-size","9px")
+			.on("mouseout",function()
+			  {
+				d3.select("body").style("cursor","default");
+				d3.select(this).style("font-weight","normal");  
+			  })
+			.on("mouseover",function()
+			  {
+				d3.select("body").style("cursor","pointer");
+				d3.select(this).style("font-weight","bold");  
+			  })
+			  .on("click",function()
+			  {
+				  show_stacked();
+			  });
+			
+		  svg.append("text")
+			.attr("x",250)
+			.attr("y",-13)
+			.text("grouped")
+			.style("text-anchor", "end")
+			.style("font-size","9px")
+			.style("font-weight","bold"); 
+		  
+			xAxis.tickValues(data.map(function(d,i)
+			  {
+				var factor = Math.ceil(month_count / 6);
+				if(i%factor == 0)
+				{
+				  return parse_date(d.month, 'mm/yy');
+				}
+			  })
+				.filter(function(d)
+				  {
+					return !!d;  
+				  }));
+		
+		  svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + global_height + ")")
+			.call(xAxis);
+		
+		  svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
+		  .append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", -43)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Contributions");
+	  
+			
+		  var month = svg.selectAll(".month")
+			.data(data)
+			.enter().append("g")
+			.attr("class", "g")
+			.attr("transform", function(d,i)
+			{
+			  return "translate(" + x(d.month) + ",0)" ;
+			});
+		
+		  month.selectAll("rect")
+		  .data(function(d)
+			{
+			  return d.counts;
+			})
+		  .enter().append("rect")
+			.attr("width", x.rangeBand()/3)
+			.attr("x",function(d,i)
+			  {
+				return i*x.rangeBand()/3;
+			  })
+			.attr("y",function(d)       { return y(d.value); })
+			.attr("height", function(d) { return y(0) - y(d.value); })
+			.style("fill", function(d)  { return barColor(d.title); })
+			.attr("title",function(d)
+			  {
+				$(this).tipsy({gravity: 's'});
+				var temp_title = d.value + ' ' + d.title;
+				if(d.value === 1)
+				{
+				  temp_title = temp_title.slice(0,-1);
+				}
+				return temp_title;
+			  });
+	}
+    // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End redraw of grouped bar chart <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+    //
+    //
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin redraw of stacked bar chart ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "stacked")
+	{
+		data.reverse();
+		d3.select("#stacked_" + id).selectAll('svg').remove();
+		  var month_count = data.length;
+		  
+		  var svg = d3.select("#stacked_" + id).append("svg")
+			.attr("width", global_width + global_margin.left + global_margin.right)
+			.attr("height", global_height + global_margin.top + global_margin.bottom)
+		  .append("g")
+			.attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
+			.attr("id","stacked_svg_" + id);
+			
+		  barColor.domain(["Answers","Comments","Questions"]);   
+		  
+		  x.domain(data.map(function(d,i)
+		  {
+			return parse_date(d.month,'mm/yy');
+		  }));
+		  
+		  y.domain([0, global_stacked_y_max]);
+			
+		  svg.append("text")
+			.attr("x",110)
+			.attr("y",-5)
+			.style("text-anchor", "middle")
+			.style("font-size",20)
+			.text("Contributions by Month");
+			
+		  svg.append("text")
+			.attr("x",250)
+			.attr("y",-5)
+			.text("stacked")
+			.style("text-anchor", "end")
+			.style("font-size","9px")
+			.style("font-weight","bold");
+			
+		  svg.append("text")
+			.attr("x",250)
+			.attr("y",-13)
+			.text("grouped")
+			.style("text-anchor", "end")
+			.style("font-size","9px")
+			.on("mouseout",function()
+			  {
+				d3.select("body").style("cursor","default");
+				d3.select(this).style("font-weight","normal");  
+			  })
+			.on("mouseover",function()
+			  {
+				d3.select("body").style("cursor","pointer");
+				d3.select(this).style("font-weight","bold");  
+			  })
+			  .on("click",function()
+			  {
+				  show_grouped();
+			  });  
+		  
+			xAxis.tickValues(data.map(function(d,i)
+			  {
+				var factor = Math.ceil(month_count / 6);
+				if(i%factor == 0)
+				{
+				  return parse_date(d.month, 'mm/yy');
+				}
+			  })
+				.filter(function(d)
+				  {
+					return !!d;  
+				  }));
+		
+		  svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + global_height + ")")
+			.call(xAxis);
+		
+		  svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
+		  .append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", -43)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Contributions");
+	  
+			
+		  var month = svg.selectAll(".month")
+			.data(data)
+			.enter().append("g")
+			.attr("class", "g")
+			.attr("transform", function(d,i)
+			{
+			  return "translate(" + x(d.month) + ",0)" ;
+			});
+		
+		  month.selectAll("rect")
+		  .data(function(d)
+			{
+			  return d.counts;
+			})
+		  .enter().append("rect")
+			.attr("width", x.rangeBand())
+			.attr("y",function(d)       { return y(d.y1); })
+			.attr("height", function(d) { return y(d.y0) - y(d.y1); })
+			.style("fill", function(d)  { return barColor(d.title); })
+			.attr("title",function(d)
+			  {
+				$(this).tipsy({gravity: 's'});
+				var temp_title = d.value + ' ' + d.title;
+				if(d.value === 1)
+				{
+				  temp_title = temp_title.slice(0,-1);
+				}
+				return temp_title;
+			  });
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End redraw of stacked bar chart <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else { alert("Unknown data type parameter passed to redraw()"); }
+}

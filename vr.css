@@ -1,0 +1,319 @@
+html
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body
+{
+    overflow:auto;
+    height:1000px;
+    width:1000px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:70px;
+    border: none;
+    
+    background-color: #eee;
+    
+    font-family: sans-serif;
+}
+
+a:link,a:visited
+{
+    text-decoration:none;
+    color: #000000;
+}
+
+a:hover
+{
+    color: #aaa;
+}
+
+a.dark_background:link,a.dark_background:visited
+{
+    text-decoration:none;
+    color: #fff;
+}
+
+a.dark_background:hover
+{
+    color: #aaa;
+}
+
+div.so_user_general_small
+{
+    position:relative;
+    float:left;
+    margin-left: 20px;
+    margin-bottom:20px;
+    width:300px;
+    height:480px;
+    
+    background-color: #FFFFFF;
+    border:5px solid #aaaaaa;
+    border-radius: 10px;
+}
+
+div.so_user_tag_small
+{
+    position:relative;
+    float:left;
+    margin-left: 20px;
+    margin-bottom:20px;
+    width:300px;
+    height:415px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
+
+div.so_general
+{
+    position:relative;
+    float:left;
+    margin-left: 20px;
+    margin-bottom:20px;
+    
+    padding-left: 5px;
+    padding-right: 5px;
+    
+    width:290px;
+    height:415px;
+    font-size: 15px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
+
+div.icon
+{
+    position:absolute;
+    top:0;
+    right:0;
+    border: none;
+}
+
+div.community_title
+{
+    position: absolute;
+    top: 0;
+    left: 13px;
+    border: none;
+    
+    font-size: 12px;
+}
+
+img.icon
+{
+    height: 40px;
+    width: auto;
+}
+img.gh_icon
+{
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    height: 30px;
+    width: auto;
+}
+
+div.reputation
+{
+    clear: left;
+    float: left;
+    margin-top: 3px;
+    margin-left:10px;
+    border: none;
+    font:22px sans-serif;
+    line-height: 60%;
+}
+
+div.tag
+{
+    clear: left;
+    float: left;
+    margin-top: 0px;
+    margin-left:10px;
+    border: none;
+    font:22px sans-serif;
+}
+
+div.username
+{    
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    margin-left:10px;
+    font-weight: bold;
+}
+
+div.avatar
+{
+    clear: left;
+    float: left;
+    margin-left:10px;
+    border: none;
+}
+
+img.avatar
+{
+    height:90px;
+    width:90px;
+}
+
+div.info
+{
+    clear: left;
+    float: left;
+    margin-left: 10px;
+    width: auto;
+    font-size: 11px;
+    border: none;
+}
+
+div.pieChart
+{
+    text-align:center;
+    position:absolute;
+    top:60px;
+    right: 10px;
+    border: none;
+}
+
+div.barChart
+{
+    text-align:center;
+    position:absolute;
+    top: 205px;
+    left:0;
+    border: none;
+    
+    font-size: 12px;
+}
+
+div.shortBarChart
+{
+    text-align:center;
+    position:absolute;
+    bottom: 0;
+    left:0;
+    border: none;
+    
+    font-size: 12px;
+}
+
+div.buttons
+{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px;
+}
+
+.axis path,
+.axis line
+{
+    fill: none;
+    stroke: #000000;
+}
+
+.smallText
+{
+    font-size: 13px;
+}
+
+img.so_general
+{
+    width: 300px;
+    height: auto;
+}
+
+table.so_links
+{
+    font-weight: bold;
+}
+
+span.small_margin
+{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+span.close_button
+{
+    position: absolute;
+    top: -8px;
+    right: 0;
+    font-size: 30px;
+    color: #aaaaaa;
+}
+.close_button:hover
+{
+    color:#000000;
+    cursor: pointer;
+}
+
+.pie_legend
+{
+    font-size: 10px;
+}
+
+.legend_div
+{
+    position: absolute;
+    bottom: 105px;
+    text-align: center;
+    left: 0;
+    border: none;
+    
+    font-size: 12px;
+}
+
+.separator
+{
+    text-align:center;
+    border-top: 2px solid #F47A20;
+    position: absolute;
+    bottom: 85px;
+    right: 50px;
+    width: 200px;
+}
+
+.contentTip
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: 2px solid #aaaaaa;
+}
+
+.other_tip
+{
+    position: absolute;
+    border: 2px solid #aaa;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    opacity: .8;
+    padding: 5px;
+    
+    max-height: 300px;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+div.leftBox
+{
+    position: absolute;
+    left: 5px;
+    top: 70px;
+    padding: 3px;
+    border: none;
+}
