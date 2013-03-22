@@ -43,18 +43,20 @@
 		<a href="javascript:tile('Data/gh_data_3359.json', 'gh_all', null);">Emilio Tagua</a>
 		<br>
 		<a href="javascript:tile('Data/gh_data_3387.json', 'gh_all', null);">Xavier Noria</a>
+		<br>
+		<a href="javascript:tile('Data/gh_data_137.json', 'gh_all', null);">Joshua Peek</a>
 		<h3>Stack Overflow</h3>
 		<a href="javascript:tile('Data/so_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
 		<br>
-		<a href="javascript:tile('Data/gh_data_3359.json', 'so_all', null);">null</a>
+		<a href="javascript:tile('Data/so_data_588267.json', 'so_all', null);">Jose Valim</a>
 		<br>
-		<a href="javascript:tile('Data/gh_data_3387.json', 'so_all', null);">null</a>
+		<a href="javascript:tile('Data/so_data_50742.json', 'so_all', null);">Chuck</a>
 		</div>
 		<?php
 		
 			if(isset($_POST['userID']) && isset($_POST['displayName']))
 			{
-				echo '<script>tile(\'Data/data_' . $_POST['userID'] . '.json\', \'so_all\');</script>';
+				echo '<script>tile(\'Data/so_data_' . $_POST['userID'] . '.json\', \'so_all\');</script>';
 			}
 		
 		?>
@@ -73,9 +75,9 @@
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
 
-			var global_start_date = '2008-05';
+			var global_start_date = '2008-03';
 			var global_end_date = '2012-05',
-				global_month_count = 28;
+				global_month_count = 50;
 			
 			var global_ready_mouseup = false;
 			var global_mousedown = false;

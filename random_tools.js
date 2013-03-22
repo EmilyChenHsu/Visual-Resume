@@ -445,3 +445,12 @@ function remove_tile(el, id)
 		}
 	}
 }
+
+function to_unicode(input)
+{
+    // Doesn't do anything yet
+    for(var i = 0; i < input.length; i++)
+    {
+        console.log(input.charCodeAt(i));
+    }
+}
