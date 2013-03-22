@@ -2,16 +2,20 @@ function pie_chart(source, type, tag)
 {
   if(tag == undefined) { tag = null; }
   
+  // Changed height from 150 to 180 to add title on top
+  var width = 150,
+  height = 180,
+  radius = Math.min(width, height) / 2;
+  var legend_height = 0,
+      cube_width = 23,
+      cube_height = 15,
+      horizontal_offset = 28;
+  
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   // Begin draw pie chart for GitHub data ==>
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   if(type === "gh")
   {
-    // Changed height from 150 to 180 to add title on top
-    var width = 150,
-    height = 180,
-    radius = Math.min(width, height) / 2;
-  
     // Function to format a number as a percent
     var per = d3.format(".0%");
     var per_long = d3.format(".2%");
@@ -161,29 +165,10 @@ function pie_chart(source, type, tag)
             {
               tempEl.style.backgroundColor='#aaa';
             }
-            /*
-            var test = document.getElementById(tipID);
-            
-            if(test == null && d.data.language == "other")
-            {
-              var y_coord = $(this).offset().top;
-              var x_coord = $(this).offset().left;
-            
-              x_coord += 50;
-              y_coord += 50;
-            }
-            else if(d.data.language == "other")
-            {
-              var temp = '#' + tipID;
-              $(temp).show();
-            }
-            */
           })
         .on("mouseout",function(d)
           {
             d3.select(this).style("opacity","1");
-            //var temp = '#' + tipID;
-            //$(temp).hide();
             
             var tempID = set_tagID(d.data.language);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
@@ -215,11 +200,6 @@ function pie_chart(source, type, tag)
                 return "translate(" + horiz_offset + "," + vert_offset + ")";  
               }
             });
-    
-      var legend_height = 0;
-      var cube_width = 23;
-      var cube_height = 15;
-      var horizontal_offset = 28;
     
       pie_legend.append("rect")
         .attr("x",horizontal_offset)
@@ -267,11 +247,6 @@ function pie_chart(source, type, tag)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   else if(type === "so_all")
   {
-    // Changed height from 150 to 180 to add title on top
-    var width = 150,
-    height = 180,
-    radius = Math.min(width, height) / 2;
-  
     // Function to format a number as a percent
     var per = d3.format(".0%");
     var per_long = d3.format(".2%");
@@ -473,11 +448,6 @@ function pie_chart(source, type, tag)
               }
             });
     
-      var legend_height = 0;
-      var cube_width = 23;
-      var cube_height = 15;
-      var horizontal_offset = 28;
-    
       pie_legend.append("rect")
         .attr("x",horizontal_offset)
         .attr("y",legend_height)
@@ -526,11 +496,6 @@ function pie_chart(source, type, tag)
   {
     tag = get_tagID(tag); // Just in case the tag had to be "set" in order to be passed as a parameter to the funciton
   
-    // Changed height from 150 to 180 to add title on top
-    var width = 150,
-    height = 180,
-    radius = Math.min(width, height) / 2;
-  
     // Function to format a number as a percent
     var per = d3.format(".0%");
     var per_long = d3.format(".2%");
@@ -539,11 +504,6 @@ function pie_chart(source, type, tag)
     var otherTagArray = new Array();
   
     var sliceColor = d3.scale.ordinal()
-      //.range(["#F37124", "#461A00", "#F7A371", "#F7C1A0"]);
-      //.range(["#FF8000", "#00FF00", "#00F0FF", "#FF00FF"]);
-      //.range(["#F10026","#0969A2","#FF8C00","#3BDA00"]);
-      //.range(["#F10026","#0969A2","#FFE700","#3BDA00"]);
-      //.range(["#fe7a15","#4c2100","#ffbd8a","#fff2eb"]);
       .range(["#F47A20","#A76E44","#893E07","#FCAB6F"]);
       
     var arc = d3.svg.arc()
@@ -735,11 +695,6 @@ function pie_chart(source, type, tag)
                 return "translate(" + horiz_offset + "," + vert_offset + ")";  
               }
             });
-    
-      var legend_height = 0;
-      var cube_width = 23;
-      var cube_height = 15;
-      var horizontal_offset = 28;
     
       pie_legend.append("rect")
         .attr("x",horizontal_offset)
