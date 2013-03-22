@@ -9,7 +9,7 @@ function pie_chart(source, type, tag)
   var legend_height = 0,
       cube_width = 23,
       cube_height = 15,
-      horizontal_offset = 28;
+      horizontal_offset = 33;
   
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   // Begin draw pie chart for GitHub data ==>
@@ -55,13 +55,9 @@ function pie_chart(source, type, tag)
         
       _.keys(data.languages).forEach(function(d,i)
         {
-          //var totalContribution = toInt(data.tags[d].answerCount) + toInt(data.tags[d].questionCount) + toInt(data.tags[d].commentCount);
           languageArray[i] = {language:d,total:data.languages[d]};
           otherLangArray[i] = {language:d,total:data.languages[d]};
-          //languageArray[i] = {language:d,total:2343};
-          //otherLangArray[i] = {language:d,total:2343};
           fullPie += data.languages[d];
-          //otherTagArray[i] = {tag:d,total:totalContribution};
         });
       // Sort array of tag objects by their contribution scores from highest to lowest
       otherLangArray.sort(function(a,b)
@@ -111,17 +107,15 @@ function pie_chart(source, type, tag)
           })
         .attr("title",function(d)
           {
-            $(this).tipsy({gravity: 's', html: true, hoverable: true});
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
             if(d.data.language != "other")
             {
               var percentage = per_long(d.data.total/fullPie);
-              var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_lang\",\"" + set_tagID(d.data.language) + "\");'>"
-              var temp_title = "<table><tr><td>" + temp_link + d.data.language + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              var temp_title = "<table><tr><td>" + d.data.language + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
             {
-              //
               var content = "Other Tags:</br></br><table>";
               var other_count = otherLangArray.length;
               if(other_count > 7)
@@ -129,7 +123,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_lang\",\"" + set_tagID(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td>" + otherLangArray[i].language + ":</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -138,12 +132,11 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < otherLangArray.length; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_lang\",\"" + set_tagID(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'>" + otherLangArray[i].language + ":</td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
               return content;
-              //
             }
           })
         .on("click",function(d)
@@ -219,7 +212,18 @@ function pie_chart(source, type, tag)
         .style("text-anchor", "end")
         .text(function(d)
           {
-            return get_tagID(d);
+            // If the tag/language title is too long, we'll need to shorten it
+            var tmp = get_tagID(d);
+            if(tmp.length > 6)
+            {
+              return tmp.substr(0,6) + ".."
+            }
+            return tmp;
+          })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            return d;
           });
       
       pie_legend.append("text")
@@ -358,7 +362,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -367,7 +371,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < otherTagArray.length; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -393,22 +397,6 @@ function pie_chart(source, type, tag)
             if(tempEl != null)
             {
               tempEl.style.backgroundColor='#aaa';
-            }
-            
-            var test = document.getElementById(tipID);
-            
-            if(test == null && d.data.tag == "other")
-            {
-              var y_coord = $(this).offset().top;
-              var x_coord = $(this).offset().left;
-            
-              x_coord += 50;
-              y_coord += 50;
-            }
-            else if(d.data.tag == "other")
-            {
-              var temp = '#' + tipID;
-              $(temp).show();
             }
           })
         .on("mouseout",function(d)
@@ -466,7 +454,18 @@ function pie_chart(source, type, tag)
         .style("text-anchor", "end")
         .text(function(d)
           {
-            return get_tagID(d);
+            // If the tag/language title is too long, we'll need to shorten it
+            var tmp = get_tagID(d);
+            if(tmp.length > 6)
+            {
+              return tmp.substr(0,6) + ".."
+            }
+            return tmp;
+          })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            return d;
           });
       
       pie_legend.append("text")
@@ -589,6 +588,43 @@ function pie_chart(source, type, tag)
           {
             return (tileID + "_pie_" + set_tagID(d.data.tag));
           })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: true});
+            if(d.data.tag != "other")
+            {
+              var percentage = per_long(d.data.total/fullPie);
+              var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
+              var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              return temp_title;
+            }
+            else
+            {
+              //
+              var content = "Other Tags:</br></br><table>";
+              var other_count = otherTagArray.length;
+              if(other_count > 7)
+              {
+                for(var i = 0; i < 7; i++)
+                {
+                  var percentage = per_long(otherTagArray[i].total/fullPie);
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                }
+                content += "</table>";
+              }
+              else
+              {
+                for(var i = 0; i < otherTagArray.length; i++)
+                {
+                  var percentage = per_long(otherTagArray[i].total/fullPie);
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                }
+                content += "</table>";
+              }
+              return content;
+              //
+            }
+          })
         .on("click",function(d)
           {
             if(d.data.tag != "other")
@@ -608,62 +644,10 @@ function pie_chart(source, type, tag)
             {
               tempEl.style.backgroundColor='#aaa';
             }
-            
-            var test = document.getElementById(tipID);
-            
-            if(test == null && d.data.tag == "other")
-            {
-              var y_coord = $(this).offset().top;
-              var x_coord = $(this).offset().left;
-            
-              x_coord += 50;
-              y_coord += 50;
-            
-              d3.select("body")
-                .append("div")
-                  .attr("class","other_tip")
-                  .attr("id",tipID)
-                  .style("top",function(e)
-                    {
-                      return y_coord + "px";  
-                    })
-                  .style("left",function(e)
-                    {
-                      return x_coord + "px";  
-                    })
-                  .html(function()
-                    {
-                      var content = "Other Tags:</br></br><table>";
-                      for(var i = 0; i < otherTagArray.length; i++)
-                      {
-                        var percentage = per_long(otherTagArray[i].total/fullPie);
-                        content += ("<tr><td><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td>" + percentage + "</td></tr>");
-                      }
-                      content += "</table>";
-                      return content;
-                    })
-                  .on("mouseout",function()
-                    {
-                      $(this).hide();
-                      d3.select(this).style("opacity",".8");
-                    })
-                  .on("mouseover",function()
-                    {
-                      $(this).show();
-                      d3.select(this).style("opacity","1");
-                    });
-            }
-            else if(d.data.tag == "other")
-            {
-              var temp = '#' + tipID;
-              $(temp).show();
-            }
           })
         .on("mouseout",function(d)
           {
             d3.select(this).style("opacity","1");
-            var temp = '#' + tipID;
-            $(temp).hide();
             
             var tempID = set_tagID(d.data.tag);
             var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
@@ -714,6 +698,17 @@ function pie_chart(source, type, tag)
         .style("text-anchor", "end")
         .text(function(d)
           {
+            // If the tag/language title is too long, we'll need to shorten it
+            var tmp = get_tagID(d);
+            if(tmp.length > 6)
+            {
+              return tmp.substr(0,6) + ".."
+            }
+            return tmp;
+          })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
           });
       

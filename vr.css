@@ -317,3 +317,12 @@ div.leftBox
     padding: 3px;
     border: none;
 }
+
+td.left
+{
+    text-align: left;
+}
+td.right
+{
+    text-align: right;
+}
