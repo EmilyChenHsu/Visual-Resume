@@ -84,30 +84,23 @@
                                     {
                                         if($value != '')
                                         {
-                                            //echo 'Before: ' . $value . '<br>';
                                             if(substr($value,-1) == '>')
                                             {
                                                 $value = substr($value,0,-1);
                                             }
-                                            //echo 'After: ' . $value . '<p>';
-                                            //$value = set_tagID($value);  // ++++++ ADDED ++++++
                                             
                                             $tags[$value]['activity'][$i]['commentCount']++;
                                             $tags[$value]['commentCount']++;
                                             
                                             foreach($array as &$otherTag)
                                             {                                                
-                                                //echo 'Before: ' . $otherTag . '<br>';
                                                 if(substr($otherTag,-1) == '>')
                                                 {
                                                     $otherTag = substr($otherTag,0,-1);
                                                 }
-                                                //echo 'After: ' . $otherTag . '<p>';
-                                                //$otherTag = set_tagID($otherTag);
                                                 
                                                 if($otherTag != $value)
                                                 {
-                                                    //$tags[$value]['relatedTags']['totalCount']++;
                                                     $tags[$value]['relatedTags'][$otherTag]++;
                                                 }
                                             }
@@ -117,8 +110,6 @@
                                             unset($array[$key]);
                                         }
                                     }
-                                    
-                                    //var_dump($array);
                                 }
                                 // ======== //
                                 // END TAGS //
@@ -143,30 +134,23 @@
                                         {
                                             if($value != '')
                                             {
-                                                //echo 'Before: ' . $value . '<br>';
                                                 if(substr($value,-1) == '>')
                                                 {
                                                     $value = substr($value,0,-1);
                                                 }
-                                                //echo 'After: ' . $value . '<p>';
-                                                //$value = set_tagID($value);
                                                 
                                                 $tags[$value]['activity'][$i]['commentCount']++;
                                                 $tags[$value]['commentCount']++;
                                                 
                                                 foreach($array as &$otherTag)
                                                 {                                                    
-                                                    //echo 'Before: ' . $otherTag . '<br>';
                                                     if(substr($otherTag,-1) == '>')
                                                     {
                                                         $otherTag = substr($otherTag,0,-1);
                                                     }
-                                                    //echo 'After: ' . $otherTag . '<p>';
-                                                    //$otherTag = set_tagID($otherTag);
                                                     
                                                     if($otherTag != $value)
                                                     {
-                                                        //$tags[$value]['relatedTags']['totalCount']++;
                                                         $tags[$value]['relatedTags'][$otherTag]++;
                                                     }
                                                 }
@@ -230,30 +214,23 @@
                                 {
                                     if($value != '')
                                     {
-                                        //echo 'Before: ' . $value . '<br>';
                                         if(substr($value,-1) == '>')
                                         {
                                             $value = substr($value,0,-1);
                                         }
-                                        //echo 'After: ' . $value . '<p>';
-                                        //$value = set_tagID($value);
                                         
                                         $tags[$value]['activity'][$i]['questionCount']++;
                                         $tags[$value]['questionCount']++;
                                         
                                         foreach($array as &$otherTag)
                                         {
-                                            //echo 'Before: ' . $otherTag . '<br>';
                                             if(substr($otherTag,-1) == '>')
                                             {
                                                 $otherTag = substr($otherTag,0,-1);
                                             }
-                                            //echo 'After: ' . $otherTag . '<p>';
-                                            //$otherTag = set_tagID($otherTag);
                                             
                                             if($otherTag != $value)
                                             {
-                                                //$tags[$value]['relatedTags']['totalCount']++;
                                                 $tags[$value]['relatedTags'][$otherTag]++;
                                             }
                                         }
@@ -294,30 +271,23 @@
                                     {
                                         if($value != '')
                                         {
-                                            //echo 'Before: ' . $value . '<br>';
                                             if(substr($value,-1) == '>')
                                             {
                                                 $value = substr($value,0,-1);
                                             }
-                                            //echo 'After: ' . $value . '<p>';
-                                            //$value = set_tagID($value);
                                             
                                             $tags[$value]['activity'][$i]['answerCount']++;
                                             $tags[$value]['answerCount']++;
 
                                             foreach($array as &$otherTag)
                                             {
-                                                //echo 'Before: ' . $otherTag . '<br>';
                                                 if(substr($otherTag,-1) == '>')
                                                 {
                                                     $otherTag = substr($otherTag,0,-1);
                                                 }
-                                                //echo 'After: ' . $otherTag . '<p>';
-                                                //$otherTag = set_tagID($otherTag);
                                                 
                                                 if($otherTag != $value)
                                                 {
-                                                    //$tags[$value]['relatedTags']['totalCount']++;
                                                     $tags[$value]['relatedTags'][$otherTag]++;
                                                 }
                                             }

@@ -5,10 +5,21 @@ function redraw(data, id, type)
 	  
 	var y = d3.scale.linear()
 		.rangeRound([global_height, 0]);
-	  
-	var barColor = d3.scale.ordinal()
-		.range(["#062170","#6d87d6","#133aac"]);
-		
+	
+	// Establish different colors for GitHub and Stack Overflow bar charts
+	if(id[0] + id[1] == "so")
+	{
+		var barColor = d3.scale.ordinal()
+			.range(["#062170","#6d87d6","#133aac"]);
+		barColor.domain(["answers","comments","questions"]);
+	}
+	else
+	{
+		var barColor = d3.scale.ordinal()
+			.range(["#4a036f","#af66d5","#7309aa"]);
+		barColor.domain(["commits","comments","issues"]);
+	}
+	
 	var xAxis = d3.svg.axis()
 		.scale(x)
 		.orient("bottom");
@@ -32,9 +43,7 @@ function redraw(data, id, type)
 			.attr("height", global_height + global_margin.top + global_margin.bottom)
 		  .append("g")
 			.attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
-			.attr("id","grouped_svg_" + id);
-		  
-		  barColor.domain(["Answers","Comments","Questions"]);   
+			.attr("id","grouped_svg_" + id);   
 		  
 		  x.domain(data.map(function(d,i)
 		  {
@@ -162,8 +171,6 @@ function redraw(data, id, type)
 		  .append("g")
 			.attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
 			.attr("id","stacked_svg_" + id);
-			
-		  barColor.domain(["Answers","Comments","Questions"]);   
 		  
 		  x.domain(data.map(function(d,i)
 		  {

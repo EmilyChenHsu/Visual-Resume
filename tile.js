@@ -127,12 +127,9 @@ function tile(source, type, tag)
 				.append("span")
 					.attr("class","smallText")
 					.html("</br>reputation");
-					
-				//so_user_general_grouped_chart(source);
-				//so_user_general_stacked_chart(source);
+				
 				data_format(source, "so_all", null);
 				legend(tileID, "bar", "so");
-				//so_user_general_pie_chart(source);
 				pie_chart(source, "so_all", null);
 			}
 		});
@@ -216,8 +213,6 @@ function tile(source, type, tag)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-				//$("#avatar_" + tileID).tipsy();
-				//$("#avatar_" + tileID).tipsy({gravity: 'n', hoverStay:true, html:true});
 		
 				userEl = document.getElementById("username_" + tileID);
 				tagEl = document.getElementById("tag_" + tileID);
@@ -265,10 +260,7 @@ function tile(source, type, tag)
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
 				
-				//so_user_tag_pie_chart(source,tag);
 				pie_chart(source, "so_tag", tag);
-				//so_user_tag_grouped_chart(source,tag);
-				//so_user_tag_stacked_chart(source,tag);
 				data_format(source, "so_tag", tag);
 				legend(tileID, "bar", "so");
 			}
@@ -434,10 +426,7 @@ function tile(source, type, tag)
 				.append("span")
 					.attr("class","smallText")
 					.html("</br>reputation");
-					
-				//so_user_general_grouped_chart(source);
-				//so_user_general_stacked_chart(source);
-				//gh_user_general_pie_chart(source);
+				
 				pie_chart(source, "gh", null);
 				data_format(source, "gh");
 				legend(tileID, "bar", "gh");

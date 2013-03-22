@@ -74,7 +74,7 @@ function data_format(source, type, tag)
                 // ===== Fill in missing dates ===== //
                 for(var i = 0; i < graphData.length; i++)
                 {
-                    var date = graphData[i].month;
+                    //var date = graphData[i].month;
               
                     while(xLESSy(tempDate,global_end_date))
                     {

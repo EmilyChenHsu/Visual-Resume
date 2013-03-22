@@ -58,7 +58,7 @@ function legend(id, type, community)
             .attr("id","legend_svg_" + id);;
         
         var barColor = d3.scale.ordinal()
-            .range(["#062170","#6d87d6","#133aac"]);
+            .range(["#4a036f","#af66d5","#7309aa"]);
         barColor.domain(["commits","comments","issues"]);
         
         var legend = svg.selectAll(".legend")

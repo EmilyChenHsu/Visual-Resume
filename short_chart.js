@@ -14,8 +14,19 @@ function short_chart(fData, id)
   var y = d3.scale.linear()
     .rangeRound([height, 0]);
   
-  var barColor = d3.scale.ordinal()
-      .range(["#062170","#6d87d6","#133aac"]);
+	// Establish different colors for GitHub and Stack Overflow bar charts
+	if(id[0] + id[1] == "so")
+	{
+		var barColor = d3.scale.ordinal()
+			.range(["#062170","#6d87d6","#133aac"]);
+		barColor.domain(["answers","comments","questions"]); 
+	}
+	else
+	{
+		var barColor = d3.scale.ordinal()
+			.range(["#4a036f","#af66d5","#7309aa"]);
+		barColor.domain(["commits","comments","issues"]); 
+	}
     
   var xAxis = d3.svg.axis()
     .scale(x)
@@ -70,9 +81,7 @@ function short_chart(fData, id)
         .style("opacity", temp_opacity)
         .attr("id", "highlight");
     
-    global_highlight = d3.selectAll("#highlight");
-    
-    barColor.domain(["Answers","Comments","Questions"]);   
+    global_highlight = d3.selectAll("#highlight");  
     
     x.domain(fData.map(function(d,i)
     {
