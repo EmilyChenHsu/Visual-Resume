@@ -45,7 +45,7 @@
                 
                 }
                 
-                $myFile = "Data/data_" . $user_id . ".json"; 
+                $myFile = "Data/so_data_" . $user_id . ".json"; 
                 if($fh = fopen($myFile, 'x'))
                 {
             

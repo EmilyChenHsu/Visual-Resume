@@ -27,7 +27,7 @@
 	        
 	</head>
 								
-    <body onload="javascript:tile('Data/data_1968.json', 'so_all');">
+    <body>
 		
 		<form name='user_search' action='handler.php' method='post'>
 			
@@ -37,7 +37,18 @@
 		</form>
 		
 		<div class="leftBox">
-		<a href="javascript:tile('Data/example.json', 'gh_all', null);">Jose Valim (sample)</a>
+		<h3>GitHub</h3>
+		<a href="javascript:tile('Data/gh_data_9582.json', 'gh_all', null);">Jose Valim</a>
+		<br>
+		<a href="javascript:tile('Data/gh_data_3359.json', 'gh_all', null);">Emilio Tagua</a>
+		<br>
+		<a href="javascript:tile('Data/gh_data_3387.json', 'gh_all', null);">Xavier Noria</a>
+		<h3>Stack Overflow</h3>
+		<a href="javascript:tile('Data/so_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
+		<br>
+		<a href="javascript:tile('Data/gh_data_3359.json', 'so_all', null);">null</a>
+		<br>
+		<a href="javascript:tile('Data/gh_data_3387.json', 'so_all', null);">null</a>
 		</div>
 		<?php
 		
@@ -62,8 +73,8 @@
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
 
-			var global_start_date = '2008-08';
-			var global_end_date = '2011-06',
+			var global_start_date = '2008-05';
+			var global_end_date = '2012-05',
 				global_month_count = 28;
 			
 			var global_ready_mouseup = false;
