@@ -454,3 +454,16 @@ function to_unicode(input)
         console.log(input.charCodeAt(i));
     }
 }
+
+function to_si(input)
+{
+    var si = d3.format(".2s");
+    if(input > 999)
+    {
+        return si(input);
+    }
+    else
+    {
+        return input;
+    }
+}

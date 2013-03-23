@@ -273,6 +273,29 @@ function redraw(data, id, type)
 				}
 				return temp_title;
 			  });
+		
+		if(id[0] + id[1] == "so")
+		{
+			//console.log(data);
+			var tmp_q = d3.sum(data, function(d) { return d.counts[2].value; });
+			var tmp_a = d3.sum(data, function(d) { return d.counts[0].value; });
+			var tmp_c = d3.sum(data, function(d) { return d.counts[1].value; });
+			
+			d3.select("#" + id + "_questions").text(to_si(tmp_q));
+			d3.select("#" + id + "_answers").text(to_si(tmp_a));
+			d3.select("#" + id + "_comments").text(to_si(tmp_c));
+		}
+		else if(id[0] + id[1] == "gh")
+		{
+			//console.log(data);
+			var tmp_i = d3.sum(data, function(d) { console.log(d); return d.counts[2].value; });
+			var tmp_ct = d3.sum(data, function(d) { console.log(d); return d.counts[0].value; });
+			var tmp_c = d3.sum(data, function(d) { console.log(d); return d.counts[1].value; });
+			
+			d3.select("#" + id + "_issues").text(to_si(tmp_i));
+			d3.select("#" + id + "_commits").text(to_si(tmp_ct));
+			d3.select("#" + id + "_comments").text(to_si(tmp_c));
+		}
 	}
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End redraw of stacked bar chart <==
