@@ -20,6 +20,17 @@
         {
             "JavaScript":100,
             "CoffeeScript":50,
+        },
+        "repos":
+        {
+            "user/repo":
+            {
+                "relationship":"[owner/collaborator/contributor]"
+                "activity":
+                {
+                    "2012-03":{"commitCount":7,"commentCount":22,"issueCount":1},
+                }
+            }
         }
     }
     
