@@ -1,51 +1,25 @@
-# GitHub Resume/API README
+# GitHub & Stack Overflow Resume - API README
 
-* To cycle through the full names of each of a user's repos:
-
-`_.each(data,function(d,i)
+## Sample JSON File (GitHub):
+`
 {
-    console.log(i + " " + d['full_name']);
-});`
-
-* To cycle through the simple names of each of a user's repos:
-
-`_.each(data,function(d,i)
-{
-    console.log(i + " " + d['name']);
-});`
-
-* To cycle through the descriptions of each of a user's repos:
-
-`_.each(data,function(d,i)
-{
-    console.log(i + " " + d['description']);
-});`
-
-* To cycle through the user's repo and determine the owner:
-
-`_.each(data,function(d,i)
-{
-	console.log(i + " " + d['owner']['login']);
-});`
-
-* To cycle through a user's repos and determine if they are forked or not:
-
-`_.each(data,function(d,i)
-{
-	console.log(i + " " + d['fork']);
-});`
-
-* To cycle through a user's repos and determine what languages they're written in:
-
-`_.each(data,function(d,i)
-{
-	var temp_url = d['languages_url']);
-    _.each(temp_url,function(d,i)
+    "name":"First Last",
+    "login":"username",
+    "id":###,
+    "avatar":"https://secure.gravatar.com/avatar/xxx.png",
+    "creationDate":"2008-02-03",
+    "issueCount":100,
+    "commitCount":100,
+    "commentCount":100,
+    "activity":
     {
-        console.log(d);
+        "2012-03":{"commitCount":7,"commentCount":22,"issueCount":1},
+        "2012-04":{"commitCount":2,"commentCount":80,"issueCount":3},
+    },
+    "languages":
+    {
+        "JavaScript":100,
+        "CoffeeScript":50,
     }
-});`
-
-* To see when a user joined:
-
-`console.log(data['created_at']);`
+}
+`
