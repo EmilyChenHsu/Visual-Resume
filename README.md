@@ -22,3 +22,39 @@
             "CoffeeScript":50,
         }
     }
+    
+## Sample JSON File (Stack Overflow):
+
+    {
+        "displayName":"name",
+        "id":"######",
+        "avatar":"[gravatar hash]",
+        "creationDate":"2011-01-24 23:13:35",
+        "reputation":"111",
+        "questionCount":0,
+        "answerCount":4,
+        "commentCount":0,
+        "activity":
+        {
+            "2011-01":{"answerCount":2,"questionCount":2,"commentCount":2},
+            "2011-03":{"answerCount":1,"questionCount":2,"commentCount":2}
+        },
+        "tags":
+        {
+            "ruby-on-rails":
+            {
+                "activity":
+                {
+                    "2011-01":{"answerCount":2}
+                },
+                "answerCount":2,
+                "questionCount":2,
+                "commentCount":2,
+                "relatedTags":
+                {
+                    "ssl":1,
+                    "https":1
+                }
+            }
+        }    
+    }
