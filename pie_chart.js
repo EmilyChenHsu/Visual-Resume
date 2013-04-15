@@ -24,7 +24,8 @@ function pie_chart(source, type, tag)
     var otherRepoArray = new Array();
   
     var sliceColor = d3.scale.ordinal()
-      .range(["#F47A20","#A76E44","#893E07","#FCAB6F"]);
+      //.range(["#F47A20","#A76E44","#893E07","#FCAB6F"]);
+      .range(["#00CC00","#008500","#34D0BA","#00685A"]);
       
     var arc = d3.svg.arc()
       .outerRadius(radius - 10)
@@ -56,10 +57,13 @@ function pie_chart(source, type, tag)
       _.keys(data.repos).forEach(function(d,i)
         {
           //console.log(data,d);
+          var fullname = d.split("/");
+          var owner = fullname[0];
+          var reponame = fullname[1];
           var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
           console.log(data.repos[d]);
-          repoArray[i] = {repo:d,total:tempTotal};
-          otherRepoArray[i] = {repo:d,total:tempTotal};
+          repoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
+          otherRepoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
           fullPie += tempTotal;
         });
       // Sort array of tag objects by their contribution scores from highest to lowest
