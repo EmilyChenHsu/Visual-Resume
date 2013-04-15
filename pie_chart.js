@@ -20,8 +20,8 @@ function pie_chart(source, type, tag)
     var per = d3.format(".0%");
     var per_long = d3.format(".2%");
     
-    var languageArray = new Array();
-    var otherLangArray = new Array();
+    var repoArray = new Array();
+    var otherRepoArray = new Array();
   
     var sliceColor = d3.scale.ordinal()
       .range(["#F47A20","#A76E44","#893E07","#FCAB6F"]);
@@ -49,48 +49,51 @@ function pie_chart(source, type, tag)
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
         
       svg.append("text")
-        .text("Languages")
+        .text("Repositories")
         .attr("y",-75)
         .style("text-anchor", "middle");
         
-      _.keys(data.languages).forEach(function(d,i)
+      _.keys(data.repos).forEach(function(d,i)
         {
-          languageArray[i] = {language:d,total:data.languages[d]};
-          otherLangArray[i] = {language:d,total:data.languages[d]};
-          fullPie += data.languages[d];
+          //console.log(data,d);
+          var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
+          console.log(data.repos[d]);
+          repoArray[i] = {repo:d,total:tempTotal};
+          otherRepoArray[i] = {repo:d,total:tempTotal};
+          fullPie += tempTotal;
         });
       // Sort array of tag objects by their contribution scores from highest to lowest
-      otherLangArray.sort(function(a,b)
+      otherRepoArray.sort(function(a,b)
         {
           return b.total - a.total;
         });
-      if(otherLangArray.length > 3)
+      if(otherRepoArray.length > 3)
       {
-        otherLangArray = otherLangArray.slice(3);
+        otherRepoArray = otherRepoArray.slice(3);
       }
   
-      languageArray.sort(function(a,b)
+      repoArray.sort(function(a,b)
         {
           return b.total - a.total;
         });
       var otherTotal = 0;
       
-      if(languageArray.length > 3)
+      if(repoArray.length > 3)
         { 
-          otherTotal = languageArray[3].total;
-          for(var i = 4; i < languageArray.length; i++)
+          otherTotal = repoArray[3].total;
+          for(var i = 4; i < repoArray.length; i++)
           {
-            languageArray[3].total += languageArray[i].total;
-            otherTotal += languageArray[i].total;
+            repoArray[3].total += repoArray[i].total;
+            otherTotal += repoArray[i].total;
           }
         
-          languageArray[3].language = "other";
-          var deleteNum = languageArray.length - 3;
-          languageArray.splice(4,deleteNum);
+          repoArray[3].repo = "other";
+          var deleteNum = repoArray.length - 3;
+          repoArray.splice(4,deleteNum);
         }
   
       var g = svg.selectAll(".arc")
-        .data(pie(languageArray))
+        .data(pie(repoArray))
         .enter().append("g")
           .attr("class", "arc");
       
@@ -98,41 +101,41 @@ function pie_chart(source, type, tag)
         .attr("d", arc)
         .style("fill", function(d,i)
           {
-            return sliceColor(languageArray[i].language);
+            return sliceColor(repoArray[i].repo);
           })
         .style("opacity", "1")
         .attr("id",function(d)
           {
-            return (tileID + "_pie_" + d.data.language);
+            return (tileID + "_pie_" + d.data.repo);
           })
         .attr("title",function(d)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
-            if(d.data.language != "other")
+            if(d.data.repo != "other")
             {
               var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td>" + d.data.language + ":</td><td>" + percentage + "</td></tr></table>";
+              var temp_title = "<table><tr><td>" + d.data.repo + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
             {
-              var content = "Other Tags:</br></br><table>";
-              var other_count = otherLangArray.length;
+              var content = "Other Repos:</br></br><table>";
+              var other_count = otherRepoArray.length;
               if(other_count > 7)
               {
                 for(var i = 0; i < 7; i++)
                 {
-                  var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td>" + otherLangArray[i].language + ":</td><td>" + percentage + "</td></tr>");
+                  var percentage = per_long(otherRepoArray[i].total/fullPie);
+                  content += ("<tr><td>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
               else
               {
-                for(var i = 0; i < otherLangArray.length; i++)
+                for(var i = 0; i < otherRepoArray.length; i++)
                 {
-                  var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherLangArray[i].language + ":</td><td class='right'>" + percentage + "</td></tr>");
+                  var percentage = per_long(otherRepoArray[i].total/fullPie);
+                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -141,16 +144,16 @@ function pie_chart(source, type, tag)
           })
         .on("click",function(d)
           {
-            if(d.data.language != "other")
+            if(d.data.repo != "other")
             {
-              click(d.data.language, "gh_lang");
+              click(d.data.repo, "gh_lang");
             }
           })
         .on("mouseover",function(d)
           { 
             d3.select(this).style("opacity",".6");
             
-            var tempID = set_tagID(d.data.language);
+            var tempID = set_tagID(d.data.repo);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -163,7 +166,7 @@ function pie_chart(source, type, tag)
           {
             d3.select(this).style("opacity","1");
             
-            var tempID = set_tagID(d.data.language);
+            var tempID = set_tagID(d.data.repo);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -234,7 +237,7 @@ function pie_chart(source, type, tag)
         .style("text-anchor", "middle")
         .text(function(d,i)
           {
-            var value = languageArray[i].total / fullPie;
+            var value = repoArray[i].total / fullPie;
             return per(value);
           });
   // ===== END pie chart labeling ===== //
