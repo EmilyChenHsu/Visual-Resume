@@ -419,13 +419,6 @@ function tile(source, type, tag)
 							return (240 / nameLength) + "px";
 						}
 					});
-							
-			d3.select("#reputation_" + tileID)
-				.append("text")
-					.text(Comma(data.reputation))
-				.append("span")
-					.attr("class","smallText")
-					.html("</br>reputation");
 				
 				pie_chart(source, "gh", null);
 				data_format(source, "gh");
