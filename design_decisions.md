@@ -1,16 +1,15 @@
 # Design Decision Document
+________________
 
 ## Stack Overflow
-
-* Tenure: Shows how long a user has been around in order to give context for the amount of contributions or the reputation level or something similar. This will give someone insight as to why there is no activity for early months, for example.
+________________
 
 * Grouped chart: Allows viewers to see each contribution type (`comment`, `question`, `answer`) compared side by side, since stacked only gives a good sense of the aggregate.
 
 * Stacked chart: Shows a user's aggregate contribution for a month, which gives a good idea of overall monthly activity.
 
 ## GitHub
-
-* Tenure: Shows how long a user has been around in order to give context for the amount of contributions or the reputation level or something similar. This will give someone insight as to why there is no activity for early months, for example.
+________________
 
 * Commits: Use `committer` instead of `author`, because it shows that a user has the "power" to commit
 
@@ -19,3 +18,10 @@
 * Grouped chart: Allows viewers to see each contribution type (`comment`, `commit`, `issue`) compared side by side, since stacked only gives a good sense of the aggregate.
 
 * Stacked chart: Shows a user's aggregate contribution for a month, which gives a good idea of overall monthly activity.
+
+## Both
+________________
+
+* Tenure: Shows how long a user has been around in order to give context for the amount of contributions or the reputation level or something similar. This will give someone insight as to why there is no activity for early months, for example.
+
+* Avatar: Perhaps a user's picture tells us something about them. Does it show something they're really into? Or maybe they're really weird..
