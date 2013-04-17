@@ -170,7 +170,11 @@ function pie_chart(source, type, tag)
           {
             if(d.data.repo != "other")
             {
-              click(d.data.repo, "gh_repo", d.data.repo);
+              var repofull = d.data.owner + '-' + d.data.repo;
+              //var repofull = d.data.owner + '/' + d.data.repo;
+              //String(repofull);
+              //console.log(repofull);
+              click(repofull, "gh_repo");
             }
           })
         .on("mouseover",function(d)
@@ -1024,6 +1028,7 @@ function pie_chart(source, type, tag)
   
   function click(tag, type)
   {
+    console.log(tag);
     tile(source, type, tag);
   }
 }

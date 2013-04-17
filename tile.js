@@ -545,7 +545,7 @@ function tile(source, type, tag)
 					});
 				
 				pie_chart(source, "gh_repo", tag);
-				//data_format(source, "gh");
+				data_format(source, "gh_repo", tag);
 				legend(tileID, "bar", "gh");
 			}
 		});
