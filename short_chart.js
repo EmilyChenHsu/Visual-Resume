@@ -50,7 +50,7 @@ function short_chart(fData, id)
       .attr("id","short_stacked_svg_" + id);
       
     var shortSVG = d3.select("#short_stacked_svg_" + id);
-    
+	    
     var temp_width = 0;
     var temp_x = 0;
     var temp_opacity = 0;

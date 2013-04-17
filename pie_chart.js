@@ -59,9 +59,30 @@ function pie_chart(source, type, tag)
           var fullname = d.split("/");
           var owner = fullname[0];
           var reponame = fullname[1];
+          var forks = data.repos[d].forks;
+          var watchers = data.repos[d].watchers;
+          var isFork = data.repos[d].isFork;
+          
           var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
-          repoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
-          otherRepoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
+          
+          repoArray[i] = {
+            owner: owner,
+            repo: reponame,
+            total: tempTotal,
+            forks: forks,
+            watchers: watchers,
+            isFork: isFork
+          };
+          
+          otherRepoArray[i] = {
+            owner: owner,
+            repo: reponame,
+            total: tempTotal,
+            forks: forks,
+            watchers: watchers,
+            isFork: isFork
+          };
+          
           fullPie += tempTotal;
         });
       // Sort array of tag objects by their contribution scores from highest to lowest
@@ -115,8 +136,9 @@ function pie_chart(source, type, tag)
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             if(d.data.repo != "other")
             {
+              console.log(d);
               var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr></table>";
+              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
               return temp_title;
             }
             else
