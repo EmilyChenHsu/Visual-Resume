@@ -432,14 +432,126 @@ function tile(source, type, tag)
 	//
 	//
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-	// Begin draw tile for user's GitHub activity within a tag ==>
+	// Begin draw tile for user's GitHub activity within a repo ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-	else if(type === "gh_lang")
+	else if(type === "gh_repo")
 	{
-
+		d3.json(source,function(error,data)
+		{
+			var tileID = "gh_" + data.id + "_" + tag + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				d3.select("body")
+					.append("div")
+					.attr("class","so_user_general_small")
+					.attr("id",tileID);
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","username")
+					.attr("id","username_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","info")
+					.attr("id","info_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","avatar")
+					.attr("id","avatar_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart")
+					.attr("id","pieChart_" + tileID);
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","barChart")
+					.attr("id","stacked_" + tileID)
+					.style("display",function()
+						{
+							if(global_grouped === false)
+							{
+								return "block";
+							}
+							else
+							{
+								return "none";
+							}
+						});
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","barChart")
+					.attr("id","grouped_" + tileID)
+					.style("display",function()
+						{
+							if(global_grouped === true)
+							{
+								return "block";
+							}
+							else
+							{
+								return "none";
+							}
+						});
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class", "legend_div")
+					.attr("id", "legend_" + tileID);
+				
+				d3.select("#" + tileID)
+					.append("hr")
+					.attr("class", "separator");
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","shortBarChart")
+					.attr("id","short_stacked_" + tileID);
+					
+				userEl = document.getElementById("username_" + tileID);
+				infoEl = document.getElementById("info_" + tileID);
+				avEl = document.getElementById("avatar_" + tileID);
+				infoEl.innerHTML = member_for(data.creationDate);
+				
+				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
+			
+			d3.select("#" + tileID)
+				.append("div")
+				.attr("class","icon")
+				.html("<a href='javascript:tile(null,\"gh\")'><img class='gh_icon' src='media/gh_logo.png'></a>");
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+							
+			d3.select("#username_" + tileID)
+				.append("text")
+				.html("<a href=https://github.com/" + data.login + "/>" + data.name + "</a>")
+				.style("font-size",function()
+					{
+						nameLength = data.name.length;
+						if(nameLength < 9)
+						{
+							return (30) + "px";
+						}
+						else
+						{
+							return (240 / nameLength) + "px";
+						}
+					});
+				
+				pie_chart(source, "gh_repo", tag);
+				//data_format(source, "gh");
+				legend(tileID, "bar", "gh");
+			}
+		});
 	}
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-	// End draw tile for user's GitHub activity within a tag <==
+	// End draw tile for user's GitHub activity within a repo <==
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	
 	else { alert("Unknown data type parameter passed to tile()"); }
