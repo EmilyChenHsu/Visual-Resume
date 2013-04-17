@@ -56,12 +56,10 @@ function pie_chart(source, type, tag)
         
       _.keys(data.repos).forEach(function(d,i)
         {
-          //console.log(data,d);
           var fullname = d.split("/");
           var owner = fullname[0];
           var reponame = fullname[1];
           var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
-          console.log(data.repos[d]);
           repoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
           otherRepoArray[i] = {owner:owner,repo:reponame,total:tempTotal};
           fullPie += tempTotal;
@@ -118,7 +116,7 @@ function pie_chart(source, type, tag)
             if(d.data.repo != "other")
             {
               var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td>" + d.data.repo + ":</td><td>" + percentage + "</td></tr></table>";
+              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
@@ -130,7 +128,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }

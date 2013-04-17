@@ -276,7 +276,6 @@ function redraw(data, id, type)
 		
 		if(id[0] + id[1] == "so")
 		{
-			//console.log(data);
 			var tmp_q = d3.sum(data, function(d) { return d.counts[2].value; });
 			var tmp_a = d3.sum(data, function(d) { return d.counts[0].value; });
 			var tmp_c = d3.sum(data, function(d) { return d.counts[1].value; });
@@ -287,10 +286,9 @@ function redraw(data, id, type)
 		}
 		else if(id[0] + id[1] == "gh")
 		{
-			//console.log(data);
-			var tmp_i = d3.sum(data, function(d) { console.log(d); return d.counts[2].value; });
-			var tmp_ct = d3.sum(data, function(d) { console.log(d); return d.counts[0].value; });
-			var tmp_c = d3.sum(data, function(d) { console.log(d); return d.counts[1].value; });
+			var tmp_i = d3.sum(data, function(d) { return d.counts[2].value; });
+			var tmp_ct = d3.sum(data, function(d) { return d.counts[0].value; });
+			var tmp_c = d3.sum(data, function(d) { return d.counts[1].value; });
 			
 			d3.select("#" + id + "_issues").text(to_si(tmp_i));
 			d3.select("#" + id + "_commits").text(to_si(tmp_ct));

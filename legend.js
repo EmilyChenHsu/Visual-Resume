@@ -54,7 +54,6 @@ function legend(id, type, community)
           .text("")
           .attr("id", function(d)
             {
-                console.log(id);
               if(d == "questions")
               {
                 return id + "_questions";
@@ -120,7 +119,6 @@ function legend(id, type, community)
           .text("")
           .attr("id", function(d)
             {
-                console.log(d);
               if(d == "issues")
               {
                 return id + "_issues";
