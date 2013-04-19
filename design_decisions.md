@@ -13,7 +13,9 @@ ________________
 
 * Commits: Use `committer` instead of `author`, because it shows that a user has the "power" to commit
 
-* Radial chart: Aggregate our user's `commits`, `comments`, and `issues` within each repository and order from most to least. This highlights those repositories that our user is most involved with. Alternatives would be to aggregate total `commits`, `comments`, and `issues` within a repository (regardless of who the contributor is) and order from most to least or to order by most `starred`/`forked`/etc. Those alternatives would show repository popularity regardless of whether or not our user has had a lot of involvement with it.
+* Radial chart (general): Aggregate our user's `commits`, `comments`, and `issues` within each repository and order from most to least. This highlights those repositories that our user is most involved with. Alternatives would be to aggregate total `commits`, `comments`, and `issues` within a repository (regardless of who the contributor is) and order from most to least or to order by most `starred`/`forked`/etc. Those alternatives would show repository popularity regardless of whether or not our user has had a lot of involvement with it.
+
+* Radial chart (repository): Show "related" repositories by listing repositories that share at least two collaborators (one of which is our user in focus) with the repository in focus.
 
 * Grouped chart: Allows viewers to see each contribution type (`comment`, `commit`, `issue`) compared side by side, since stacked only gives a good sense of the aggregate.
 
