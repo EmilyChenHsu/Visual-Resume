@@ -8,7 +8,7 @@ For GitHub
 ## Stack Overflow
 ________________
 
-* *Grouped chart*: Allows viewers to see each contribution type (`comment`, `question`, `answer`) compared side by side, since stacked only gives a good sense of the aggregate.
+* **Grouped chart**: Allows viewers to see each contribution type (`comment`, `question`, `answer`) compared side by side, since stacked only gives a good sense of the aggregate.
 
 * *Stacked chart*: Shows a user's aggregate contribution for a month, which gives a good idea of overall monthly activity.
 
