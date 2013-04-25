@@ -33,3 +33,8 @@ ________________
 * **Tenure**: Shows how long a user has been around in order to give context for the amount of contributions or the reputation level or something similar. This will give someone insight as to why there is no activity for early months, for example.
 
 * **Avatar**: Perhaps a user's picture tells us something about them. Does it show something they're really into? Or maybe they're really weird..
+
+## Notes
+________________
+
+* **GH Commit Data**: It makes a huge difference whether we go with the route `it.out("AUTHOR").out("EMAIL").out("GRAVATAR_HASH").in("GRAVATAR").login.next() == user.login` vs `it.out("AUTHOR").out("EMAIL").in("EMAIL").login.next() == user.login`.

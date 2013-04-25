@@ -145,6 +145,21 @@ div.tag
     font:22px sans-serif;
 }
 
+div.gh_info
+{
+    clear: left;
+    float: left;
+    margin-top: 0px;
+    margin-left:10px;
+    border: none;
+    font:12px sans-serif;
+}
+
+div.gh_info bigger
+{
+    font:22px sans-serif;
+}
+
 div.username
 {    
     float: left;

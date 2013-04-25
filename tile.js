@@ -337,6 +337,10 @@ function tile(source, type, tag)
 					.attr("id","avatar_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","gh_info")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","pieChart")
 					.attr("id","pieChart_" + tileID);
 				
@@ -386,9 +390,11 @@ function tile(source, type, tag)
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
-				infoEl.innerHTML = member_for(data.creationDate);
+				folEl = document.getElementById("followers_" + tileID);
 				
+				infoEl.innerHTML = member_for(data.creationDate);
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
+				folEl.innerHTML = "<bigger>" + data.followers + "</bigger>" + " followers";
 			
 			d3.select("#" + tileID)
 				.append("div")
