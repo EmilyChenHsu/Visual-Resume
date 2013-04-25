@@ -307,6 +307,10 @@ function pie_chart(source, type, tag)
   
     d3.json(source, function(error, data)
     {
+      // Some finangling to get the 'tag' to the correct format as a string
+      String(tag);
+      var tmp = tag.replace("-","/");
+      
       var fullPie = 0;
       var tileID = "gh_" + data.id + "_" + tag + "_tile";
       var svg = d3.select("#pieChart_" + tileID).append("svg")
@@ -316,40 +320,80 @@ function pie_chart(source, type, tag)
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
         
       svg.append("text")
-        .text("Repositories")
+        .text("Related Repositories")
         .attr("y",-75)
-        .style("text-anchor", "middle");
-        
+        .style("text-anchor", "middle")
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            return "Repositories that share at least one common contributor or collaborator with " + tmp;
+          });
+  
+      var collaborators = data.repos[tmp].collaborators;
+      var contributors = data.repos[tmp].contributors;  
+      
       _.keys(data.repos).forEach(function(d,i)
         {
-          var fullname = d.split("/");
-          var owner = fullname[0];
-          var reponame = fullname[1];
-          var forks = data.repos[d].forks;
-          var watchers = data.repos[d].watchers;
-          var isFork = data.repos[d].isFork;
-          
-          var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
-          
-          repoArray[i] = {
-            owner: owner,
-            repo: reponame,
-            total: tempTotal,
-            forks: forks,
-            watchers: watchers,
-            isFork: isFork
-          };
-          
-          otherRepoArray[i] = {
-            owner: owner,
-            repo: reponame,
-            total: tempTotal,
-            forks: forks,
-            watchers: watchers,
-            isFork: isFork
-          };
-          
-          fullPie += tempTotal;
+          if(d != tmp)
+          {
+            var temp_collaborators = data.repos[d].collaborators;
+            var temp_contributors = data.repos[d].contributors;
+            var shared_users = 0;
+            temp_collaborators.forEach(function(d,i)
+              {
+                if(d != data.login)
+                {
+                  if($.inArray(d,collaborators) != -1)
+                  {
+                    console.log(d + " is in collaborators");
+                    shared_users++;
+                  }
+                }
+              });
+            temp_contributors.forEach(function(d,i)
+              {
+                if(d != data.login)
+                {
+                  if($.inArray(d,contributors) != -1)
+                  {
+                    console.log(d + " is in contributors");
+                    shared_users++;
+                  }
+                }
+              });
+            
+            if(shared_users > 0)
+            {
+              var fullname = d.split("/");
+              var owner = fullname[0];
+              var reponame = fullname[1];
+              var forks = data.repos[d].forks;
+              var watchers = data.repos[d].watchers;
+              var isFork = data.repos[d].isFork;
+              
+              var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
+              
+              repoArray[i] = {
+                owner: owner,
+                repo: reponame,
+                total: tempTotal,
+                forks: forks,
+                watchers: watchers,
+                isFork: isFork
+              };
+              
+              otherRepoArray[i] = {
+                owner: owner,
+                repo: reponame,
+                total: tempTotal,
+                forks: forks,
+                watchers: watchers,
+                isFork: isFork
+              };
+              
+              fullPie += tempTotal;
+            }
+          }
         });
       // Sort array of tag objects by their contribution scores from highest to lowest
       otherRepoArray.sort(function(a,b)

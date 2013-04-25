@@ -602,7 +602,12 @@ function data_format(source, type, tag)
                 var to_push_max = [temp_max, tileID];
                 global_stacked_y_max_array.push(to_push_max);
                     
+                //var temp_collaborators = data.repos[tag].collaborators;
+                //var temp_contributors = data.repos[tag].contributors;
+                
                 var to_push = [graphData, tileID];
+                //var to_push = [graphData, tileID, temp_collaborators, temp_contributors];
+                console.log(to_push);
                 global_data.push(to_push);
                 
                 temp_max = d3.max(graphData, function(d,i)
