@@ -422,7 +422,7 @@ function tile(source, type, tag)
 						}
 						else
 						{
-							return (240 / nameLength) + "px";
+							return (300 / nameLength) + "px";
 						}
 					});
 				
@@ -465,6 +465,10 @@ function tile(source, type, tag)
 					.append("div")
 					.attr("class","avatar")
 					.attr("id","avatar_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","gh_info")
+					.attr("id","followers_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","pieChart")
@@ -516,8 +520,9 @@ function tile(source, type, tag)
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
-				infoEl.innerHTML = member_for(data.creationDate);
 				
+				infoEl.innerHTML = member_for(data.creationDate);
+			
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
 			
 			d3.select("#" + tileID)
@@ -546,10 +551,29 @@ function tile(source, type, tag)
 						}
 						else
 						{
-							return (240 / nameLength) + "px";
+							return (300 / nameLength) + "px";
 						}
 					});
 				
+			// Some finangling to get the 'tag' to the correct format as a string
+            String(tag);
+            var tmp = tag.replace("-","/");
+			d3.select("#followers_" + tileID)
+				.append("text")
+				.html(tmp)
+				.style("font-size",function()
+					{
+						nameLength = tmp.length;
+						if(nameLength < 9)
+						{
+							return (30) + "px";
+						}
+						else
+						{
+							return (290 / nameLength) + "px";
+						}
+					});	
+			
 				pie_chart(source, "gh_repo", tag);
 				data_format(source, "gh_repo", tag);
 				legend(tileID, "bar", "gh");
