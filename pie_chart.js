@@ -68,6 +68,7 @@ function pie_chart(source, type, tag)
           repoArray[i] = {
             owner: owner,
             repo: reponame,
+            language: data.repos[d].language,
             total: tempTotal,
             forks: forks,
             watchers: watchers,
@@ -77,6 +78,7 @@ function pie_chart(source, type, tag)
           otherRepoArray[i] = {
             owner: owner,
             repo: reponame,
+            language: data.repos[d].language,
             total: tempTotal,
             forks: forks,
             watchers: watchers,
@@ -136,9 +138,8 @@ function pie_chart(source, type, tag)
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             if(d.data.repo != "other")
             {
-              console.log(d);
               var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
+              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
               return temp_title;
             }
             else
@@ -346,7 +347,7 @@ function pie_chart(source, type, tag)
                 {
                   if($.inArray(d,collaborators) != -1)
                   {
-                    console.log(d + " is in collaborators");
+                    //console.log(d + " is in collaborators");
                     shared_users++;
                   }
                 }
@@ -357,7 +358,7 @@ function pie_chart(source, type, tag)
                 {
                   if($.inArray(d,contributors) != -1)
                   {
-                    console.log(d + " is in contributors");
+                    //console.log(d + " is in contributors");
                     shared_users++;
                   }
                 }
@@ -373,11 +374,12 @@ function pie_chart(source, type, tag)
               var isFork = data.repos[d].isFork;
               
               var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
-              console.log(tempTotal);
+              //console.log(tempTotal);
               
               repoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
+                language: data.repos[d].language,
                 total: tempTotal,
                 forks: forks,
                 watchers: watchers,
@@ -387,6 +389,7 @@ function pie_chart(source, type, tag)
               otherRepoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
+                language: data.repos[d].language,
                 total: tempTotal,
                 forks: forks,
                 watchers: watchers,
@@ -458,9 +461,8 @@ function pie_chart(source, type, tag)
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               if(d.data.repo != "other")
               {
-                console.log(d);
                 var percentage = per_long(d.data.total/fullPie);
-                var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
+                var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
                 return temp_title;
               }
               else
@@ -492,7 +494,7 @@ function pie_chart(source, type, tag)
             {
               if(d.data.repo != "other")
               {
-                click(d.data.repo, "gh_repo", d.data.repo);
+                click(d.data.repo, "gh_repo");
               }
             })
           .on("mouseover",function(d)
@@ -1084,7 +1086,7 @@ function pie_chart(source, type, tag)
   
   function click(tag, type)
   {
-    console.log(tag);
+    //console.log(tag);
     tile(source, type, tag);
   }
 }

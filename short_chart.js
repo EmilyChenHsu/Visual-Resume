@@ -260,65 +260,67 @@ function short_chart(fData, id)
 
 function set_date_range(fData)
 {
-    var x_start = global_highlight.attr("x");
-    var temp_width = global_highlight.attr("width");
-    var x_end = +x_start + +temp_width;
-    var first_index = 0, second_index = null;
-    var last_index = fData.length - 1;
-    
-    fData.forEach(function(d, i)
-        {
-            var temp_id = '#id_' + d.month;
-            var bar_width = +d3.select(temp_id).attr("width") + global_bar_offset;
-            
-            if(i === 0) 
-            {
-                var x_actual = 0;
-            }
-            else x_actual = i * bar_width;
-
-            if(x_start >= x_actual && x_start <= x_actual + bar_width)
-            {
-                first_index = i;
-            }
-            else if(x_end >= (x_actual) && x_end <= x_actual + bar_width)
-            {
-                second_index = i;
-            }
-        });
-    
-    var result = crossfilter(fData);
-    
-    firstDate = fData[first_index].month;
-    
-    if(Math.abs(x_start - x_end) < 5 && second_index === null)
-    {
-        second_index = first_index;
-    }
-    else if(second_index === null)
-    {
-        second_index = last_index;
-    }
-    
-    secondDate = fData[second_index].month;
-    
-    var year = firstDate.substr(0,4);
-    var mon = firstDate.substr(5,7) - 1;
-    firstDate = new Date(year,mon);
-    
-    year = secondDate.substr(0,4);
-    mon = secondDate.substr(5,7) - 1;
-    secondDate = new Date(year,mon);
-    
-    // Just in case the user selects the date range from right to left
-    if(secondDate - firstDate < 0)
-    {
-      var temp = firstDate;
-      firstDate = secondDate;
-      secondDate = temp;
-      firstDate.setMonth(firstDate.getMonth() + 2); 
-    }
-    secondDate.setMonth(secondDate.getMonth() + 1);   
-    
-    global_date_range = [firstDate, secondDate];
+	if(fData != "")
+	{
+		var x_start = global_highlight.attr("x");
+		var temp_width = global_highlight.attr("width");
+		var x_end = +x_start + +temp_width;
+		var first_index = 0, second_index = null;
+		var last_index = fData.length - 1;
+		
+		fData.forEach(function(d, i)
+			{
+				var temp_id = '#id_' + d.month;
+				var bar_width = +d3.select(temp_id).attr("width") + global_bar_offset;
+				
+				if(i === 0) 
+				{
+					var x_actual = 0;
+				}
+				else x_actual = i * bar_width;
+	
+				if(x_start >= x_actual && x_start <= x_actual + bar_width)
+				{
+					first_index = i;
+				}
+				else if(x_end >= (x_actual) && x_end <= x_actual + bar_width)
+				{
+					second_index = i;
+				}
+			});
+		
+		var result = crossfilter(fData);
+		firstDate = fData[first_index].month;
+		
+		if(Math.abs(x_start - x_end) < 5 && second_index === null)
+		{
+			second_index = first_index;
+		}
+		else if(second_index === null)
+		{
+			second_index = last_index;
+		}
+		
+		secondDate = fData[second_index].month;
+		
+		var year = firstDate.substr(0,4);
+		var mon = firstDate.substr(5,7) - 1;
+		firstDate = new Date(year,mon);
+		
+		year = secondDate.substr(0,4);
+		mon = secondDate.substr(5,7) - 1;
+		secondDate = new Date(year,mon);
+		
+		// Just in case the user selects the date range from right to left
+		if(secondDate - firstDate < 0)
+		{
+		  var temp = firstDate;
+		  firstDate = secondDate;
+		  secondDate = temp;
+		  firstDate.setMonth(firstDate.getMonth() + 2); 
+		}
+		secondDate.setMonth(secondDate.getMonth() + 1);   
+		
+		global_date_range = [firstDate, secondDate];
+	}
 }

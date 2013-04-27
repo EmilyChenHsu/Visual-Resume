@@ -72,7 +72,8 @@ function data_format(source, type, tag)
                 // ===== ===== ===== ===== === ===== //
                 
                 // ===== Fill in missing dates ===== //
-                for(var i = 0; i < graphData.length; i++)
+                //for(var i = 0; i < graphData.length; i++)
+                for(var i = 0; i < global_month_count; i++)
                 {
                     //var date = graphData[i].month;
               
@@ -228,9 +229,10 @@ function data_format(source, type, tag)
                     // ===== ===== ===== ===== === ===== //
                     
                     // ===== Fill in missing dates ===== //
-                    for(var i = 0; i < graphData.length; i++)
+                    //for(var i = 0; i < graphData.length; i++)
+                    for(var i = 0; i < global_month_count; i++)
                     {
-                      var date = graphData[i].month;
+                      //var date = graphData[i].month;
                 
                       while(xLESSy(tempDate,global_end_date))
                       {
@@ -381,9 +383,10 @@ function data_format(source, type, tag)
                 // ===== ===== ===== ===== === ===== //
                 
                 // ===== Fill in missing dates ===== //
-                for(var i = 0; i < graphData.length; i++)
+                for(var i = 0; i < global_month_count; i++)
+                //for(var i = 0; i < graphData.length; i++)
                 {
-                    var date = graphData[i].month;
+                    //var date = graphData[i].month;
               
                     while(xLESSy(tempDate,global_end_date))
                     {
@@ -456,7 +459,7 @@ function data_format(source, type, tag)
                 
                 to_push_max = [temp_max, tileID];
                 global_grouped_y_max_array.push(to_push_max);
-                
+                        
                 empty_graph(tileID, "stacked", "gh");
                 empty_graph(tileID, "grouped", "gh");
                 short_chart(graphData, tileID);
@@ -484,6 +487,7 @@ function data_format(source, type, tag)
                 String(tag);
                 var tmp = tag.replace("-","/");
                 tag = tmp;
+                    
                     
                 _.keys(data.repos[tag].activity).forEach(function(d,i)
                 {
@@ -524,7 +528,6 @@ function data_format(source, type, tag)
                     };
             
                 });
-                
                 // ===== Sort the data by date ===== //
                 function byDate(a,b)
                 {
@@ -542,9 +545,10 @@ function data_format(source, type, tag)
                 // ===== ===== ===== ===== === ===== //
                 
                 // ===== Fill in missing dates ===== //
-                for(var i = 0; i < graphData.length; i++)
+                //for(var i = 0; i < graphData.length; i++)
+                for(var i = 0; i < global_month_count; i++)
                 {
-                    var date = graphData[i].month;
+                    //var date = graphData[i].month;
               
                     while(xLESSy(tempDate,global_end_date))
                     {
@@ -607,7 +611,6 @@ function data_format(source, type, tag)
                 
                 var to_push = [graphData, tileID];
                 //var to_push = [graphData, tileID, temp_collaborators, temp_contributors];
-                console.log(to_push);
                 global_data.push(to_push);
                 
                 temp_max = d3.max(graphData, function(d,i)
@@ -622,7 +625,7 @@ function data_format(source, type, tag)
                 
                 to_push_max = [temp_max, tileID];
                 global_grouped_y_max_array.push(to_push_max);
-                
+                        
                 empty_graph(tileID, "stacked", "gh");
                 empty_graph(tileID, "grouped", "gh");
                 short_chart(graphData, tileID);
