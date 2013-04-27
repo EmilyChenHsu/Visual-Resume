@@ -332,6 +332,7 @@ function pie_chart(source, type, tag)
       var collaborators = data.repos[tmp].collaborators;
       var contributors = data.repos[tmp].contributors;  
       
+      var temp_index = 0;
       _.keys(data.repos).forEach(function(d,i)
         {
           if(d != tmp)
@@ -372,8 +373,9 @@ function pie_chart(source, type, tag)
               var isFork = data.repos[d].isFork;
               
               var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
+              console.log(tempTotal);
               
-              repoArray[i] = {
+              repoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
                 total: tempTotal,
@@ -382,7 +384,7 @@ function pie_chart(source, type, tag)
                 isFork: isFork
               };
               
-              otherRepoArray[i] = {
+              otherRepoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
                 total: tempTotal,
@@ -392,190 +394,200 @@ function pie_chart(source, type, tag)
               };
               
               fullPie += tempTotal;
+              temp_index++;
             }
           }
         });
-      // Sort array of tag objects by their contribution scores from highest to lowest
-      otherRepoArray.sort(function(a,b)
-        {
-          return b.total - a.total;
-        });
-      if(otherRepoArray.length > 3)
+      if(temp_index < 1)
       {
-        otherRepoArray = otherRepoArray.slice(3);
+        d3.select("#pieChart_" + tileID).append("div")
+          .attr("class", "pie_replacement")
+          .append("text")
+          .html("We are currently unable to find any of " + data.name + "'s repositories that are related to <b>" + tmp + "</b>.");
       }
-  
-      repoArray.sort(function(a,b)
+      else
+      {
+        // Sort array of tag objects by their contribution scores from highest to lowest
+        otherRepoArray.sort(function(a,b)
+          {
+            return b.total - a.total;
+          });
+        if(otherRepoArray.length > 3)
         {
-          return b.total - a.total;
-        });
-      var otherTotal = 0;
-      
-      if(repoArray.length > 3)
-        { 
-          otherTotal = repoArray[3].total;
-          for(var i = 4; i < repoArray.length; i++)
-          {
-            repoArray[3].total += repoArray[i].total;
-            otherTotal += repoArray[i].total;
-          }
-        
-          repoArray[3].repo = "other";
-          var deleteNum = repoArray.length - 3;
-          repoArray.splice(4,deleteNum);
+          otherRepoArray = otherRepoArray.slice(3);
         }
-  
-      var g = svg.selectAll(".arc")
-        .data(pie(repoArray))
-        .enter().append("g")
-          .attr("class", "arc");
-      
-      g.append("path")
-        .attr("d", arc)
-        .style("fill", function(d,i)
+    
+        repoArray.sort(function(a,b)
           {
-            return sliceColor(repoArray[i].repo);
-          })
-        .style("opacity", "1")
-        .attr("id",function(d)
-          {
-            return (tileID + "_pie_" + d.data.repo);
-          })
-        .attr("title",function(d)
-          {
-            $(this).tipsy({gravity: 's', html: true, hoverable: false});
-            if(d.data.repo != "other")
-            {
-              console.log(d);
-              var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
-              return temp_title;
-            }
-            else
-            {
-              var content = "Other Repos:</br></br><table>";
-              var other_count = otherRepoArray.length;
-              if(other_count > 7)
-              {
-                for(var i = 0; i < 7; i++)
-                {
-                  var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
-                }
-                content += "</table>";
-              }
-              else
-              {
-                for(var i = 0; i < otherRepoArray.length; i++)
-                {
-                  var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
-                }
-                content += "</table>";
-              }
-              return content;
-            }
-          })
-        .on("click",function(d)
-          {
-            if(d.data.repo != "other")
-            {
-              click(d.data.repo, "gh_repo", d.data.repo);
-            }
-          })
-        .on("mouseover",function(d)
+            return b.total - a.total;
+          });
+        var otherTotal = 0;
+        
+        if(repoArray.length > 3)
           { 
-            d3.select(this).style("opacity",".6");
-            
-            var tempID = set_tagID(d.data.repo);
-            var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
-            var tempEl = document.getElementById(tempTileID);
-            
-            if(tempEl != null)
+            otherTotal = repoArray[3].total;
+            for(var i = 4; i < repoArray.length; i++)
             {
-              tempEl.style.backgroundColor='#aaa';
+              repoArray[3].total += repoArray[i].total;
+              otherTotal += repoArray[i].total;
             }
-          })
-        .on("mouseout",function(d)
-          {
-            d3.select(this).style("opacity","1");
-            
-            var tempID = set_tagID(d.data.repo);
-            var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
-            var tempEl = document.getElementById(tempTileID);
-            
-            if(tempEl != null)
-            {
-              tempEl.style.backgroundColor='#fff';
-            }
-          });      
+          
+            repoArray[3].repo = "other";
+            var deleteNum = repoArray.length - 3;
+            repoArray.splice(4,deleteNum);
+          }
+    
+        var g = svg.selectAll(".arc")
+          .data(pie(repoArray))
+          .enter().append("g")
+            .attr("class", "arc");
         
-  // ===== BEGIN pie chart labeling ===== //
-        var pie_legend = svg.selectAll(".pie_legend")
-          .data(sliceColor.domain().slice())
-        .enter().append("g")
-          .attr("class", "pie_legend")
-          .attr("transform", function(d, i)
+        g.append("path")
+          .attr("d", arc)
+          .style("fill", function(d,i)
             {
-              if(i < 2)
+              return sliceColor(repoArray[i].repo);
+            })
+          .style("opacity", "1")
+          .attr("id",function(d)
+            {
+              return (tileID + "_pie_" + d.data.repo);
+            })
+          .attr("title",function(d)
+            {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
+              if(d.data.repo != "other")
               {
-                var vert_offset = i * 15 + i * 5 + 5;
-                var horiz_offset = -60;
-                return "translate(" + horiz_offset + "," + vert_offset + ")";
+                console.log(d);
+                var percentage = per_long(d.data.total/fullPie);
+                var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
+                return temp_title;
               }
               else
               {
-                var vert_offset = (i - 2) * 15 + (i - 2) * 5 + 5;
-                var horiz_offset = 20;
-                return "translate(" + horiz_offset + "," + vert_offset + ")";  
+                var content = "Other Repos:</br></br><table>";
+                var other_count = otherRepoArray.length;
+                if(other_count > 7)
+                {
+                  for(var i = 0; i < 7; i++)
+                  {
+                    var percentage = per_long(otherRepoArray[i].total/fullPie);
+                    content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                  }
+                  content += "</table>";
+                }
+                else
+                {
+                  for(var i = 0; i < otherRepoArray.length; i++)
+                  {
+                    var percentage = per_long(otherRepoArray[i].total/fullPie);
+                    content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
+                  }
+                  content += "</table>";
+                }
+                return content;
               }
-            });
-    
-      pie_legend.append("rect")
-        .attr("x",horizontal_offset)
-        .attr("y",legend_height)
-        .attr("width", cube_width)
-        .attr("height", cube_height)
-        .style("fill", function(d,i)
-          {
-            return sliceColor(d);
-          })
-        .style("opacity", "1");
-    
-      pie_legend.append("text")
-        .attr("x", horizontal_offset - 3)
-        .attr("y", cube_height/2 + legend_height)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d)
-          {
-            // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_tagID(d);
-            if(tmp.length > 6)
+            })
+          .on("click",function(d)
             {
-              return tmp.substr(0,6) + ".."
-            }
-            return tmp;
-          })
-        .attr("title",function(d)
-          {
-            $(this).tipsy({gravity: 's', html: true, hoverable: false});
-            return d;
-          });
+              if(d.data.repo != "other")
+              {
+                click(d.data.repo, "gh_repo", d.data.repo);
+              }
+            })
+          .on("mouseover",function(d)
+            { 
+              d3.select(this).style("opacity",".6");
+              
+              var tempID = set_tagID(d.data.repo);
+              var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
+              var tempEl = document.getElementById(tempTileID);
+              
+              if(tempEl != null)
+              {
+                tempEl.style.backgroundColor='#aaa';
+              }
+            })
+          .on("mouseout",function(d)
+            {
+              d3.select(this).style("opacity","1");
+              
+              var tempID = set_tagID(d.data.repo);
+              var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
+              var tempEl = document.getElementById(tempTileID);
+              
+              if(tempEl != null)
+              {
+                tempEl.style.backgroundColor='#fff';
+              }
+            });      
+          
+        // ===== BEGIN pie chart labeling ===== //
+          var pie_legend = svg.selectAll(".pie_legend")
+            .data(sliceColor.domain().slice())
+          .enter().append("g")
+            .attr("class", "pie_legend")
+            .attr("transform", function(d, i)
+              {
+                if(i < 2)
+                {
+                  var vert_offset = i * 15 + i * 5 + 5;
+                  var horiz_offset = -60;
+                  return "translate(" + horiz_offset + "," + vert_offset + ")";
+                }
+                else
+                {
+                  var vert_offset = (i - 2) * 15 + (i - 2) * 5 + 5;
+                  var horiz_offset = 20;
+                  return "translate(" + horiz_offset + "," + vert_offset + ")";  
+                }
+              });
       
-      pie_legend.append("text")
-        .attr("x", horizontal_offset + cube_width/2)
-        .attr("y", cube_height/2 + legend_height)
-        .attr("dy", ".35em")
-        .attr("fill","white")
-        .style("text-anchor", "middle")
-        .text(function(d,i)
-          {
-            var value = repoArray[i].total / fullPie;
-            return per(value);
-          });
-  // ===== END pie chart labeling ===== //
+        pie_legend.append("rect")
+          .attr("x",horizontal_offset)
+          .attr("y",legend_height)
+          .attr("width", cube_width)
+          .attr("height", cube_height)
+          .style("fill", function(d,i)
+            {
+              return sliceColor(d);
+            })
+          .style("opacity", "1");
+      
+        pie_legend.append("text")
+          .attr("x", horizontal_offset - 3)
+          .attr("y", cube_height/2 + legend_height)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d)
+            {
+              // If the tag/language title is too long, we'll need to shorten it
+              var tmp = get_tagID(d);
+              if(tmp.length > 6)
+              {
+                return tmp.substr(0,6) + ".."
+              }
+              return tmp;
+            })
+          .attr("title",function(d)
+            {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
+              return d;
+            });
         
+        pie_legend.append("text")
+          .attr("x", horizontal_offset + cube_width/2)
+          .attr("y", cube_height/2 + legend_height)
+          .attr("dy", ".35em")
+          .attr("fill","white")
+          .style("text-anchor", "middle")
+          .text(function(d,i)
+            {
+              var value = repoArray[i].total / fullPie;
+              return per(value);
+            });
+        // ===== END pie chart labeling ===== //
+      }  
     });
   }
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //

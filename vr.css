@@ -155,6 +155,16 @@ div.gh_info
     font:12px sans-serif;
 }
 
+div.pie_replacement
+{
+    position: absolute;
+    top: 25px;
+    width: 130px;
+    text-align: left;
+    font:10px sans-serif;
+    margin-left: 10px;
+}
+
 div.gh_info bigger
 {
     font:22px sans-serif;
