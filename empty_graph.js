@@ -31,6 +31,8 @@ function empty_graph(id, type, community)
             .attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
             .attr("id", type + "_svg_" + id);
           
+		var graph = d3.select("#" + type + "_svg_" + id);
+		
         barColor.domain(["Answers","Comments","Questions"]);   
         
         var initial = new Array();
@@ -65,7 +67,8 @@ function empty_graph(id, type, community)
         
         x.domain(initial.map(function(d,i)
         {
-            return d.message;
+            //return d.message;
+			return "";
         }));
         
         if(type === "stacked") { y.domain([0, global_stacked_y_max]); }
@@ -166,6 +169,15 @@ function empty_graph(id, type, community)
             {
               return "translate(" + x(d.month) + ",0)" ;
             });
+		
+		graph.append("text")
+			.text("Select an area on the graph")
+			.attr("y", 35)
+			.attr("x", 45);
+		graph.append("text")
+			.text("below to get started")
+			.attr("y", 50)
+			.attr("x", 45);
     }
     // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End draw empty graph for user's stackoverflow activity <==
@@ -202,6 +214,8 @@ function empty_graph(id, type, community)
         .append("g")
             .attr("transform", "translate(" + global_margin.left + "," + global_margin.top + ")")
             .attr("id", type + "_svg_" + id);
+			
+		var graph = d3.select("#" + type + "_svg_" + id);
           
         barColor.domain(["commits","comments","issues"]);   
         
@@ -237,7 +251,8 @@ function empty_graph(id, type, community)
         
         x.domain(initial.map(function(d,i)
         {
-            return d.message;
+            //return d.message;
+			return "";
         }));
         
         if(type === "stacked") { y.domain([0, global_stacked_y_max]); }
@@ -338,6 +353,15 @@ function empty_graph(id, type, community)
             {
               return "translate(" + x(d.month) + ",0)" ;
             });
+			
+		graph.append("text")
+			.text("Select an area on the graph")
+			.attr("y", 35)
+			.attr("x", 45);
+		graph.append("text")
+			.text("below to get started")
+			.attr("y", 50)
+			.attr("x", 45);
     }
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End draw empty graph for user's GitHub activity <==
