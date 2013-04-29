@@ -63,6 +63,29 @@
 			{
 				echo '<script>tile(\'Data/so_data_' . $_POST['userID'] . '.json\', \'so_all\');</script>';
 			}
+			echo '<table>';
+			for($i = 0; $i < 30; $i++)
+			{
+				if($i % 3 === 0 && $i !== 0)
+				{
+					echo '<tr><td class="switch"><a href="javascript:exchange(' . $i . ',' . ($i - 3) . ');"><img src="media/up_down.png"></a></td><td></td><td class="switch"><a href="javascript:exchange(' . ($i+1) . ',' . ($i - 2) . ');"><img src="media/up_down.png"></a></td><td></td><td class="switch"><a href="javascript:exchange(' . ($i+2) . ',' . ($i - 1) . ');"><img src="media/up_down.png"></a></td></tr>';
+				}
+				
+				if($i === 0)
+				{
+					echo '<tr>';
+				}
+				else if($i % 3 === 0)
+				{
+					echo '</tr><tr>';
+				}
+				echo '<td><div class="tile_container" id="tile' . $i . '"></div></td>';
+				if($i % 3 !== 2)
+				{
+					echo '<td class="switch"><a href="javascript:exchange(' . $i . ',' . ($i + 1) . ');"><img src="media/left_right.png"></a></td>';
+				}
+			}
+			echo '</tr></table>';
 		
 		?>
 		
@@ -124,6 +147,43 @@
 					})
 				.on("mousedown", function() { global_mousedown = true; });
 				
+			function exchange(first,second)
+			{
+				var first_html = $('#tile' + first).html();
+				var second_html = $('#tile' + second).html();
+				
+				var element = document.getElementById('tile' + first).firstChild;
+				
+				var first_id = d3.select('#tile' + first).attr("title");
+				var second_id = d3.select('#tile' + second).attr("title");
+				
+				remove_tile(second_id, second_id, true);
+				remove_tile(first_id, first_id, true);
+				
+				d3.select('#tile' + first).attr('title','');
+				d3.select('#tile' + second).attr('title','');
+				
+				var first_info = first_id.split("_");
+				var second_info = second_id.split("_");
+				console.log(first_info);
+				console.log(second_info);
+				
+				var second_bit = Array();
+				second_bit[0] = 'Data/' + first_info[0] + '_data_' + first_info[1] + '.json';
+				second_bit[1] = 'gh_all';
+				second_bit[2] = null;
+				
+				tile('Data/' + second_info[0] + '_data_' + second_info[1] + '.json', 'gh_all', null);
+				//tile('Data/' + first_info[0] + '_data_' + first_info[1] + '.json', 'gh_all', null);
+				
+				//var rect = element.getBoundingClientRect();
+				//console.log(rect.top, rect.right, rect.bottom, rect.left);
+				
+				//d3.select('#' + second_id).attr('position', 'absolute').attr('x', rect.left).attr('y', rect.top);
+				
+				//$('#tile' + first).html(second_html);
+				//$('#tile' + second).html(first_html);
+			}
 		</script>
 		
     </body>

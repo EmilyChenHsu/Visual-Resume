@@ -351,10 +351,19 @@ function show_grouped()
     global_grouped = true;
 }
 
-function remove_tile(el, id)
+function remove_tile(el, id, temp)
 {
-    $(el).parent().empty().remove();
-	$('#' + id + "_tip").empty().remove();
+    if(temp == true)
+    {
+        //alert(el);
+        $('#' + el).empty().remove();
+        //$('#' + id + "_tip").empty().remove();
+    }
+    else
+    {
+        $(el).parent().empty().remove();
+        $('#' + id + "_tip").empty().remove();
+    }
 	
 	// Remove data from global_data
 	

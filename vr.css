@@ -45,12 +45,10 @@ a.dark_background:hover
     color: #aaa;
 }
 
-div.so_user_general_small
+div.user_tile
 {
     position:relative;
     float:left;
-    margin-left: 20px;
-    margin-bottom:20px;
     width:300px;
     height:480px;
     
@@ -59,18 +57,20 @@ div.so_user_general_small
     border-radius: 10px;
 }
 
-div.so_user_tag_small
+div.tile_container
 {
     position:relative;
     float:left;
-    margin-left: 20px;
-    margin-bottom:20px;
-    width:300px;
-    height:415px;
+    
+    width:305px;
+    height:485px;
     
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
-    border-radius: 10px;
+}
+td.switch
+{
+    text-align: center;
 }
 
 div.so_general
