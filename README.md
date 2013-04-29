@@ -1,6 +1,32 @@
 # GitHub & Stack Overflow Resume - API README
+
+# Using the Tool
 ________________
 
+In order to take full advantage of all of Visual Resume's features, read through this list to familiarize yourself with the tool:
+
+## GitHub
+
+* Select a user to view.
+* The initial tile that pops up give a general overview of the user's contributions in GitHub.
+* At the top-left of the tile, the user's name is displayed. If you click on it, it will take you to their official GitHub profile page. If you hover over it, the user's login/username will be displayed.
+* Just beneath the user's name, their tenure is displayed. This allows you to see how long ago they joined the GitHub community.
+* Below the tenure is the user's avatar or profile picture.
+* Below the avatar is the number of followers the user has.
+* To the right, we see a radial chart. This gives a breakdown of the repositories that the user is most involved in based on the number of their commits, comments and issues in the repository. If you hover over a slice of the chart, you will be shown the repository name, the main programming language used in the repository, and the number of watchers the repository has. If you click on a slice (unless it is the slice for the "other" repositories), it will open up a new tile with information about the user's contributions within that specific repository. You may have also noticed that the names of some of the repositories are cut off in the legend below the radial chart--simply hover over these names to see the full name.
+* As you look down into the lower half of the tile, you see a chart labeled "Contributions by Month." This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's commits, comments, and issues aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just to the right of the chart's title. The grouped chart shows the user's commits, comments, and issues aggregated and displayed side-by-side. The legend below the chart shows the total number of commits, comments, and issues in the current selected date range.
+* At the top-right, there is an x inside of a circle. Click that icon if you wish to close the tile.
+
+* In the repository-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
+1. The "Repositories" radial chart is replaced with a "Related Repositories" radial chart. The only difference is that the repositories displayed are those that share at least one contributor or collaborator (besides the user we're interested in) with the repository highlighted by the tile. For example, if you are looking at Joe Bob's involvement in Rails, the chart will show other repositories that both Joe Bob and at least one of his friends in Rails contribute to. For many users, no chart will be available, because not everyone is involved on multiple projects that share contributors or collaborators.
+2. Instead of showing the number of follower's the user has, the complete name (owner/name) of the highlighted repository is displayed beneath the user's avatar.
+3. As may be expected, the graphs in the lower half of the tile only show user's contributions within the highlighted repository.
+
+## Stack Overflow
+
+* Select a user to view
+
+________________
 ## Sample JSON File (GitHub):
 
     {
@@ -70,7 +96,6 @@ ________________
             }
         }    
     }
-    
 ________________
 ________________
 # Design Decisions

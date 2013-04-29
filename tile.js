@@ -424,7 +424,12 @@ function tile(source, type, tag)
 						{
 							return (300 / nameLength) + "px";
 						}
-					});
+					})
+				.attr("title",function(d)
+				{
+					$(this).tipsy({gravity: 's', html: true, hoverable: false});
+					return data.login;
+				});
 				
 				pie_chart(source, "gh", null);
 				data_format(source, "gh");
@@ -553,7 +558,12 @@ function tile(source, type, tag)
 						{
 							return (300 / nameLength) + "px";
 						}
-					});
+					})
+				.attr("title",function(d)
+				{
+					$(this).tipsy({gravity: 's', html: true, hoverable: false});
+					return data.login;
+				});
 				
 			// Some finangling to get the 'tag' to the correct format as a string
             String(tag);
