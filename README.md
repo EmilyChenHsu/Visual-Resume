@@ -14,7 +14,7 @@ In order to take full advantage of all of Visual Resume's features, read through
 * Below the tenure is the user's avatar or profile picture.
 * Below the avatar is the number of followers the user has.
 * To the right, we see a radial chart. This gives a breakdown of the repositories that the user is most involved in based on the number of their commits, comments and issues in the repository. If you hover over a slice of the chart, you will be shown the repository name, the main programming language used in the repository, and the number of watchers the repository has. If you click on a slice (unless it is the slice for the "other" repositories), it will open up a new tile with information about the user's contributions within that specific repository. You may have also noticed that the names of some of the repositories are cut off in the legend below the radial chart--simply hover over these names to see the full name.
-* As you look down into the lower half of the tile, you see a chart labeled "Contributions by Month." This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's commits, comments, and issues aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just to the right of the chart's title. The grouped chart shows the user's commits, comments, and issues aggregated and displayed side-by-side. The legend below the chart shows the total number of commits, comments, and issues in the current selected date range.
+* As you look down into the lower half of the tile, you see a chart labeled "Contributions by Month." This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's commits, comments, and issues aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just to the right of the chart's title. The grouped chart shows the user's commits, comments, and issues aggregated and displayed side-by-side. The legend below the chart shows the total number of commits, comments, and issues in the current selected date range. Each bar in the chart may be hovered over to show the number of acommits, comments, and issues (depending on which bar it is) there were for the month.
 * At the top-right, there is an x inside of a circle. Click that icon if you wish to close the tile.
 
 * In the repository-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
@@ -25,7 +25,27 @@ In order to take full advantage of all of Visual Resume's features, read through
 
 ## Stack Overflow
 
-* Select a user to view
+* Select a user to view.
+* The initial tile that pops up give a general overview of the user's contributions in Stack Overflow.
+* At the top-left of the tile, the user's name is displayed. If you click on it, it will take you to their official Stack Overflow profile page.
+* Just beneath the user's name, their tenure is displayed. This allows you to see how long ago they joined the Stack Overflow community.
+* Below the tenure is the user's avatar or profile picture.
+* Below the avatar is the user's reputation in Stack Overflow (this is calculated based on things like how many questions, answers, or comments they have had upvoted).
+* To the right, we see a radial chart. This gives a breakdown of the various tags (programming languages, concepts, etc.) that the user is most involved in based on the number of their questions, comments and answers in the tag. If you hover over a slice of the chart, you will be shown the tag name and the percentage of the user's contributions that have been related to that tag. If you click on a slice (unless it is the slice for the "other" tags), it will open up a new tile with information about the user's contributions within that specific tag. You may have also noticed that the names of some of the tags are cut off in the legend below the radial chart--simply hover over these names to see the full name.
+* As you look down into the lower half of the tile, you see a chart labeled "Contributions by Month." This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's answers, comments, and questions aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just to the right of the chart's title. The grouped chart shows the user's answers, comments, and questions aggregated and displayed side-by-side. The legend below the chart shows the total number of answers, comments, and questions in the current selected date range. Each bar in the chart may be hovered over to show the number of answers, comments, or questions (depending on which bar it is) there were for the month.
+* At the top-right, there is an x inside of a circle. Click that icon if you wish to close the tile.
+
+* In the tag-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
+
+1. The "Contributions by Tag" radial chart is replaced with a "Related Tags" radial chart. The only difference is that the tags displayed are those that are commonly tagged along with the highlighted tag. For example, JavaScript may often be tagged with jQuery, since jQuery is a JavaScript library.
+2. Instead of showing the user's reputation, the name of the highlighted tag is displayed beneath the user's avatar.
+3. As may be expected, the graphs in the lower half of the tile only show user's contributions within the highlighted tag.
+
+## General
+
+* Main graphs are always displayed on the same, global scale.
+* Closing and opening new tiles will likely change the global scale. For example, if you remove the tile with the most contributions in a month, the global max will be reduced to the next highest; but if you add a new tile with more contributions in a month than any already displayed, the global max will be increased.
+* The short graphs for date-range selection are all scaled to their own data.
 
 ________________
 ## Sample JSON File (GitHub):
