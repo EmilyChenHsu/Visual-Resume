@@ -1,4 +1,5 @@
 # GitHub & Stack Overflow Resume - API README
+________________
 
 ## Sample JSON File (GitHub):
 
@@ -69,9 +70,9 @@
             }
         }    
     }
+    
 ________________
 ________________
-
 # Design Decisions
 ________________
 
