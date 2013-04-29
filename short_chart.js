@@ -215,9 +215,6 @@ function short_chart(fData, id)
                             var cf = crossfilter(temp_data);
                             set_date_range(temp_data);
                             var cf = cf.dimension(function(d) { return d.fullDate; });
-							console.log(global_date_range);
-							console.log(global_data);
-							console.log(global_stacked_y_max);
                             var temp_data = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
                             redraw(temp_data, temp_tileID, "stacked");
                             redraw(temp_data, temp_tileID, "grouped");
