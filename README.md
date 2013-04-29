@@ -18,6 +18,7 @@ In order to take full advantage of all of Visual Resume's features, read through
 * At the top-right, there is an x inside of a circle. Click that icon if you wish to close the tile.
 
 * In the repository-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
+
 1. The "Repositories" radial chart is replaced with a "Related Repositories" radial chart. The only difference is that the repositories displayed are those that share at least one contributor or collaborator (besides the user we're interested in) with the repository highlighted by the tile. For example, if you are looking at Joe Bob's involvement in Rails, the chart will show other repositories that both Joe Bob and at least one of his friends in Rails contribute to. For many users, no chart will be available, because not everyone is involved on multiple projects that share contributors or collaborators.
 2. Instead of showing the number of follower's the user has, the complete name (owner/name) of the highlighted repository is displayed beneath the user's avatar.
 3. As may be expected, the graphs in the lower half of the tile only show user's contributions within the highlighted repository.
