@@ -439,7 +439,8 @@ function data_format(source, type, tag)
                 {
                     return d.total;
                 });
-                if(temp_max > global_stacked_y_max) { global_stacked_y_max = temp_max; }
+
+                if(temp_max > global_stacked_y_max || global_stacked_y_max == undefined) { global_stacked_y_max = temp_max; }
                 
                 var to_push_max = [temp_max, tileID];
                 global_stacked_y_max_array.push(to_push_max);
@@ -455,7 +456,7 @@ function data_format(source, type, tag)
                     });
                 });
               
-                if(temp_max > global_grouped_y_max) { global_grouped_y_max = temp_max; }
+                if(temp_max > global_grouped_y_max || global_grouped_y_max == undefined) { global_grouped_y_max = temp_max; }
                 
                 to_push_max = [temp_max, tileID];
                 global_grouped_y_max_array.push(to_push_max);
@@ -463,6 +464,7 @@ function data_format(source, type, tag)
                 empty_graph(tileID, "stacked", "gh");
                 empty_graph(tileID, "grouped", "gh");
                 short_chart(graphData, tileID);
+                
             })
         }
     // ===== ===== ===== ===== ===== ===== ===== ===== ===== //

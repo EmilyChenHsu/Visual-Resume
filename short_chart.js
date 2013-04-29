@@ -39,7 +39,6 @@ function short_chart(fData, id)
     .ticks(2);
 
     var month_count = fData.length;
-    
     var mouse_down = false;
     var inBox = false;
     var svg = d3.select("#short_stacked_" + id).append("svg")
@@ -65,8 +64,11 @@ function short_chart(fData, id)
                 var temp_data = d[0];
                 var temp_tileID = d[1];
                 var cf = crossfilter(temp_data);
-                set_date_range(temp_data);
-                var cf = cf.dimension(function(d) { return d.fullDate; });
+                //set_date_range(temp_data);
+                var cf = cf.dimension(function(d)
+					{
+						return d.fullDate;
+					});
                 var temp_data = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
                 redraw(temp_data, temp_tileID, "stacked");
                 redraw(temp_data, temp_tileID, "grouped");
@@ -186,7 +188,6 @@ function short_chart(fData, id)
             }
             return 'id_' + barID;
         });
-      
         global_bar_offset = (width - (x.rangeBand() * month_count)) / month_count;
         
         var short_x = global_highlight.attr("x"), x_now;
@@ -214,6 +215,9 @@ function short_chart(fData, id)
                             var cf = crossfilter(temp_data);
                             set_date_range(temp_data);
                             var cf = cf.dimension(function(d) { return d.fullDate; });
+							console.log(global_date_range);
+							console.log(global_data);
+							console.log(global_stacked_y_max);
                             var temp_data = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
                             redraw(temp_data, temp_tileID, "stacked");
                             redraw(temp_data, temp_tileID, "grouped");
@@ -267,7 +271,6 @@ function set_date_range(fData)
 		var x_end = +x_start + +temp_width;
 		var first_index = 0, second_index = null;
 		var last_index = fData.length - 1;
-		
 		fData.forEach(function(d, i)
 			{
 				var temp_id = '#id_' + d.month;

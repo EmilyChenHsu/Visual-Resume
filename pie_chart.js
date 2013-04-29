@@ -135,15 +135,17 @@ function pie_chart(source, type, tag)
           })
         .attr("title",function(d)
           {
-            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            //$(this).tipsy({gravity: 's', html: true, hoverable: false});
             if(d.data.repo != "other")
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
               var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
               return temp_title;
             }
             else
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: true});
               var content = "Other Repos:</br></br><table>";
               var other_count = otherRepoArray.length;
               if(other_count > 7)
@@ -458,15 +460,17 @@ function pie_chart(source, type, tag)
             })
           .attr("title",function(d)
             {
-              $(this).tipsy({gravity: 's', html: true, hoverable: false});
+              //$(this).tipsy({gravity: 's', html: true, hoverable: false});
               if(d.data.repo != "other")
               {
+                $(this).tipsy({gravity: 's', html: true, hoverable: false});
                 var percentage = per_long(d.data.total/fullPie);
                 var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
                 return temp_title;
               }
               else
               {
+                $(this).tipsy({gravity: 's', html: true, hoverable: true});
                 var content = "Other Repos:</br></br><table>";
                 var other_count = otherRepoArray.length;
                 if(other_count > 7)
@@ -695,16 +699,19 @@ function pie_chart(source, type, tag)
           })
         .attr("title",function(d)
           {
-            $(this).tipsy({gravity: 's', html: true, hoverable: true});
+            //$(this).tipsy({gravity: 's', html: true, hoverable: true});
             if(d.data.tag != "other")
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
-              var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
-              var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
+              //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: true});
               //
               var content = "Other Tags:</br></br><table>";
               var other_count = otherTagArray.length;
@@ -941,16 +948,19 @@ function pie_chart(source, type, tag)
           })
         .attr("title",function(d)
           {
-            $(this).tipsy({gravity: 's', html: true, hoverable: true});
+            //$(this).tipsy({gravity: 's', html: true, hoverable: true});
             if(d.data.tag != "other")
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
-              var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
-              var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
+              //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+              var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: true});
               //
               var content = "Other Tags:</br></br><table>";
               var other_count = otherTagArray.length;
