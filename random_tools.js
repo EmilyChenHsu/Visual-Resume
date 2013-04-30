@@ -351,19 +351,19 @@ function show_grouped()
     global_grouped = true;
 }
 
-function remove_tile(el, id, temp)
+function remove_tile(el, id)
 {
-    if(temp == true)
-    {
-        //alert(el);
-        $('#' + el).empty().remove();
-        //$('#' + id + "_tip").empty().remove();
-    }
-    else
-    {
-        $(el).parent().empty().remove();
-        $('#' + id + "_tip").empty().remove();
-    }
+    global_coordinates.forEach(function(d,i)
+        {
+            if(d.id == id)
+            {
+                global_coordinates[i].id = null;
+                global_coordinates[i].occupied = false;
+            }
+        });
+
+    $(el).parent().empty().remove();
+    $('#' + id + "_tip").empty().remove();
 	
 	// Remove data from global_data
 	

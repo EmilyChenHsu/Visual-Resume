@@ -63,29 +63,6 @@
 			{
 				echo '<script>tile(\'Data/so_data_' . $_POST['userID'] . '.json\', \'so_all\');</script>';
 			}
-			echo '<table>';
-			for($i = 0; $i < 30; $i++)
-			{
-				if($i % 3 === 0 && $i !== 0)
-				{
-					echo '<tr><td class="switch"><a href="javascript:exchange(' . $i . ',' . ($i - 3) . ');"><img src="media/up_down.png"></a></td><td></td><td class="switch"><a href="javascript:exchange(' . ($i+1) . ',' . ($i - 2) . ');"><img src="media/up_down.png"></a></td><td></td><td class="switch"><a href="javascript:exchange(' . ($i+2) . ',' . ($i - 1) . ');"><img src="media/up_down.png"></a></td></tr>';
-				}
-				
-				if($i === 0)
-				{
-					echo '<tr>';
-				}
-				else if($i % 3 === 0)
-				{
-					echo '</tr><tr>';
-				}
-				echo '<td><div class="tile_container" id="tile' . $i . '"></div></td>';
-				if($i % 3 !== 2)
-				{
-					echo '<td class="switch"><a href="javascript:exchange(' . $i . ',' . ($i + 1) . ');"><img src="media/left_right.png"></a></td>';
-				}
-			}
-			echo '</tr></table>';
 		
 		?>
 		
@@ -102,7 +79,84 @@
 			// End global graph size variables <==
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
-
+			var global_coordinates = new Array();
+				var temp_count = 0;
+				var temp_column = 0;
+				for(var i = 0; i < 30; i++)
+				{
+					if(i % 3 === 0 && i !== 0)
+					{
+						temp_column = 0;
+						temp_count++;
+					}
+					global_coordinates[i] =
+					{
+						top: 100 + (temp_count * 550),
+						left: 150 + (temp_column * 370),
+						occupied: false,
+						num: i,
+						id: null
+					}
+					
+					if((i + 1) % 3 !== 0)
+					{
+						d3.select('body')
+							.append('div')
+							.attr('class', 'switch')
+							.style('top', (global_coordinates[i].top + 250) + 'px')
+							.style('left', (global_coordinates[i].left + 310) + 'px')
+						.append('img')
+							.attr('src', 'media/left_right.png')
+							.attr('id', 'left_right_' + i)
+							.on('click', function()
+								{
+									var temp_num = this.id.split('_');
+									var temp_first = temp_num[2];
+									var temp_second = +temp_first + 1;
+									
+									exchange(temp_first,temp_second);
+								})
+							.on('mouseover', function()
+								{
+									 d3.select(this).style("opacity",".4");	
+								})
+							.on('mouseout', function()
+								{
+									 d3.select(this).style("opacity","1");	
+								});
+					}
+					
+					//if((i + 1) % 3 !== 0)
+					{
+						d3.select('body')
+							.append('div')
+							.attr('class', 'switch')
+							.style('top', (global_coordinates[i].top + 490) + 'px')
+							.style('left', (global_coordinates[i].left + 135) + 'px')
+						.append('img')
+							.attr('src', 'media/up_down.png')
+							.attr('id', 'up_down_' + i)
+							.on('click', function()
+								{
+									var temp_num = this.id.split('_');
+									var temp_first = temp_num[2];
+									var temp_second = +temp_first + 3;
+									
+									exchange(temp_first,temp_second);
+								})
+							.on('mouseover', function()
+								{
+									 d3.select(this).style("opacity",".4");	
+								})
+							.on('mouseout', function()
+								{
+									 d3.select(this).style("opacity","1");	
+								});
+					}
+					
+					temp_column++;
+				}
+			
 			var global_start_date = '2008-03';
 			var global_end_date = '2012-05',
 				global_month_count = 50;
@@ -146,43 +200,46 @@
 						
 					})
 				.on("mousedown", function() { global_mousedown = true; });
-				
-			function exchange(first,second)
+			
+			function exchange(first, second)
 			{
-				var first_html = $('#tile' + first).html();
-				var second_html = $('#tile' + second).html();
+				var first_id = global_coordinates[first].id;
+				var second_id = global_coordinates[second].id;
+				console.log(first_id, second_id);
 				
-				var element = document.getElementById('tile' + first).firstChild;
+				if(first_id != null)
+				{
+					d3.select('#' + first_id)
+						.style('top', global_coordinates[second].top + 'px')
+						.style('left', global_coordinates[second].left + 'px');
+					
+					global_coordinates[second].id = first_id;
+				}
+				else
+				{
+					d3.select('#' + first_id)
+						.style('top', global_coordinates[second].top + 'px')
+						.style('left', global_coordinates[second].left + 'px');
+					
+					global_coordinates[second].id = null;
+				}
 				
-				var first_id = d3.select('#tile' + first).attr("title");
-				var second_id = d3.select('#tile' + second).attr("title");
-				
-				remove_tile(second_id, second_id, true);
-				remove_tile(first_id, first_id, true);
-				
-				d3.select('#tile' + first).attr('title','');
-				d3.select('#tile' + second).attr('title','');
-				
-				var first_info = first_id.split("_");
-				var second_info = second_id.split("_");
-				console.log(first_info);
-				console.log(second_info);
-				
-				var second_bit = Array();
-				second_bit[0] = 'Data/' + first_info[0] + '_data_' + first_info[1] + '.json';
-				second_bit[1] = 'gh_all';
-				second_bit[2] = null;
-				
-				tile('Data/' + second_info[0] + '_data_' + second_info[1] + '.json', 'gh_all', null);
-				//tile('Data/' + first_info[0] + '_data_' + first_info[1] + '.json', 'gh_all', null);
-				
-				//var rect = element.getBoundingClientRect();
-				//console.log(rect.top, rect.right, rect.bottom, rect.left);
-				
-				//d3.select('#' + second_id).attr('position', 'absolute').attr('x', rect.left).attr('y', rect.top);
-				
-				//$('#tile' + first).html(second_html);
-				//$('#tile' + second).html(first_html);
+				if(second_id != null)
+				{
+					d3.select('#' + second_id)
+						.style('top', global_coordinates[first].top + 'px')
+						.style('left', global_coordinates[first].left + 'px');
+						
+					global_coordinates[first].id = second_id;
+				}
+				else
+				{
+					d3.select('#' + second_id)
+						.style('top', global_coordinates[first].top + 'px')
+						.style('left', global_coordinates[first].left + 'px');
+					
+					global_coordinates[first].id = null;
+				}
 			}
 		</script>
 		

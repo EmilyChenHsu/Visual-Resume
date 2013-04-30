@@ -47,8 +47,7 @@ a.dark_background:hover
 
 div.user_tile
 {
-    position:relative;
-    float:left;
+    position: absolute;
     width:300px;
     height:480px;
     
@@ -68,9 +67,14 @@ div.tile_container
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
 }
-td.switch
+div.switch
 {
+    position: absolute;
     text-align: center;
+}
+.switch:hover
+{
+    cursor: pointer;
 }
 
 div.so_general
