@@ -152,8 +152,10 @@ function pie_chart(source, type, tag)
               {
                 for(var i = 0; i < 7; i++)
                 {
+                  var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                   var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                  //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -161,8 +163,9 @@ function pie_chart(source, type, tag)
               {
                 for(var i = 0; i < otherRepoArray.length; i++)
                 {
+                  var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                   var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -477,8 +480,10 @@ function pie_chart(source, type, tag)
                 {
                   for(var i = 0; i < 7; i++)
                   {
+                    var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
-                    content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                    //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
@@ -486,8 +491,10 @@ function pie_chart(source, type, tag)
                 {
                   for(var i = 0; i < otherRepoArray.length; i++)
                   {
+                    var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
-                    content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
+                    //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
