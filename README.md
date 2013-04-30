@@ -48,6 +48,7 @@ In order to take full advantage of all of Visual Resume's features, read through
 * The short graphs for date-range selection are all scaled to their own data.
 * Tiles can be reordered by swapping the position of two horizontally or vertically adjacent tiles. To do this, simply click the arrows located between the two tiles you wish to swap.
 * You are limited to opening only about 30 tiles at once. That's a bit excessive, so you probably don't have to worry about hitting your quota and blowing up the system.
+* It's probably obvious, but our tool allows you to compare one user's contributions in various tags, repositories, or communities **and** multiple users' contributions with each other as well.
 
 ________________
 ## Sample JSON File (GitHub):
