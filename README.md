@@ -46,6 +46,8 @@ In order to take full advantage of all of Visual Resume's features, read through
 * Main graphs are always displayed on the same, global scale.
 * Closing and opening new tiles will likely change the global scale. For example, if you remove the tile with the most contributions in a month, the global max will be reduced to the next highest; but if you add a new tile with more contributions in a month than any already displayed, the global max will be increased.
 * The short graphs for date-range selection are all scaled to their own data.
+* Tiles can be reordered by swapping the position of two horizontally or vertically adjacent tiles. To do this, simply click the arrows located between the two tiles you wish to swap.
+* You are limited to opening only about 30 tiles at once. That's a bit excessive, so you probably don't have to worry about hitting your quota and blowing up the system.
 
 ________________
 ## Sample JSON File (GitHub):
