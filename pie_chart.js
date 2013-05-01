@@ -62,13 +62,14 @@ function pie_chart(source, type, tag)
           var forks = data.repos[d].forks;
           var watchers = data.repos[d].watchers;
           var isFork = data.repos[d].isFork;
+          var temp_language = data.repos[d].language != null ? data.repos[d].language : 'info not available';
           
           var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
           
           repoArray[i] = {
             owner: owner,
             repo: reponame,
-            language: data.repos[d].language,
+            language: temp_language,
             total: tempTotal,
             forks: forks,
             watchers: watchers,
@@ -78,7 +79,7 @@ function pie_chart(source, type, tag)
           otherRepoArray[i] = {
             owner: owner,
             repo: reponame,
-            language: data.repos[d].language,
+            language: temp_language,
             total: tempTotal,
             forks: forks,
             watchers: watchers,
@@ -377,6 +378,7 @@ function pie_chart(source, type, tag)
               var forks = data.repos[d].forks;
               var watchers = data.repos[d].watchers;
               var isFork = data.repos[d].isFork;
+              var temp_language = data.repos[d].language != null ? data.repos[d].language : 'info not available';
               
               var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
               //console.log(tempTotal);
@@ -384,7 +386,7 @@ function pie_chart(source, type, tag)
               repoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
-                language: data.repos[d].language,
+                language: temp_language,
                 total: tempTotal,
                 forks: forks,
                 watchers: watchers,
@@ -394,7 +396,7 @@ function pie_chart(source, type, tag)
               otherRepoArray[temp_index] = {
                 owner: owner,
                 repo: reponame,
-                language: data.repos[d].language,
+                language: temp_language,
                 total: tempTotal,
                 forks: forks,
                 watchers: watchers,
@@ -505,7 +507,9 @@ function pie_chart(source, type, tag)
             {
               if(d.data.repo != "other")
               {
-                click(d.data.repo, "gh_repo");
+                //click(d.data.repo, "gh_repo");
+                var repofull = d.data.owner + '-' + d.data.repo;
+                click(repofull, "gh_repo");
               }
             })
           .on("mouseover",function(d)

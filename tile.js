@@ -599,18 +599,22 @@ function tile(source, type, tag, second)
 					return data.login;
 				});
 				
+			
 			// Some finangling to get the 'tag' to the correct format as a string
             String(tag);
             var tmp = tag.replace("-","/");
+			//console.log(tmp);
+			//console.log(data);
+			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
 			d3.select("#followers_" + tileID)
 				.append("text")
-				.html(tmp)
+				.html(tmp + '<br>Language: ' + temp_language)
 				.style("font-size",function()
 					{
 						nameLength = tmp.length;
-						if(nameLength < 9)
+						if(nameLength < 15)
 						{
-							return (30) + "px";
+							return (20) + "px";
 						}
 						else
 						{
