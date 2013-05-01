@@ -608,7 +608,8 @@ function tile(source, type, tag, second)
 			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
 			d3.select("#followers_" + tileID)
 				.append("text")
-				.html(tmp + '<br>Language: ' + temp_language)
+				.html(tmp)
+				/*
 				.style("font-size",function()
 					{
 						nameLength = tmp.length;
@@ -620,7 +621,10 @@ function tile(source, type, tag, second)
 						{
 							return (290 / nameLength) + "px";
 						}
-					});	
+					})
+				*/
+				.append("text")
+				.html('<br>Language: ' + temp_language);	
 			
 				pie_chart(source, "gh_repo", tag);
 				data_format(source, "gh_repo", tag);

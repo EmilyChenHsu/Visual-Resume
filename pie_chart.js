@@ -141,7 +141,7 @@ function pie_chart(source, type, tag)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
-              var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
+              var temp_title = "<table><tr><td class='left'>" + d.data.repo + '/' + d.data.owner + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
               return temp_title;
             }
             else
@@ -156,7 +156,7 @@ function pie_chart(source, type, tag)
                   var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                   var percentage = per_long(otherRepoArray[i].total/fullPie);
                   //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + '/' + otherRepoArray[i].owner + ":</a>:</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -166,7 +166,7 @@ function pie_chart(source, type, tag)
                 {
                   var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                   var percentage = per_long(otherRepoArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + '/' + otherRepoArray[i].owner + ":</a>:</td><td>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -470,7 +470,7 @@ function pie_chart(source, type, tag)
               {
                 $(this).tipsy({gravity: 's', html: true, hoverable: false});
                 var percentage = per_long(d.data.total/fullPie);
-                var temp_title = "<table><tr><td class='left'>" + d.data.repo + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
+                var temp_title = "<table><tr><td class='left'>" + d.data.repo + '/' + d.data.owner + ":</td><td>" + percentage + "</td></tr><tr><td class='left'>language: </td><td>" + d.data.language + "</td></tr><tr><td class='left'>watchers: </td><td>" + d.data.watchers + "</td></tr></table>";
                 return temp_title;
               }
               else
@@ -485,7 +485,7 @@ function pie_chart(source, type, tag)
                     var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
                     //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td>" + percentage + "</td></tr>");
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + '/' + otherRepoArray[i].owner + ":</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
@@ -496,7 +496,7 @@ function pie_chart(source, type, tag)
                     var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
                     //content += ("<tr><td class='left'>" + otherRepoArray[i].repo + ":</td><td class='right'>" + percentage + "</td></tr>");
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + ":</a>:</td><td>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].repo + '/' + otherRepoArray[i].owner + ":</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
