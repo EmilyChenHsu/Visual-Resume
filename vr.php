@@ -214,6 +214,7 @@
 						.style('left', global_coordinates[second].left + 'px');
 					
 					global_coordinates[second].id = first_id;
+					global_coordinates[second].occupied = true;
 				}
 				else
 				{
@@ -222,6 +223,7 @@
 						.style('left', global_coordinates[second].left + 'px');
 					
 					global_coordinates[second].id = null;
+					global_coordinates[second].occupied = false;
 				}
 				
 				if(second_id != null)
@@ -231,6 +233,7 @@
 						.style('left', global_coordinates[first].left + 'px');
 						
 					global_coordinates[first].id = second_id;
+					global_coordinates[first].occupied = true;
 				}
 				else
 				{
@@ -239,6 +242,7 @@
 						.style('left', global_coordinates[first].left + 'px');
 					
 					global_coordinates[first].id = null;
+					global_coordinates[first].occupied = false;
 				}
 			}
 		</script>
