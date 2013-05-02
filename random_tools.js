@@ -307,7 +307,7 @@ function member_for(thenDate)
     }
 }
 
-function get_tagID(tag)
+function get_strip(tag)
 {
     tag = tag.replace(/1plus1/g,'\+');
     tag = tag.replace(/1sharp1/g,'\#');
@@ -315,11 +315,12 @@ function get_tagID(tag)
     return tag;
 }
 
-function set_tagID(tag)
+function set_strip(tag)
 {
     tag = tag.replace(/\+/g,'1plus1');
     tag = tag.replace(/\#/g,'1sharp1');
     tag = tag.replace(/\./g,'1dot1');
+    tag = tag.replace(/ /g,'');
     return tag;
 }
 

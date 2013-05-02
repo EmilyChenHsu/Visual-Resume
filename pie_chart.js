@@ -225,7 +225,7 @@ function pie_chart(source, type, tag)
           { 
             d3.select(this).style("opacity",".6");
             
-            var tempID = set_tagID(d.data.repo);
+            var tempID = set_strip(d.data.repo);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -238,7 +238,7 @@ function pie_chart(source, type, tag)
           {
             d3.select(this).style("opacity","1");
             
-            var tempID = set_tagID(d.data.repo);
+            var tempID = set_strip(d.data.repo);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -288,7 +288,7 @@ function pie_chart(source, type, tag)
         .text(function(d)
           {
             // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_tagID(d);
+            var tmp = get_strip(d);
             if(tmp.length > 6)
             {
               return tmp.substr(0,6) + ".."
@@ -556,7 +556,7 @@ function pie_chart(source, type, tag)
             { 
               d3.select(this).style("opacity",".6");
               
-              var tempID = set_tagID(d.data.repo);
+              var tempID = set_strip(d.data.repo);
               var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
               var tempEl = document.getElementById(tempTileID);
               
@@ -569,7 +569,7 @@ function pie_chart(source, type, tag)
             {
               d3.select(this).style("opacity","1");
               
-              var tempID = set_tagID(d.data.repo);
+              var tempID = set_strip(d.data.repo);
               var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
               var tempEl = document.getElementById(tempTileID);
               
@@ -619,7 +619,7 @@ function pie_chart(source, type, tag)
           .text(function(d)
             {
               // If the tag/language title is too long, we'll need to shorten it
-              var tmp = get_tagID(d);
+              var tmp = get_strip(d);
               if(tmp.length > 6)
               {
                 return tmp.substr(0,6) + ".."
@@ -757,7 +757,7 @@ function pie_chart(source, type, tag)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
-              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
+              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(d.data.tag) + "\");'>"
               //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
               var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
@@ -773,7 +773,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -782,7 +782,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < otherTagArray.length; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -801,7 +801,7 @@ function pie_chart(source, type, tag)
           { 
             d3.select(this).style("opacity",".6");
             
-            var tempID = set_tagID(d.data.tag);
+            var tempID = set_strip(d.data.tag);
             var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -816,7 +816,7 @@ function pie_chart(source, type, tag)
             var temp = '#' + tipID;
             $(temp).hide();
             
-            var tempID = set_tagID(d.data.tag);
+            var tempID = set_strip(d.data.tag);
             var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -866,7 +866,7 @@ function pie_chart(source, type, tag)
         .text(function(d)
           {
             // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_tagID(d);
+            var tmp = get_strip(d);
             if(tmp.length > 6)
             {
               return tmp.substr(0,6) + ".."
@@ -904,7 +904,7 @@ function pie_chart(source, type, tag)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   else if(type === "so_tag" && tag != null)
   {
-    tag = get_tagID(tag); // Just in case the tag had to be "set" in order to be passed as a parameter to the funciton
+    tag = get_strip(tag); // Just in case the tag had to be "set" in order to be passed as a parameter to the funciton
   
     // Function to format a number as a percent
     var per = d3.format(".0%");
@@ -931,7 +931,7 @@ function pie_chart(source, type, tag)
     d3.json(source, function(error, data)
     {
       var fullPie = 0;
-      var tagID = set_tagID(tag);
+      var tagID = set_strip(tag);
       tileID = "so_" + data.id + "_" + tagID + "_tile";
       var tipID = tileID + "_tip"
       var svg = d3.select("#pieChart_" + tileID).append("svg")
@@ -1004,7 +1004,7 @@ function pie_chart(source, type, tag)
         .style("opacity", "1")
         .attr("id",function(d)
           {
-            return (tileID + "_pie_" + set_tagID(d.data.tag));
+            return (tileID + "_pie_" + set_strip(d.data.tag));
           })
         .attr("title",function(d)
           {
@@ -1013,7 +1013,7 @@ function pie_chart(source, type, tag)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
-              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(d.data.tag) + "\");'>"
+              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(d.data.tag) + "\");'>"
               //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
               var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
@@ -1029,7 +1029,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -1038,7 +1038,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < otherTagArray.length; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_tagID(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -1057,7 +1057,7 @@ function pie_chart(source, type, tag)
           { 
             d3.select(this).style("opacity",".6");
             
-            var tempID = set_tagID(d.data.tag);
+            var tempID = set_strip(d.data.tag);
             var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -1070,7 +1070,7 @@ function pie_chart(source, type, tag)
           {
             d3.select(this).style("opacity","1");
             
-            var tempID = set_tagID(d.data.tag);
+            var tempID = set_strip(d.data.tag);
             var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -1120,7 +1120,7 @@ function pie_chart(source, type, tag)
         .text(function(d)
           {
             // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_tagID(d);
+            var tmp = get_strip(d);
             if(tmp.length > 6)
             {
               return tmp.substr(0,6) + ".."
@@ -1309,15 +1309,17 @@ function language_pie(source)
           })
         .attr("title",function(d)
           {
-            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            //$(this).tipsy({gravity: 's', html: true, hoverable: false});
             if(d.data.language != "other")
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: false});
               var percentage = per_long(d.data.total/fullPie);
               var temp_title = "<table><tr><td>" + d.data.language + ":</td><td>" + percentage + "</td></tr></table>";
               return temp_title;
             }
             else
             {
+              $(this).tipsy({gravity: 's', html: true, hoverable: true});
               var content = "Other Languages:</br></br><table>";
               var other_count = otherLangArray.length;
               if(other_count > 7)
@@ -1325,7 +1327,7 @@ function language_pie(source)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td>" + otherLangArray[i].language + ":</td><td>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
                 }
                 content += "</table>";
               }
@@ -1334,7 +1336,7 @@ function language_pie(source)
                 for(var i = 0; i < otherLangArray.length; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td class='left'>" + otherLangArray[i].language + ":</td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
                 }
                 content += "</table>";
               }
@@ -1345,14 +1347,14 @@ function language_pie(source)
           {
             if(d.data.language != "other")
             {
-              click(d.data.language, "gh_lang");
+              click(d.data.language, "gh_languages");
             }
           })
         .on("mouseover",function(d)
           { 
             d3.select(this).style("opacity",".6");
             
-            var tempID = set_tagID(d.data.language);
+            var tempID = set_strip(d.data.language);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -1365,7 +1367,7 @@ function language_pie(source)
           {
             d3.select(this).style("opacity","1");
             
-            var tempID = set_tagID(d.data.language);
+            var tempID = set_strip(d.data.language);
             var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
             var tempEl = document.getElementById(tempTileID);
             
@@ -1415,7 +1417,7 @@ function language_pie(source)
         .text(function(d)
           {
             // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_tagID(d);
+            var tmp = get_strip(d);
             if(tmp.length > 6)
             {
               return tmp.substr(0,6) + ".."
@@ -1445,4 +1447,9 @@ function language_pie(source)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   // End draw pie chart for GitHub languages <==
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+  function click(language, type)
+  {
+    //console.log(tag);
+    tile(source, type, language);
+  }
 }

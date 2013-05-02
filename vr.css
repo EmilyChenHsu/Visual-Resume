@@ -217,6 +217,30 @@ div.pieChart
     border: none;
 }
 
+div.repos_title
+{
+    text-align: center;
+    position:absolute;
+    top: 140px;
+    left: 15px;
+    border: none;
+    width: 270px;
+    font-size: 12px;
+}
+div.repos
+{
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align:left;
+    position:absolute;
+    top: 180px;
+    left: 15px;
+    border: none;
+    width: 270px;
+    height: 270px;
+    font-size: 12px;
+}
+
 div.barChart
 {
     text-align:center;

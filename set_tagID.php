@@ -1,5 +1,5 @@
 <?php
-  function set_tagID($tag)
+  function set_strip($tag)
   {
     $unwanted[0] = '/\+/';
     $unwanted[1] = '/\#/';

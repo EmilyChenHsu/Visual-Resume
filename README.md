@@ -9,7 +9,7 @@ In order to take full advantage of all of Visual Resume's features, read through
 
 * Select a user to view.
 * The initial tile that pops up give a general overview of the user's contributions in GitHub.
-* At the top-left of the tile, the user's **name** is displayed. If you click on it, it will take you to their official GitHub profile page. If you hover over it, the user's **login/username** will be displayed.
+* At the top-left of the tile, the user's **login** is displayed. If you click on it, it will take you to their official GitHub profile page. If you hover over it, the user's **full name** (if available) will be displayed.
 * Just beneath the user's name, their **tenure** is displayed. This allows you to see how long ago they joined the GitHub community.
 * Below the tenure is the user's **avatar or profile picture**.
 * Below the avatar is the **number of followers** the user has.

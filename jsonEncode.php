@@ -4,7 +4,7 @@
     <body>
         
         <?php
-            require('set_tagID.php');
+            require('set_strip.php');
             class so_user
             {
                 public $displayName = 'Click';

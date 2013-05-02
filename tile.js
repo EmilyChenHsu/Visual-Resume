@@ -153,7 +153,7 @@ function tile(source, type, tag)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tagID = set_tagID(tag);
+			var tagID = set_strip(tag);
 			tileID = "so_" + data.id + "_" + tagID + "_tile";
 			tileEl = document.getElementById(tileID);
 			if(tileEl == null)
@@ -249,8 +249,8 @@ function tile(source, type, tag)
 				
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
 				
-				var temp_tag = set_tagID(tag);
-				tagEl.innerHTML = get_tagID(temp_tag);
+				var temp_tag = set_strip(tag);
+				tagEl.innerHTML = get_strip(temp_tag);
 				
 				d3.select("#" + tileID)
 					.append("hr")
@@ -610,6 +610,130 @@ function tile(source, type, tag)
 	}
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End draw tile for user's GitHub activity within a repo <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's repositories by language ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_languages")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "gh_languages_" + data.id + "_" + set_strip(tag) + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","username")
+					.attr("id","username_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","avatar")
+					.attr("id","avatar_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","gh_info")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart")
+					.attr("id","pieChart_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+					
+				userEl = document.getElementById("username_" + tileID);
+				avEl = document.getElementById("avatar_" + tileID);
+					
+				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
+			
+			d3.select("#" + tileID)
+				.append("div")
+				.attr("class","icon")
+				.html("<a href='javascript:tile(null,\"gh\")'><img class='gh_icon' src='media/gh_logo.png'></a>");
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+							
+			d3.select("#username_" + tileID)
+				.append("text")
+				.html("<a href=https://github.com/" + data.login + "/>" + data.login + "</a>")
+				.style("font-size", global_name_font_size)
+				.attr("title",function(d)
+				{
+					$(this).tipsy({gravity: 's', html: true, hoverable: false});
+					return data.name;
+				});
+				
+			
+			// Some finangling to get the 'tag' to the correct format as a string
+            String(tag);
+			tag = get_strip(tag);
+            //var tmp = tag.replace("-","/");
+			var tmp = tag;
+			//console.log(tmp);
+			//console.log(data);
+			d3.select("#followers_" + tileID)
+				.append("text")
+				.html(function(d)
+					{
+						// If the language title is too long, we'll need to shorten it
+						if(tmp.length > 22)
+						{
+						  return tmp.substr(0,22) + ".."
+						}
+						return tmp;
+					})
+				.attr('title', function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return tmp;	
+					});
+			}
+			
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p><b>' + tag + '</b> Repositories</p>')
+				.style('text-decoration', 'underline');
+							
+			_.keys(data.repos).forEach(function(d)
+				{
+					if(data.repos[d].language == tag)
+					{
+						var tmp_repo = d.split('/');
+						var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+						d3.select("#repo_list_" + tileID)
+							.append("text")
+							.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+					}
+				})
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's repositories by language <==
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	
 	else { alert("Unknown data type parameter passed to tile()"); }

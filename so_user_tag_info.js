@@ -2,7 +2,7 @@ function so_user_tag_info(source,tag)
 {
 	d3.json(source,function(error,data)
 	{
-		var tagID = set_tagID(tag);
+		var tagID = set_strip(tag);
 		tileID = "so_" + data.id + "_" + tagID + "_tile";
 		tileEl = document.getElementById(tileID);
 		if(tileEl == null)
@@ -107,8 +107,8 @@ function so_user_tag_info(source,tag)
 			
 			avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
 			
-			var temp_tag = set_tagID(tag);
-			tagEl.innerHTML = get_tagID(temp_tag);
+			var temp_tag = set_strip(tag);
+			tagEl.innerHTML = get_strip(temp_tag);
 			
 			d3.select("#" + tileID)
     			.append("hr")

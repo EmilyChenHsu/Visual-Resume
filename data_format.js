@@ -166,12 +166,12 @@ function data_format(source, type, tag)
         {
             d3.json(source,function(error,data)
             {
-                var tagID = set_tagID(tag);
+                var tagID = set_strip(tag);
                 var tileID = "so_" + data.id + "_" + tagID + "_tile";
                 var tempDate = global_start_date;
                     
                 var graphData = new Array();
-                tag = get_tagID(tag);  // ++
+                tag = get_strip(tag);  // ++
                 _.keys(data.tags[tag].activity).forEach(function(d,i)
                     {      
                       var qc = toInt(data.tags[tag].activity[d].questionCount);
