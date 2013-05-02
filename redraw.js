@@ -53,40 +53,45 @@ function redraw(data, id, type)
 		  y.domain([0, global_grouped_y_max]);
 			
 		  svg.append("text")
-			.attr("x",110)
-			.attr("y",-5)
-			.style("text-anchor", "middle")
-			.style("font-size",20)
-			.text("Contributions by Month");
+            .attr("x",110)
+            .attr("y",-11)
+            .style("text-anchor", "middle")
+            .style("text-decoration", 'underline')
+            .text("Contributions by Month");
 			
 		  svg.append("text")
-			.attr("x",250)
-			.attr("y",-5)
-			.text("stacked")
-			.style("text-anchor", "end")
-			.style("font-size","9px")
-			.on("mouseout",function()
-			  {
-				d3.select("body").style("cursor","default");
-				d3.select(this).style("font-weight","normal");  
-			  })
-			.on("mouseover",function()
-			  {
-				d3.select("body").style("cursor","pointer");
-				d3.select(this).style("font-weight","bold");  
-			  })
-			  .on("click",function()
-			  {
-				  show_stacked();
-			  });
-			
-		  svg.append("text")
-			.attr("x",250)
-			.attr("y",-13)
-			.text("grouped")
-			.style("text-anchor", "end")
-			.style("font-size","9px")
-			.style("font-weight","bold"); 
+                .attr("x", 105)
+                .attr("y", 1)
+                .text("stacked")
+                .style("text-anchor", "end")
+                .style("font-size","9px")
+				.on("mouseout",function()
+                {
+                  d3.select("body").style("cursor","default");
+                  d3.select(this).style("font-weight","normal");  
+                })
+              .on("mouseover",function()
+                {
+                  d3.select("body").style("cursor","pointer");
+                  d3.select(this).style("font-weight","bold");  
+                })
+                .on("click",function()
+                {
+                    show_stacked();
+                });
+            svg.append("text")
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
+              .text("grouped")
+              .style("text-anchor", "start")
+              .style("font-size","9px")
+              .style("font-weight","bold"); 
 		  
 			xAxis.tickValues(data.map(function(d,i)
 			  {
@@ -112,6 +117,7 @@ function redraw(data, id, type)
 		  .append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", -43)
+			.attr('x', -20)
 			.attr("dy", ".71em")
 			.style("text-anchor", "end")
 			.text("Contributions");
@@ -180,40 +186,45 @@ function redraw(data, id, type)
 		  y.domain([0, global_stacked_y_max]);
 			
 		  svg.append("text")
-			.attr("x",110)
-			.attr("y",-5)
-			.style("text-anchor", "middle")
-			.style("font-size",20)
-			.text("Contributions by Month");
+            .attr("x",110)
+            .attr("y",-11)
+            .style("text-anchor", "middle")
+            .style("text-decoration", 'underline')
+            .text("Contributions by Month");
 			
 		  svg.append("text")
-			.attr("x",250)
-			.attr("y",-5)
-			.text("stacked")
-			.style("text-anchor", "end")
-			.style("font-size","9px")
-			.style("font-weight","bold");
-			
-		  svg.append("text")
-			.attr("x",250)
-			.attr("y",-13)
-			.text("grouped")
-			.style("text-anchor", "end")
-			.style("font-size","9px")
-			.on("mouseout",function()
-			  {
-				d3.select("body").style("cursor","default");
-				d3.select(this).style("font-weight","normal");  
-			  })
-			.on("mouseover",function()
-			  {
-				d3.select("body").style("cursor","pointer");
-				d3.select(this).style("font-weight","bold");  
-			  })
-			  .on("click",function()
-			  {
-				  show_grouped();
-			  });  
+                .attr("x", 105)
+                .attr("y", 1)
+                .text("stacked")
+                .style("text-anchor", "end")
+                .style("font-size","9px")
+                .style("font-weight","bold");
+            svg.append("text")
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
+              .text("grouped")
+              .style("text-anchor", "start")
+              .style("font-size","9px")
+              .on("mouseout",function()
+                {
+                  d3.select("body").style("cursor","default");
+                  d3.select(this).style("font-weight","normal");  
+                })
+              .on("mouseover",function()
+                {
+                  d3.select("body").style("cursor","pointer");
+                  d3.select(this).style("font-weight","bold");  
+                })
+                .on("click",function()
+                {
+                    show_grouped();
+                }); 
 		  
 			xAxis.tickValues(data.map(function(d,i)
 			  {
@@ -239,6 +250,7 @@ function redraw(data, id, type)
 		  .append("text")
 			.attr("transform", "rotate(-90)")
 			.attr("y", -43)
+			.attr('x', -20)
 			.attr("dy", ".71em")
 			.style("text-anchor", "end")
 			.text("Contributions");

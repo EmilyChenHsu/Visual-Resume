@@ -77,25 +77,30 @@ function empty_graph(id, type, community)
         // Graph title
         svg.append("text")
             .attr("x",110)
-            .attr("y",-5)
+            .attr("y",-11)
             .style("text-anchor", "middle")
-            .style("font-size",20)
+            .style("text-decoration", 'underline')
             .text("Contributions by Month");
         if(type === "stacked")
         {
             svg.append("text")
-                .attr("x",250)
-                .attr("y",-5)
+                .attr("x", 105)
+                .attr("y", 1)
                 .text("stacked")
                 .style("text-anchor", "end")
                 .style("font-size","9px")
                 .style("font-weight","bold");
-              
             svg.append("text")
-              .attr("x",250)
-              .attr("y",-13)
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
               .text("grouped")
-              .style("text-anchor", "end")
+              .style("text-anchor", "start")
               .style("font-size","9px")
               .on("mouseout",function()
                 {
@@ -115,12 +120,12 @@ function empty_graph(id, type, community)
         else
         {
             svg.append("text")
-                .attr("x",250)
-                .attr("y",-5)
+                .attr("x", 105)
+                .attr("y", 1)
                 .text("stacked")
                 .style("text-anchor", "end")
                 .style("font-size","9px")
-                .on("mouseout",function()
+				.on("mouseout",function()
                 {
                   d3.select("body").style("cursor","default");
                   d3.select(this).style("font-weight","normal");  
@@ -134,14 +139,20 @@ function empty_graph(id, type, community)
                 {
                     show_stacked();
                 });
-              
             svg.append("text")
-              .attr("x",250)
-              .attr("y",-13)
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
               .text("grouped")
-              .style("text-anchor", "end")
-              .style("font-weight","bold")
-              .style("font-size","9px");
+              .style("text-anchor", "start")
+              .style("font-size","9px")
+              .style("font-weight","bold");
+              
 
         }
       
@@ -156,6 +167,7 @@ function empty_graph(id, type, community)
         .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", -43)
+			.attr('x', -20)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .text("Contributions");
@@ -261,25 +273,30 @@ function empty_graph(id, type, community)
         // Graph title
         svg.append("text")
             .attr("x",110)
-            .attr("y",-5)
+            .attr("y",-11)
             .style("text-anchor", "middle")
-            .style("font-size",20)
+            .style("text-decoration", 'underline')
             .text("Contributions by Month");
         if(type === "stacked")
         {
             svg.append("text")
-                .attr("x",250)
-                .attr("y",-5)
+                .attr("x", 105)
+                .attr("y", 1)
                 .text("stacked")
                 .style("text-anchor", "end")
                 .style("font-size","9px")
                 .style("font-weight","bold");
-              
             svg.append("text")
-              .attr("x",250)
-              .attr("y",-13)
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
               .text("grouped")
-              .style("text-anchor", "end")
+              .style("text-anchor", "start")
               .style("font-size","9px")
               .on("mouseout",function()
                 {
@@ -299,12 +316,12 @@ function empty_graph(id, type, community)
         else
         {
             svg.append("text")
-                .attr("x",250)
-                .attr("y",-5)
+                .attr("x", 105)
+                .attr("y", 1)
                 .text("stacked")
                 .style("text-anchor", "end")
                 .style("font-size","9px")
-                .on("mouseout",function()
+				.on("mouseout",function()
                 {
                   d3.select("body").style("cursor","default");
                   d3.select(this).style("font-weight","normal");  
@@ -318,14 +335,19 @@ function empty_graph(id, type, community)
                 {
                     show_stacked();
                 });
-              
             svg.append("text")
-              .attr("x",250)
-              .attr("y",-13)
+				.text("|")
+				.attr("x", 115)
+				.attr('y', 1)
+				.style("text-anchor", "middle")
+				.style('font-size', '9px');
+            svg.append("text")
+              .attr("x", 125)
+              .attr("y", 1)
               .text("grouped")
-              .style("text-anchor", "end")
-              .style("font-weight","bold")
-              .style("font-size","9px");
+              .style("text-anchor", "start")
+              .style("font-size","9px")
+              .style("font-weight","bold");
 
         }
       
@@ -340,6 +362,7 @@ function empty_graph(id, type, community)
         .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", -43)
+			.attr('x', -20)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .text("Contributions");
