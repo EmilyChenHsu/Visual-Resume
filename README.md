@@ -39,7 +39,7 @@ In order to take full advantage of all of Visual Resume's features, read through
 
 * In the tag-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
 
-    >1. The "Contributions by Tag" radial chart is replaced with a **"Related Tags" radial chart**. The only difference is that the tags displayed are those that are commonly tagged along with the highlighted tag. For example, JavaScript may often be tagged with jQuery, since jQuery is a JavaScript library.
+    1. The "Contributions by Tag" radial chart is replaced with a **"Related Tags" radial chart**. The only difference is that the tags displayed are those that are commonly tagged along with the highlighted tag. For example, JavaScript may often be tagged with jQuery, since jQuery is a JavaScript library.
     2. Instead of showing the user's reputation, the **name of the highlighted tag** is displayed beneath the user's avatar.
     3. As may be expected, the graphs in the lower half of the tile only show user's contributions within the highlighted tag.
 
