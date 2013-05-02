@@ -368,6 +368,8 @@ function pie_chart(source, type, tag)
         .text("Related Repositories")
         .attr("y",-75)
         .style("text-anchor", "middle")
+        .style('font-size', '12px')
+        .style('text-decoration', 'underline')
         .attr("title",function(d)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
@@ -691,7 +693,9 @@ function pie_chart(source, type, tag)
       svg.append("text")
         .text("Contributions by Tag")
         .attr("y",-75)
-        .style("text-anchor", "middle");
+        .style("text-anchor", "middle")
+        .style('font-size', '12px')
+        .style('text-decoration', 'underline');
         
       _.keys(data.tags).forEach(function(d,i)
         {
@@ -940,6 +944,8 @@ function pie_chart(source, type, tag)
         .text("Related Tags")
         .attr("y",-75)
         .style("text-anchor", "middle")
+        .style('font-size', '12px')
+        .style('text-decoration', 'underline')
         .attr("title",function(d)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});

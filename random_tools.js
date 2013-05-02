@@ -504,3 +504,22 @@ function to_si(input)
         return input;
     }
 }
+
+/*
+ * Dynamic text sizing
+d3.select("#username_" + tileID)
+				.append("text")
+				.html("<a href=http://stackoverflow.com/users/" + data.id + "/>" + data.displayName + "</a>")
+				.style("font-size",function()
+					{
+						nameLength = data.displayName.length;
+						if(nameLength < 9)
+						{
+							return (30) + "px";
+						}
+						else
+						{
+							return (240 / nameLength) + "px";
+						}
+					});
+*/

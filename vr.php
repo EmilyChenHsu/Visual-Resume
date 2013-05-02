@@ -78,6 +78,16 @@
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 			// End global graph size variables <==
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+			
+			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+			// Begin global styling variables ==>
+			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+
+				var global_name_font_size = '16px';
+					
+			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+			// End global graph size variables <==
+			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
 			var global_coordinates = new Array();
 				var temp_count = 0;
@@ -177,7 +187,7 @@
 			var global_bar_offset = 0;
 			
 			var global_grouped = false;
-			var global_languages = true;
+			var global_languages = false;
 			
 			d3.select('html')
 				.on("mouseup", function()

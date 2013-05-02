@@ -1,4 +1,4 @@
-function tile(source, type, tag, second)
+function tile(source, type, tag)
 {
 	var coordinates = new Array();
 	var temp_i = 0;
@@ -126,18 +126,7 @@ function tile(source, type, tag, second)
 			d3.select("#username_" + tileID)
 				.append("text")
 				.html("<a href=http://stackoverflow.com/users/" + data.id + "/>" + data.displayName + "</a>")
-				.style("font-size",function()
-					{
-						nameLength = data.displayName.length;
-						if(nameLength < 9)
-						{
-							return (30) + "px";
-						}
-						else
-						{
-							return (240 / nameLength) + "px";
-						}
-					});
+				.style('font-size', global_name_font_size);
 							
 			d3.select("#reputation_" + tileID)
 				.append("text")
@@ -256,18 +245,7 @@ function tile(source, type, tag, second)
 				d3.select("#username_" + tileID)
 				.append("text")
 				.html("<a href=http://stackoverflow.com/users/" + data.id + "/>" + data.displayName + "</a>")
-				.style("font-size",function()
-					{
-						nameLength = data.displayName.length;
-						if(nameLength < 9)
-						{
-							return (30) + "px";
-						}
-						else
-						{
-							return (240 / nameLength) + "px";
-						}
-					});
+				.style("font-size", global_name_font_size);
 				
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
 				
@@ -369,16 +347,9 @@ function tile(source, type, tag, second)
 					.append("div")
 					.attr("class","gh_info")
 					.attr("id","followers_" + tileID);
-				/*
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","pieChart")
-					.attr("id","pieChart_" + tileID);
-				*/
-				
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","pieChart_up")
 					.attr("id","repos_" + tileID)
 					.style("display",function()
 						{
@@ -393,7 +364,7 @@ function tile(source, type, tag, second)
 						});
 				d3.select("#" + tileID)
 					.append("div")
-					.attr("class","pieChart_up")
+					.attr("class","pieChart")
 					.attr("id","languages_" + tileID)
 					.style("display",function()
 						{
@@ -406,7 +377,6 @@ function tile(source, type, tag, second)
 								return "none";
 							}
 						});	
-				
 				
 				d3.select("#" + tileID)
 					.append("div")
@@ -476,23 +446,12 @@ function tile(source, type, tag, second)
 							
 			d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=https://github.com/" + data.login + "/>" + data.name + "</a>")
-				.style("font-size",function()
-					{
-						nameLength = data.name.length;
-						if(nameLength < 9)
-						{
-							return (30) + "px";
-						}
-						else
-						{
-							return (300 / nameLength) + "px";
-						}
-					})
+				.html("<a href=https://github.com/" + data.login + "/>" + data.login + "</a>")
+				.style("font-size", global_name_font_size)
 				.attr("title",function(d)
 				{
 					$(this).tipsy({gravity: 's', html: true, hoverable: false});
-					return data.login;
+					return data.name;
 				});
 				
 				pie_chart(source, "gh", null);
@@ -530,10 +489,6 @@ function tile(source, type, tag, second)
 					.append("div")
 					.attr("class","username")
 					.attr("id","username_" + tileID);
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","info")
-					.attr("id","info_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","avatar")
@@ -591,11 +546,8 @@ function tile(source, type, tag, second)
 					.attr("id","short_stacked_" + tileID);
 					
 				userEl = document.getElementById("username_" + tileID);
-				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
-				
-				infoEl.innerHTML = member_for(data.creationDate);
-			
+					
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
 			
 			d3.select("#" + tileID)
@@ -614,23 +566,12 @@ function tile(source, type, tag, second)
 							
 			d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=https://github.com/" + data.login + "/>" + data.name + "</a>")
-				.style("font-size",function()
-					{
-						nameLength = data.name.length;
-						if(nameLength < 9)
-						{
-							return (30) + "px";
-						}
-						else
-						{
-							return (300 / nameLength) + "px";
-						}
-					})
+				.html("<a href=https://github.com/" + data.login + "/>" + data.login + "</a>")
+				.style("font-size", global_name_font_size)
 				.attr("title",function(d)
 				{
 					$(this).tipsy({gravity: 's', html: true, hoverable: false});
-					return data.login;
+					return data.name;
 				});
 				
 			
@@ -642,21 +583,6 @@ function tile(source, type, tag, second)
 			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
 			d3.select("#followers_" + tileID)
 				.append("text")
-				//.html(tmp)
-				/*
-				.style("font-size",function()
-					{
-						nameLength = tmp.length;
-						if(nameLength < 15)
-						{
-							return (20) + "px";
-						}
-						else
-						{
-							return (290 / nameLength) + "px";
-						}
-					})
-				*/
 				.html(function(d)
 					{
 						// If the repo title is too long, we'll need to shorten it
@@ -687,9 +613,4 @@ function tile(source, type, tag, second)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	
 	else { alert("Unknown data type parameter passed to tile()"); }
-	
-	if(second != undefined)
-	{
-		tile_alt(second[0],second[1],second[2]);
-	}
 }
