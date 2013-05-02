@@ -608,7 +608,7 @@ function tile(source, type, tag, second)
 			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
 			d3.select("#followers_" + tileID)
 				.append("text")
-				.html(tmp)
+				//.html(tmp)
 				/*
 				.style("font-size",function()
 					{
@@ -623,8 +623,24 @@ function tile(source, type, tag, second)
 						}
 					})
 				*/
+				.html(function(d)
+					{
+						// If the repo title is too long, we'll need to shorten it
+						if(tmp.length > 22)
+						{
+						  return tmp.substr(0,22) + ".."
+						}
+						return tmp;
+					})
+				.attr('title', function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return tmp;	
+					});
+				
+			d3.select("#followers_" + tileID)
 				.append("text")
-				.html('<br>Language: ' + temp_language);	
+				.html('<br>Language: ' + temp_language + '<br>Forked: ' + data.repos[tmp].isFork);	
 			
 				pie_chart(source, "gh_repo", tag);
 				data_format(source, "gh_repo", tag);
