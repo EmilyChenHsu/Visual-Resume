@@ -351,6 +351,34 @@ function show_grouped()
     global_grouped = true;
 }
 
+function show_repos()
+{
+    d3.select("body").style("cursor","default");
+    global_data.forEach(function(d)
+      {
+        var temp_tileID = d[1];
+        $("#languages_" + temp_tileID).fadeOut('slow',function()
+        {
+            $("#repos_" + temp_tileID).fadeIn('slow');
+        });
+    });
+    global_languages = false;
+}
+
+function show_languages()
+{
+    d3.select("body").style("cursor","default");
+    global_data.forEach(function(d)
+      {
+        var temp_tileID = d[1];
+        $("#repos_" + temp_tileID).fadeOut('slow',function()
+        {
+            $("#languages_" + temp_tileID).fadeIn('slow');
+        });
+    });
+    global_languages = true;
+}
+
 function remove_tile(el, id)
 {
     global_coordinates.forEach(function(d,i)

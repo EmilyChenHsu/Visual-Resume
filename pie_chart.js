@@ -16,6 +16,7 @@ function pie_chart(source, type, tag)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   if(type === "gh")
   {
+    height = 200; // override height
     // Function to format a number as a percent
     var per = d3.format(".0%");
     var per_long = d3.format(".2%");
@@ -43,16 +44,44 @@ function pie_chart(source, type, tag)
     {
       var fullPie = 0;
       var tileID = "gh_" + data.id + "_tile";
-      var svg = d3.select("#pieChart_" + tileID).append("svg")
+      var svg = d3.select("#repos_" + tileID).append("svg")
           .attr("width", width)
           .attr("height", height)
           .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
         
       svg.append("text")
-        .text("Repositories")
-        .attr("y",-75)
+        .text("Contributions by Repo")
+        .attr("y",-85)
         .style("text-anchor", "middle");
+        
+      svg.append("text")
+        .text("by language")
+        .attr("y",-73)
+        .attr('x', 75)
+        .style("text-anchor", "end")
+        .style('font-size', '9px')
+        .on("mouseout",function()
+          {
+            d3.select("body").style("cursor","default");
+            d3.select(this).style("font-weight","normal");  
+          })
+        .on("mouseover",function()
+          {
+            d3.select("body").style("cursor","pointer");
+            d3.select(this).style("font-weight","bold");  
+          })
+          .on("click",function()
+          {
+              show_languages();
+          });
+      svg.append("text")
+        .text("by repo")
+        .attr("y",-65)
+        .attr('x', 75)
+        .style("text-anchor", "end")
+        .style('font-size', '9px')
+        .style('font-weight', 'bold');
         
       _.keys(data.repos).forEach(function(d,i)
         {
@@ -278,6 +307,7 @@ function pie_chart(source, type, tag)
   // ===== END pie chart labeling ===== //
         
     });
+    language_pie(source);
   }
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   // End draw pie chart for GitHub data <==
@@ -1115,4 +1145,281 @@ function pie_chart(source, type, tag)
     //console.log(tag);
     tile(source, type, tag);
   }
+}
+
+
+
+function language_pie(source)
+{
+  // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+  // Begin draw pie chart for GitHub languages ==>
+  // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+    
+  var width = 150,
+  height = 200,
+  radius = Math.min(width, height) / 2;
+  var legend_height = 0,
+      cube_width = 23,
+      cube_height = 15,
+      horizontal_offset = 33;
+      
+    // Function to format a number as a percent
+    var per = d3.format(".0%");
+    var per_long = d3.format(".2%");
+    
+    var repoArray = new Array();
+    var otherRepoArray = new Array();
+  
+    var sliceColor = d3.scale.ordinal()
+      //.range(["#F47A20","#A76E44","#893E07","#FCAB6F"]);
+      .range(["#00CC00","#008500","#34D0BA","#00685A"]);
+      
+    var languageArray = new Array();
+    var otherLangArray = new Array();
+      
+    var arc = d3.svg.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(20);
+  
+    var pie = d3.layout.pie()
+      .value(function(d,i)
+        {
+          return d.total;        
+        })
+      .startAngle(-Math.PI/2)
+      .endAngle(Math.PI/2);
+  
+    d3.json(source, function(error, data)
+    {
+      var fullPie = 0;
+      var tileID = "gh_" + data.id + "_tile";
+      var svg = d3.select("#languages_" + tileID).append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        
+      svg.append("text")
+        .text("Contributions by Language")
+        .attr("y",-85)
+        .style("text-anchor", "middle");
+      
+      svg.append("text")
+        .text("by language")
+        .attr("y",-73)
+        .attr('x', 75)
+        .style("text-anchor", "end")
+        .style('font-size', '9px')
+        .style('font-weight', 'bold');
+      svg.append("text")
+        .text("by repo")
+        .attr("y",-65)
+        .attr('x', 75)
+        .style("text-anchor", "end")
+        .style('font-size', '9px')
+        .on("mouseout",function()
+          {
+            d3.select("body").style("cursor","default");
+            d3.select(this).style("font-weight","normal");  
+          })
+        .on("mouseover",function()
+          {
+            d3.select("body").style("cursor","pointer");
+            d3.select(this).style("font-weight","bold");  
+          })
+          .on("click",function()
+          {
+              show_repos();
+          });
+        
+      _.keys(data.languages).forEach(function(d,i)
+        {
+          languageArray[i] = {language:d,total:data.languages[d]};
+          otherLangArray[i] = {language:d,total:data.languages[d]};
+          fullPie += data.languages[d];
+        });
+      // Sort array of tag objects by their contribution scores from highest to lowest
+      otherLangArray.sort(function(a,b)
+        {
+          return b.total - a.total;
+        });
+      if(otherLangArray.length > 3)
+      {
+        otherLangArray = otherLangArray.slice(3);
+      }
+  
+      languageArray.sort(function(a,b)
+        {
+          return b.total - a.total;
+        });
+      var otherTotal = 0;
+      
+      if(languageArray.length > 3)
+        { 
+          otherTotal = languageArray[3].total;
+          for(var i = 4; i < languageArray.length; i++)
+          {
+            languageArray[3].total += languageArray[i].total;
+            otherTotal += languageArray[i].total;
+          }
+        
+          languageArray[3].language = "other";
+          var deleteNum = languageArray.length - 3;
+          languageArray.splice(4,deleteNum);
+        }
+  
+      var g = svg.selectAll(".arc")
+        .data(pie(languageArray))
+        .enter().append("g")
+          .attr("class", "arc");
+      
+      g.append("path")
+        .attr("d", arc)
+        .style("fill", function(d,i)
+          {
+            return sliceColor(languageArray[i].language);
+          })
+        .style("opacity", "1")
+        .attr("id",function(d)
+          {
+            return (tileID + "_pie_" + d.data.language);
+          })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            if(d.data.language != "other")
+            {
+              var percentage = per_long(d.data.total/fullPie);
+              var temp_title = "<table><tr><td>" + d.data.language + ":</td><td>" + percentage + "</td></tr></table>";
+              return temp_title;
+            }
+            else
+            {
+              var content = "Other Languages:</br></br><table>";
+              var other_count = otherLangArray.length;
+              if(other_count > 7)
+              {
+                for(var i = 0; i < 7; i++)
+                {
+                  var percentage = per_long(otherLangArray[i].total/fullPie);
+                  content += ("<tr><td>" + otherLangArray[i].language + ":</td><td>" + percentage + "</td></tr>");
+                }
+                content += "</table>";
+              }
+              else
+              {
+                for(var i = 0; i < otherLangArray.length; i++)
+                {
+                  var percentage = per_long(otherLangArray[i].total/fullPie);
+                  content += ("<tr><td class='left'>" + otherLangArray[i].language + ":</td><td class='right'>" + percentage + "</td></tr>");
+                }
+                content += "</table>";
+              }
+              return content;
+            }
+          })
+        .on("click",function(d)
+          {
+            if(d.data.language != "other")
+            {
+              click(d.data.language, "gh_lang");
+            }
+          })
+        .on("mouseover",function(d)
+          { 
+            d3.select(this).style("opacity",".6");
+            
+            var tempID = set_tagID(d.data.language);
+            var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
+            var tempEl = document.getElementById(tempTileID);
+            
+            if(tempEl != null)
+            {
+              tempEl.style.backgroundColor='#aaa';
+            }
+          })
+        .on("mouseout",function(d)
+          {
+            d3.select(this).style("opacity","1");
+            
+            var tempID = set_tagID(d.data.language);
+            var tempTileID = "gh_" + data.id + "_" + tempID + "_tile";
+            var tempEl = document.getElementById(tempTileID);
+            
+            if(tempEl != null)
+            {
+              tempEl.style.backgroundColor='#fff';
+            }
+          });      
+        
+  // ===== BEGIN pie chart labeling ===== //
+        var pie_legend = svg.selectAll(".pie_legend")
+          .data(sliceColor.domain().slice())
+        .enter().append("g")
+          .attr("class", "pie_legend")
+          .attr("transform", function(d, i)
+            {
+              if(i < 2)
+              {
+                var vert_offset = i * 15 + i * 5 + 5;
+                var horiz_offset = -60;
+                return "translate(" + horiz_offset + "," + vert_offset + ")";
+              }
+              else
+              {
+                var vert_offset = (i - 2) * 15 + (i - 2) * 5 + 5;
+                var horiz_offset = 20;
+                return "translate(" + horiz_offset + "," + vert_offset + ")";  
+              }
+            });
+    
+      pie_legend.append("rect")
+        .attr("x",horizontal_offset)
+        .attr("y",legend_height)
+        .attr("width", cube_width)
+        .attr("height", cube_height)
+        .style("fill", function(d,i)
+          {
+            return sliceColor(d);
+          })
+        .style("opacity", "1");
+    
+      pie_legend.append("text")
+        .attr("x", horizontal_offset - 3)
+        .attr("y", cube_height/2 + legend_height)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d)
+          {
+            // If the tag/language title is too long, we'll need to shorten it
+            var tmp = get_tagID(d);
+            if(tmp.length > 6)
+            {
+              return tmp.substr(0,6) + ".."
+            }
+            return tmp;
+          })
+        .attr("title",function(d)
+          {
+            $(this).tipsy({gravity: 's', html: true, hoverable: false});
+            return d;
+          });
+      
+      pie_legend.append("text")
+        .attr("x", horizontal_offset + cube_width/2)
+        .attr("y", cube_height/2 + legend_height)
+        .attr("dy", ".35em")
+        .attr("fill","white")
+        .style("text-anchor", "middle")
+        .text(function(d,i)
+          {
+            var value = languageArray[i].total / fullPie;
+            return per(value);
+          });
+  // ===== END pie chart labeling ===== //
+        
+    });
+  // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+  // End draw pie chart for GitHub languages <==
+  // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 }

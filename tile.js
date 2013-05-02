@@ -369,10 +369,44 @@ function tile(source, type, tag, second)
 					.append("div")
 					.attr("class","gh_info")
 					.attr("id","followers_" + tileID);
+				/*
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","pieChart")
 					.attr("id","pieChart_" + tileID);
+				*/
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart_up")
+					.attr("id","repos_" + tileID)
+					.style("display",function()
+						{
+							if(global_languages === false)
+							{
+								return "block";
+							}
+							else
+							{
+								return "none";
+							}
+						});
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart_up")
+					.attr("id","languages_" + tileID)
+					.style("display",function()
+						{
+							if(global_languages === true)
+							{
+								return "block";
+							}
+							else
+							{
+								return "none";
+							}
+						});	
+				
 				
 				d3.select("#" + tileID)
 					.append("div")

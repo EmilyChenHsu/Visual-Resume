@@ -177,6 +177,7 @@
 			var global_bar_offset = 0;
 			
 			var global_grouped = false;
+			var global_languages = true;
 			
 			d3.select('html')
 				.on("mouseup", function()
