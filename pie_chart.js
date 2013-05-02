@@ -51,14 +51,16 @@ function pie_chart(source, type, tag)
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
         
       svg.append("text")
-        .text("Contributions by Repo")
+        .text("Contributions by Repository")
         .attr("y",-85)
-        .style("text-anchor", "middle");
+        .style("text-anchor", "middle")
+        .style('font-size', '12px')
+        .style('text-decoration', 'underline');
         
       svg.append("text")
         .text("by language")
         .attr("y",-73)
-        .attr('x', 75)
+        .attr('x', -10)
         .style("text-anchor", "end")
         .style('font-size', '9px')
         .on("mouseout",function()
@@ -76,10 +78,16 @@ function pie_chart(source, type, tag)
               show_languages();
           });
       svg.append("text")
-        .text("by repo")
-        .attr("y",-65)
-        .attr('x', 75)
-        .style("text-anchor", "end")
+        .text("|")
+        .attr("y",-73)
+        .attr('x', 0)
+        .style("text-anchor", "middle")
+        .style('font-size', '9px');
+      svg.append("text")
+        .text("by repository")
+        .attr("y",-73)
+        .attr('x', 10)
+        .style("text-anchor", "start")
         .style('font-size', '9px')
         .style('font-weight', 'bold');
         
@@ -1202,20 +1210,29 @@ function language_pie(source)
       svg.append("text")
         .text("Contributions by Language")
         .attr("y",-85)
-        .style("text-anchor", "middle");
+        .style("text-anchor", "middle")
+        .style('font-size', '12px')
+        .style('text-decoration', 'underline');
       
       svg.append("text")
         .text("by language")
         .attr("y",-73)
-        .attr('x', 75)
+        .attr('x', -10)
         .style("text-anchor", "end")
         .style('font-size', '9px')
         .style('font-weight', 'bold');
+        
       svg.append("text")
-        .text("by repo")
-        .attr("y",-65)
-        .attr('x', 75)
-        .style("text-anchor", "end")
+        .text("|")
+        .attr("y",-73)
+        .attr('x', 0)
+        .style("text-anchor", "middle")
+        .style('font-size', '9px');
+      svg.append("text")
+        .text("by repository")
+        .attr("y",-73)
+        .attr('x', 10)
+        .style("text-anchor", "start")
         .style('font-size', '9px')
         .on("mouseout",function()
           {
