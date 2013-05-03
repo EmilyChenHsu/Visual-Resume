@@ -1189,6 +1189,7 @@ function language_pie(source)
       .range(["#00CC00","#008500","#34D0BA","#00685A"]);
       
     var languageArray = new Array();
+    var temp_languageArray = new Array();
     var otherLangArray = new Array();
       
     var arc = d3.svg.arc()
@@ -1255,12 +1256,29 @@ function language_pie(source)
               show_repos();
           });
         
+      _.keys(data.repos).forEach(function(d,i)
+        {
+          var temp_total = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
+          var temp_language = data.repos[d].language != undefined ? data.repos[d].language : 'unknown';
+          String(temp_language);
+          temp_languageArray[temp_language] = {language:temp_language, total:temp_total};
+          fullPie += temp_total;
+        });
+      
+      _.keys(temp_languageArray).forEach(function(d,i)
+        {
+          languageArray[i] = temp_languageArray[d];
+        });
+      otherLangArray = languageArray;
+      /*
       _.keys(data.languages).forEach(function(d,i)
         {
           languageArray[i] = {language:d,total:data.languages[d]};
           otherLangArray[i] = {language:d,total:data.languages[d]};
           fullPie += data.languages[d];
         });
+      */
+      
       // Sort array of tag objects by their contribution scores from highest to lowest
       otherLangArray.sort(function(a,b)
         {
