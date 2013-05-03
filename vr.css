@@ -90,18 +90,16 @@ div.switch
 
 div.so_general
 {
-    position:relative;
-    float:left;
-    margin-left: 20px;
-    margin-bottom:20px;
+    position: absolute;
     
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
     
-    width:290px;
+    width:250px;
     height:415px;
+    /*
     font-size: 15px;
-    
+    */
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -295,7 +293,7 @@ div.buttons
 
 img.so_general
 {
-    width: 300px;
+    width: 250px;
     height: auto;
 }
 
