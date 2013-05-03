@@ -46,7 +46,17 @@ a.dark_background:hover
     color: #aaa;
 }
 
-div.user_tile
+div.gh_user_tile
+{
+    position: absolute;
+    width:300px;
+    height:480px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
+div.so_user_tile
 {
     position: absolute;
     width:300px;
@@ -330,7 +340,16 @@ span.close_button
     font-size: 12px;
 }
 
-.separator
+.gh_user_tile .separator
+{
+    text-align:center;
+    border-top: 2px solid #00CC00;
+    position: absolute;
+    bottom: 85px;
+    right: 50px;
+    width: 200px;
+}
+.so_user_tile .separator
 {
     text-align:center;
     border-top: 2px solid #F47A20;

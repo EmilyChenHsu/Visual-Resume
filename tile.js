@@ -29,7 +29,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","user_tile")
+					.attr("class","so_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -162,7 +162,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","user_tile")
+					.attr("class","so_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -326,7 +326,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","user_tile")
+					.attr("class","gh_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -480,7 +480,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","user_tile")
+					.attr("class","gh_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -628,7 +628,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","user_tile")
+					.attr("class","gh_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
