@@ -71,7 +71,7 @@
 			// Begin global graph size variables ==>
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
-				var global_margin = {top: 20, right: 20, bottom: 20, left: 45},
+				var global_margin = {top: 23, right: 20, bottom: 20, left: 45},
 					global_width = 300 - global_margin.left - global_margin.right,
 					global_height = 145 - global_margin.top - global_margin.bottom;
 					
