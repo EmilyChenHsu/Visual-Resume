@@ -531,3 +531,61 @@ d3.select("#username_" + tileID)
 						}
 					});
 */
+
+function rearrange_tiles(order)
+{
+    if(order === 'user')
+    {
+        var temp_coor = global_coordinates.slice(0);
+        temp_coor.sort(function(a,b)
+          {
+            return b.id - a.id;
+          });
+        console.log(global_coordinates);
+        console.log(temp_coor);
+    }
+}
+
+function exchange(first, second)
+{
+    var first_id = global_coordinates[first].id;
+    var second_id = global_coordinates[second].id;
+    
+    if(first_id != null)
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = first_id;
+        global_coordinates[second].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = null;
+        global_coordinates[second].occupied = false;
+    }
+    
+    if(second_id != null)
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+            
+        global_coordinates[first].id = second_id;
+        global_coordinates[first].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+        
+        global_coordinates[first].id = null;
+        global_coordinates[first].occupied = false;
+    }
+}

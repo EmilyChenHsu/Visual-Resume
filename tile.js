@@ -13,6 +13,7 @@ function tile(source, type, tag)
 			break;
 		}
 	}
+	console.log(global_coordinates);
 
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for stackoverflow user all ==>

@@ -56,6 +56,11 @@
 		<a href="javascript:tile('Data/so_data_50742.json', 'so_all', null);">Chuck</a>
 		<!--<br>
 		<a href="javascript:tile('Data/test.json', 'so_all', null);">test</a>-->
+		<!--
+		<p>
+			<a href="javascript:rearrange_tiles('user');">re-arrange!</a>
+		</p>
+		-->
 		</div>
 		<?php
 		
@@ -211,50 +216,6 @@
 						
 					})
 				.on("mousedown", function() { global_mousedown = true; });
-			
-			function exchange(first, second)
-			{
-				var first_id = global_coordinates[first].id;
-				var second_id = global_coordinates[second].id;
-				
-				if(first_id != null)
-				{
-					d3.select('#' + first_id)
-						.style('top', global_coordinates[second].top + 'px')
-						.style('left', global_coordinates[second].left + 'px');
-					
-					global_coordinates[second].id = first_id;
-					global_coordinates[second].occupied = true;
-				}
-				else
-				{
-					d3.select('#' + first_id)
-						.style('top', global_coordinates[second].top + 'px')
-						.style('left', global_coordinates[second].left + 'px');
-					
-					global_coordinates[second].id = null;
-					global_coordinates[second].occupied = false;
-				}
-				
-				if(second_id != null)
-				{
-					d3.select('#' + second_id)
-						.style('top', global_coordinates[first].top + 'px')
-						.style('left', global_coordinates[first].left + 'px');
-						
-					global_coordinates[first].id = second_id;
-					global_coordinates[first].occupied = true;
-				}
-				else
-				{
-					d3.select('#' + second_id)
-						.style('top', global_coordinates[first].top + 'px')
-						.style('left', global_coordinates[first].left + 'px');
-					
-					global_coordinates[first].id = null;
-					global_coordinates[first].occupied = false;
-				}
-			}
 		</script>
 		
     </body>
