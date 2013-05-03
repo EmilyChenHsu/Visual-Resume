@@ -324,6 +324,13 @@ function set_strip(tag)
     return tag;
 }
 
+function set_url(tag)
+{
+    tag = tag.replace(/\+/g,'%2B');
+    tag = tag.replace(/\#/g,'%23');
+    return tag;
+}
+
 function show_stacked()
 {
     d3.select("body").style("cursor","default");

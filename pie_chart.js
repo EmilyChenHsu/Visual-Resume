@@ -453,7 +453,9 @@ function pie_chart(source, type, tag)
         d3.select("#pieChart_" + tileID).append("div")
           .attr("class", "pie_replacement")
           .append("text")
-          .html("We are currently unable to find any of " + data.name + "'s repositories that are related to <b>" + tmp + "</b>.");
+          //.html("We are currently unable to find any of " + data.name + "'s repositories that are related to <b>" + tmp + "</b>.");
+          .html("<p>No related repositories found at this time.</p>")
+          .style('text-align', 'center');
       }
       else
       {
