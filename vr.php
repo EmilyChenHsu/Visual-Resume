@@ -216,7 +216,6 @@
 			{
 				var first_id = global_coordinates[first].id;
 				var second_id = global_coordinates[second].id;
-				console.log(first_id, second_id);
 				
 				if(first_id != null)
 				{

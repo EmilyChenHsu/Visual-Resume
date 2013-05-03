@@ -125,7 +125,7 @@ function tile(source, type, tag)
 							
 			d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=http://stackoverflow.com/users/" + data.id + "/>" + data.displayName + "</a>")
+				.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 				.style('font-size', global_name_font_size);
 							
 			d3.select("#reputation_" + tileID)
@@ -244,7 +244,7 @@ function tile(source, type, tag)
 				
 				d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=http://stackoverflow.com/users/" + data.id + "/>" + data.displayName + "</a>")
+				.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 				.style("font-size", global_name_font_size);
 				
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
@@ -290,7 +290,7 @@ function tile(source, type, tag)
 				
 			d3.select("#so_general_tile")
 				.append("text")
-				.html("<a href='http://stackoverflow.com/'><img class='so_general' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a><hr>Stack Overflow is <b>a programming Q & A site that's free.</b> Free to ask questions, free to answer questions, free to read, free to index, built with plain old HTML, no fake rot13 text on the home page, no scammy google-cloaking tactics, no salespeople, no JavaScript windows dropping down in front of the answer asking for $12.95 to go away. You can register if you want to collect karma and win valuable flair that will appear next to your name, but otherwise, it's just free. And fast. Very, very fast.");
+				.html("<a href='http://stackoverflow.com/' target='_blank'><img class='so_general' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a><hr>Stack Overflow is <b>a programming Q & A site that's free.</b> Free to ask questions, free to answer questions, free to read, free to index, built with plain old HTML, no fake rot13 text on the home page, no scammy google-cloaking tactics, no salespeople, no JavaScript windows dropping down in front of the answer asking for $12.95 to go away. You can register if you want to collect karma and win valuable flair that will appear next to your name, but otherwise, it's just free. And fast. Very, very fast.");
 			
 			d3.select("#so_general_tile")
 				.append("text")
@@ -446,7 +446,7 @@ function tile(source, type, tag)
 							
 			d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=https://github.com/" + data.login + "/>" + data.login + "</a>")
+				.html("<a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a>")
 				.style("font-size", global_name_font_size)
 				.attr("title",function(d)
 				{
@@ -566,7 +566,7 @@ function tile(source, type, tag)
 							
 			d3.select("#username_" + tileID)
 				.append("text")
-				.html("<a href=https://github.com/" + data.login + "/>" + data.login + "</a>")
+				.html("<a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a>")
 				.style("font-size", global_name_font_size)
 				.attr("title",function(d)
 				{
@@ -586,11 +586,11 @@ function tile(source, type, tag)
 				.html(function(d)
 					{
 						// If the repo title is too long, we'll need to shorten it
-						if(tmp.length > 22)
+						if(tmp.length > 18)
 						{
-						  return tmp.substr(0,22) + ".."
+						  return '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp.substr(0,22) + "..</a>";
 						}
-						return tmp;
+						return '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>";
 					})
 				.attr('title', function(d)
 					{
