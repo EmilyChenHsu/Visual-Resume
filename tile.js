@@ -34,7 +34,11 @@ function tile(source, type, tag)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -102,13 +106,15 @@ function tile(source, type, tag)
 					.append("div")
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
-					
+				
+				bcEl = document.getElementById("breadcrumbs_" + tileID);	
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
 				infoEl.innerHTML = member_for(data.creationDate);
 				
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
+				bcEl.innerHTML = "test -> test -> hi";
 			
 			d3.select("#" + tileID)
 				.append("div")

@@ -45,7 +45,12 @@ a.dark_background:hover
 {
     color: #aaa;
 }
-
+div.breadcrumbs
+{
+    position: absolute;
+    left: 10px;
+    top: -15px;
+}
 div.gh_user_tile
 {
     position: absolute;
