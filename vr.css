@@ -48,7 +48,8 @@ a.dark_background:hover
 div.breadcrumbs
 {
     float: left;
-    margin-top: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
     margin-left:10px;
     font-weight: bold;
 }
@@ -136,10 +137,9 @@ img.icon
 }
 img.gh_icon
 {
-    position: absolute;
-    top: 5px;
-    right: 25px;
-    height: 30px;
+    position: relative;
+    top: 7px;
+    height: 25px;
     width: auto;
 }
 

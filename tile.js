@@ -540,11 +540,7 @@ function tile(source, type, tag)
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
-					.html("GitHub >> " + data.login + " >> " + tmp);	
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","username")
-					.attr("id","username_" + tileID);
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> >> " + '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>");	
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","avatar")
@@ -605,11 +601,6 @@ function tile(source, type, tag)
 				avEl = document.getElementById("avatar_" + tileID);
 					
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
-			
-			d3.select("#" + tileID)
-				.append("div")
-				.attr("class","icon")
-				.html("<a href='javascript:tile(null,\"gh\")'><img class='gh_icon' src='media/gh_logo.png'></a>");
 				
 			d3.select("#" + tileID)
 				.append("span")
