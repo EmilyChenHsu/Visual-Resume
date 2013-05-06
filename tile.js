@@ -706,10 +706,10 @@ function tile(source, type, tag)
 								var temp_end = repo_length - temp_diff;
 								if(temp_end > 0)
 								{
-									return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp.substr(0,temp_end) + "..</a>";
+									return '>> ' + tmp.substr(0,temp_end) + "..";
 								}
 							}
-							return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>";
+							return '>> ' + tmp;
 						})
 					.attr('title', function(d)
 						{
