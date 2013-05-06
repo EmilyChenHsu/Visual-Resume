@@ -13,7 +13,6 @@ function tile(source, type, tag)
 			break;
 		}
 	}
-	console.log(global_coordinates);
 
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for stackoverflow user all ==>
@@ -154,8 +153,10 @@ function tile(source, type, tag)
 	{
 		d3.json(source,function(error,data)
 		{
+			// Some finangling to get the 'tag' to the correct format as a string
+			String(tag);
+			var tmp = tag;
 			//String(tag);
-			//console.log(tag);
 			var tagID = set_strip(tag);
 			tileID = "so_" + data.id + "_" + tagID + "_tile";
 			tileEl = document.getElementById(tileID);
@@ -165,7 +166,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","so_user_tile")
+					.attr("class","so_tag_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -175,20 +176,41 @@ function tile(source, type, tag)
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
-					.html("Stack Overflow >> " + data.displayName + " >> " + tag);	
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","username")
-					.attr("id","username_" + tileID);
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","info")
-					.attr("id","info_" + tileID);
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","avatar")
-					.attr("id","avatar_" + tileID)
-					.attr("title","test");
+					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp_string = data.displayName + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var tag_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = tag_length - temp_diff;
+								if(temp_end > 0)
+								{
+									return ' >> <a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag.substr(0,temp_end) + '..</a>';
+								}
+							}
+							return ' >> <a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag + '</a>';
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","tag")
@@ -233,13 +255,6 @@ function tile(source, type, tag)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-		
-				userEl = document.getElementById("username_" + tileID);
-				avEl = document.getElementById("avatar_" + tileID);
-				
-				d3.select("#"+tileID)
-					.append("text")
-					.html("<div class='icon'><a href='javascript:tile(null, \"so\")'><img class='icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a></div>");
 				
 				d3.select("#" + tileID)
 				.append("span")
@@ -255,36 +270,16 @@ function tile(source, type, tag)
 				.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 				.style("font-size", global_name_font_size);
 				
-				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
-				
 				var temp_tag = set_strip(tag);
 				
 				tag = get_strip(temp_tag);
-				console.log(tag);
 				var temp_commentNum = data.tags[tag].commentCount != undefined ? data.tags[tag].commentCount : 0;
 				var temp_answerNum = data.tags[tag].answerCount != undefined ? data.tags[tag].answerCount : 0;
 				var temp_questionNum = data.tags[tag].questionCount != undefined ? data.tags[tag].questionCount : 0;
 				
 				d3.select("#tag_" + tileID)
-					.append("text")
-					.html(function(d)
-						{
-							// If the language title is too long, we'll need to shorten it
-							if(tag.length > 22)
-							{
-							  return '<a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag.substr(0,22) + '..</a>';
-							}
-							return '<a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag + '</a>';
-						})
-					.attr('title', function(d)
-						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tag;	
-						})
-					.style('text-decoration', 'underline');
-				d3.select("#tag_" + tileID)
 					.append('text')
-					.html('<br>Answers: ' + temp_answerNum + '<br>Comments: ' + temp_commentNum + '<br>Questions: ' + temp_questionNum);
+					.html('Answers: ' + temp_answerNum + '<br>Comments: ' + temp_commentNum + '<br>Questions: ' + temp_questionNum);
 				
 				d3.select("#" + tileID)
 					.append("hr")
@@ -540,7 +535,6 @@ function tile(source, type, tag)
 					});
 				
 				var tmp_string = data.login + ' >> ' + tmp;
-				console.log(tmp_string.length);
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(function(d)
@@ -630,7 +624,7 @@ function tile(source, type, tag)
 						remove_tile(this, tileID);
 					});
 			
-			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
+			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'unavailable';
 				
 			var temp_commentNum = data.repos[tmp].commentCount != undefined ? data.repos[tmp].commentCount : 0;
 			var temp_commitNum = data.repos[tmp].commitCount != undefined ? data.repos[tmp].commitCount : 0;
@@ -638,7 +632,27 @@ function tile(source, type, tag)
 			
 			d3.select("#info_" + tileID)
 				.append("text")
-				.html('Language: ' + temp_language + '<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
+				.html('Language: ');
+			d3.select("#info_" + tileID)
+				.append("text")
+				.html(function()
+					{
+						// If the language name is too long, we'll need to shorten it
+						if(temp_language.length > 14)
+						{
+							return temp_language.substr(0,13) + "..";
+						}
+						return temp_language;
+					})
+				.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return temp_language;	
+						});
+				
+			d3.select("#info_" + tileID)
+				.append("text")
+				.html('<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
 			
 				pie_chart(source, "gh_repo", tag);
 				data_format(source, "gh_repo", tag);
@@ -693,7 +707,6 @@ function tile(source, type, tag)
 					});
 				
 				var tmp_string = data.login + ' >> ' + tmp;
-				console.log(tmp_string.length);
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(function(d)

@@ -93,6 +93,16 @@ div.so_user_tile
     border:2px solid #aaaaaa;
     border-radius: 10px;
 }
+div.so_tag_user_tile
+{
+    position: absolute;
+    width:300px;
+    height:480px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
 
 div.tile_container
 {
@@ -178,6 +188,13 @@ img.icon
     height: 25px;
     width: auto;
 }
+.so_tag_user_tile img.so_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
 
 div.reputation
 {
@@ -198,6 +215,14 @@ div.tag
     margin-left:10px;
     border: none;
 }
+.so_tag_user_tile div.tag
+{
+    clear: left;
+    float: left;
+    margin-top: 10px;
+    margin-left:10px;
+    border: none;
+}
 
 div.gh_info
 {
@@ -206,7 +231,14 @@ div.gh_info
     margin-top: 0px;
     margin-left:10px;
     border: none;
-    font:12px sans-serif;
+}
+.gh_repo_user_tile div.gh_info
+{
+    clear: left;
+    float: left;
+    margin-top: 20px;
+    margin-left:10px;
+    border: none;
 }
 div.pieChart
 {
@@ -409,6 +441,15 @@ span.close_button
     width: 200px;
 }
 .so_user_tile .separator
+{
+    text-align:center;
+    border-top: 2px solid #F47A20;
+    position: absolute;
+    bottom: 85px;
+    right: 50px;
+    width: 200px;
+}
+.so_tag_user_tile .separator
 {
     text-align:center;
     border-top: 2px solid #F47A20;
