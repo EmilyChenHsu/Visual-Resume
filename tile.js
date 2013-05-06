@@ -530,7 +530,7 @@ function tile(source, type, tag)
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
 					.append("div")
-					.attr("class","gh_user_tile")
+					.attr("class","gh_repo_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
@@ -540,15 +540,46 @@ function tile(source, type, tag)
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
-					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> >> " + '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>");	
-				d3.select("#" + tileID)
-					.append("div")
-					.attr("class","avatar")
-					.attr("id","avatar_" + tileID);
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp_string = data.login + ' >> ' + tmp;
+				console.log(tmp_string.length);
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var repo_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = repo_length - temp_diff;
+								if(temp_end > 0)
+								{
+									return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp.substr(0,temp_end) + "..</a>";
+								}
+							}
+							return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>";
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","gh_info")
-					.attr("id","followers_" + tileID);
+					.attr("id","info_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","pieChart")
@@ -598,9 +629,9 @@ function tile(source, type, tag)
 					.attr("id","short_stacked_" + tileID);
 					
 				userEl = document.getElementById("username_" + tileID);
-				avEl = document.getElementById("avatar_" + tileID);
+				//avEl = document.getElementById("avatar_" + tileID);
 					
-				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
+				//avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
 				
 			d3.select("#" + tileID)
 				.append("span")
@@ -610,45 +641,16 @@ function tile(source, type, tag)
 					{
 						remove_tile(this, tileID);
 					});
-							
-			d3.select("#username_" + tileID)
-				.append("text")
-				.html("<a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a>")
-				.style("font-size", global_name_font_size)
-				.attr("title",function(d)
-				{
-					$(this).tipsy({gravity: 's', html: true, hoverable: false});
-					return data.name;
-				});
-				
-			//console.log(tmp);
-			//console.log(data);
+			
 			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';
-			d3.select("#followers_" + tileID)
-				.append("text")
-				.html(function(d)
-					{
-						// If the repo title is too long, we'll need to shorten it
-						if(tmp.length > 18)
-						{
-						  return '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp.substr(0,22) + "..</a>";
-						}
-						return '<a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>";
-					})
-				.attr('title', function(d)
-					{
-						$(this).tipsy({gravity: 's', html: true, hoverable: false});
-						return tmp;	
-					})
-				.style('text-decoration', 'underline');
 				
 			var temp_commentNum = data.repos[tmp].commentCount != undefined ? data.repos[tmp].commentCount : 0;
 			var temp_commitNum = data.repos[tmp].commitCount != undefined ? data.repos[tmp].commitCount : 0;
 			var temp_issueNum = data.repos[tmp].issueCount != undefined ? data.repos[tmp].issueCount : 0;
 			
-			d3.select("#followers_" + tileID)
+			d3.select("#info_" + tileID)
 				.append("text")
-				.html('<br>Language: ' + temp_language + '<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
+				.html('Language: ' + temp_language + '<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
 			
 				pie_chart(source, "gh_repo", tag);
 				data_format(source, "gh_repo", tag);
