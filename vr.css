@@ -73,6 +73,16 @@ div.gh_repo_user_tile
     border:2px solid #aaaaaa;
     border-radius: 10px;
 }
+div.gh_language_user_tile
+{
+    position: absolute;
+    width:300px;
+    height:480px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
 div.so_user_tile
 {
     position: absolute;
@@ -125,7 +135,7 @@ div.so_general
 div.icon
 {
     position:absolute;
-    top: 20px;
+    top: 0;
     right:0;
     border: none;
 }
@@ -145,13 +155,23 @@ img.icon
     height: 40px;
     width: auto;
 }
-img.gh_icon
+
+.gh_user_tile img.gh_icon
 {
+    position: absolute;
+    top: 5px;
+    right: 25px;
     height: 30px;
     width: auto;
 }
-
 .gh_repo_user_tile img.gh_icon
+{
+    position: relative;
+    top: 7px;
+    height: 25px;
+    width: auto;
+}
+.gh_language_user_tile  img.gh_icon
 {
     position: relative;
     top: 7px;
