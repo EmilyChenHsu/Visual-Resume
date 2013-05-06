@@ -38,7 +38,9 @@ function tile(source, type, tag)
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
-					.attr("id","breadcrumbs_" + tileID);
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("Stack Overflow >> " + data.displayName + " >> general");
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -107,14 +109,12 @@ function tile(source, type, tag)
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
 				
-				bcEl = document.getElementById("breadcrumbs_" + tileID);	
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
 				infoEl.innerHTML = member_for(data.creationDate);
 				
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
-				bcEl.innerHTML = "test -> test -> hi";
 			
 			d3.select("#" + tileID)
 				.append("div")
@@ -175,7 +175,13 @@ function tile(source, type, tag)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("Stack Overflow >> " + data.displayName + " >> " + tag);	
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -364,7 +370,13 @@ function tile(source, type, tag)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("GitHub >> " + data.login + " >> general");	
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -510,6 +522,10 @@ function tile(source, type, tag)
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
+				// Some finangling to get the 'tag' to the correct format as a string
+				String(tag);
+				var tmp = tag.replace("-","/");
+			
 				global_coordinates[temp_i].occupied = true;
 				global_coordinates[temp_i].id = tileID;
 				d3.select('body')
@@ -519,6 +535,12 @@ function tile(source, type, tag)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
 					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("GitHub >> " + data.login + " >> " + tmp);	
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -608,10 +630,6 @@ function tile(source, type, tag)
 					return data.name;
 				});
 				
-			
-			// Some finangling to get the 'tag' to the correct format as a string
-            String(tag);
-            var tmp = tag.replace("-","/");
 			//console.log(tmp);
 			//console.log(data);
 			var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'info not available';

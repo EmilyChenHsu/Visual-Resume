@@ -106,7 +106,7 @@
 					}
 					global_coordinates[i] =
 					{
-						top: 100 + (temp_count * 550),
+						top: 120 + (temp_count * 560),
 						left: 150 + (temp_column * 370),
 						occupied: false,
 						num: i,
