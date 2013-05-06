@@ -204,6 +204,11 @@ img.avatar
     height:90px;
     width:90px;
 }
+img.arrow
+{
+    height: 40px;
+    width: auto;
+}
 
 div.info
 {
