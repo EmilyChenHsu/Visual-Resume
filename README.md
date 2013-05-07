@@ -20,8 +20,8 @@ In order to take full advantage of all of Visual Resume's features, read through
 * In the repository-specific tiles (those that pop up when you click on a slice of the **by repository** radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
 
     1. The **tenure** is not displayed.
+    1. The **avatar** and community **logo** are shrunk and moved in order to setup a "breadcrumb" trail that lets the person using the tool see exactly where the tile fits into the scheme of things. The **login** is still clickable, and the complete **name (owner/name) of the highlighted repository** is displayed. It may get cut off if the name is too long, so you can always hover over it to see the full name. If you click on the name, a new tab will open that shows the user's commit activity in that repository on GitHub's site.
     1. The "Repositories" radial chart is replaced with a **"Related Repositories" radial chart**. The only difference is that the repositories displayed are those that share at least one contributor or collaborator (besides the user we're interested in) with the repository highlighted by the tile. For example, if you are looking at Joe Bob's involvement in Rails, the chart will show other repositories that both Joe Bob and at least one of his friends in Rails contribute to. For many users, no chart will be available, because not everyone is involved on multiple projects that share contributors or collaborators. There is no **by language** chart available here (it probably wouldn't make much sense).
-    2. Instead of showing the number of follower's the user has, the complete **name (owner/name) of the highlighted repository** is displayed beneath the user's avatar. It may get cut off if the name is too long, so you can always hover over it to see the full name. If you click on the name, a new tab will open that shows the user's commit activity in that repository on GitHub's site.
     3. Below the name of the repository, the **repository's main language** is listed. If you click on it, a new tab will open with the user's commit activity in that repository on GitHub.
     4. Below the main language, the **"forked" status of the project** is displayed (`true` if the repository is forked, `false` if the repository was created by the `owner`, which may not be the user we're focusing on--check the `owner` two lines above to be sure).
     3. Below the forked status, the **number of the user's commits in the repository** is listed.
@@ -45,8 +45,8 @@ In order to take full advantage of all of Visual Resume's features, read through
 
 * In the tag-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
 
+    1. The **avatar** and community **logo** are shrunk and moved in order to setup a "breadcrumb" trail that lets the person using the tool see exactly where the tile fits into the scheme of things. The **display name** is still clickable, and the complete **name of the highlighted tag** is displayed. It may get cut off if the name is too long, so you can always hover over it to see the full name. If you click on it, a new tab will open with the user's activity in that tag on Stack Overflow.
     1. The "Contributions by Tag" radial chart is replaced with a **"Related Tags" radial chart**. The only difference is that the tags displayed are those that are commonly tagged along with the highlighted tag. For example, JavaScript may often be tagged with jQuery, since jQuery is a JavaScript library.
-    2. Instead of showing the user's reputation, the **name of the highlighted tag** is displayed beneath the user's avatar. If you click on it, a new tab will open with the user's activity in that tag on Stack Overflow.
     3. Below the tag name, the **number of the user's answers in the tag** is listed.
     3. Below the number of answers, the **number of the user's comments in the tag** is listed.
     3. Below the number of comments, the **number of the user's questions in the tag** is listed.
@@ -61,6 +61,24 @@ In order to take full advantage of all of Visual Resume's features, read through
 * You are limited to opening only about 30 tiles at once. That's a bit excessive, so you probably don't have to worry about hitting your quota and blowing up the system.
 * It's probably obvious, but our tool allows you to **compare** one user's contributions in various tags, repositories, or communities **and** multiple users' contributions with each other as well.
 
+# Key Interactions
+________________
+
+## GitHub
+
+* Select a user (by clicking his or her name on the left side of the screen).
+* Hover over the user's **login** name at the top of the tile.
+* Click on the user's **login** name at the top of the tile.
+* Click on the **by language** link below the title for the radial chart.
+* Hover over the slices of the chart.
+* Click on a slice of the chart besides 'other.'
+* Click the name of a repository in the list that appears in the new tile (if there are none, select a different language).
+* Click on the **by repository** link below the title for the radial chart.
+* Click the 'x' inside of a circle at the top right of a tile to **close the tile**.  
+
+## Stack Overflow
+
+## General
 ________________
 ## Sample JSON File (GitHub):
 
