@@ -54,39 +54,50 @@
 						<td><input type="radio" name="q3" value="sa">Strongly Agree</td>
 						<td><input type="radio" name="q3" value="cj">Cannot Judge</td>
 					</tr>
-					<tr>
+					<tr class='first_show'>
 						<td class='question2' colspan='6'><b>Q4: </b>This person writes code that introduces new/important functionality.</td>
 					</tr>
-					<tr>
+					<tr class='first_show'>
 						<td><input type="radio" name="q4" value="sd">Strongly Disagree</td>
 						<td><input type="radio" name="q4" value="d">Disagree</td>
 						<td><input type="radio" name="q4" value="n">Neutral</td>
-						<td><input type="radio" name="q4" value="a">Agree</td>
-						<td><input type="radio" name="q4" value="sa">Strongly Agree</td>
+						<td><input type="radio" name="q4" value="a" id="first_show1">Agree</td>
+						<td><input type="radio" name="q4" value="sa" id="first_show2">Strongly Agree</td>
 						<td><input type="radio" name="q4" value="cj">Cannot Judge</td>
 					</tr>
-					<tr>
-						<td class='question2' colspan='6'><b>Q5: </b>This person writes code dealing with bug fixes.</td>
+						<tr style='display: none' class='first_hidden'>
+							<td class='question2' colspan='6'><b>Q4.1: </b>Some or all of this functionality is introduced in projects' core.</td>
+						</tr>
+						<tr style='display: none' class='first_hidden'>
+							<td><input type="radio" name="q4.1" value="sd">Strongly Disagree</td>
+							<td><input type="radio" name="q4.1" value="d">Disagree</td>
+							<td><input type="radio" name="q4.1" value="n">Neutral</td>
+							<td><input type="radio" name="q4.1" value="a">Agree</td>
+							<td><input type="radio" name="q4.1" value="sa">Strongly Agree</td>
+							<td><input type="radio" name="q4.1" value="cj">Cannot Judge</td>
+						</tr>
+					<tr class='second_show'>
+						<td class='question2' colspan='6'><b>Q5: </b>This person writes code that fixes bugs.</td>
 					</tr>
-					<tr>
+					<tr class='second_show'>
 						<td><input type="radio" name="q5" value="sd">Strongly Disagree</td>
 						<td><input type="radio" name="q5" value="d">Disagree</td>
 						<td><input type="radio" name="q5" value="n">Neutral</td>
-						<td><input type="radio" name="q5" value="a">Agree</td>
-						<td><input type="radio" name="q5" value="sa">Strongly Agree</td>
+						<td><input type="radio" name="q5" value="a" id="second_show1">Agree</td>
+						<td><input type="radio" name="q5" value="sa" id="second_show2">Strongly Agree</td>
 						<td><input type="radio" name="q5" value="cj">Cannot Judge</td>
 					</tr>
-					<tr>
-						<td class='question2' colspan='6'><b>Q6: </b>This person writes code that is important to the projects' they work on.</td>
-					</tr>
-					<tr>
-						<td><input type="radio" name="q6" value="sd">Strongly Disagree</td>
-						<td><input type="radio" name="q6" value="d">Disagree</td>
-						<td><input type="radio" name="q6" value="n">Neutral</td>
-						<td><input type="radio" name="q6" value="a">Agree</td>
-						<td><input type="radio" name="q6" value="sa">Strongly Agree</td>
-						<td><input type="radio" name="q6" value="cj">Cannot Judge</td>
-					</tr>
+						<tr style='display: none' class='second_hidden'>
+							<td class='question2' colspan='6'><b>Q5.1: </b>This person's bug fixes deal with core project code.</td>
+						</tr>
+						<tr style='display: none' class='second_hidden'>
+							<td><input type="radio" name="q5.1" value="sd">Strongly Disagree</td>
+							<td><input type="radio" name="q5.1" value="d">Disagree</td>
+							<td><input type="radio" name="q5.1" value="n">Neutral</td>
+							<td><input type="radio" name="q5.1" value="a">Agree</td>
+							<td><input type="radio" name="q5.1" value="sa">Strongly Agree</td>
+							<td><input type="radio" name="q5.1" value="cj">Cannot Judge</td>
+						</tr>
 				</table>
 			
 			<br><br>
@@ -132,6 +143,34 @@
 					</tr>
 				</table>
 		</form>
+		
+		<script>
+			
+			$('.first_show').change(function()
+				{
+					if($('#first_show1').is(':checked') || $('#first_show2').is(':checked'))
+					{
+						$('.first_hidden').show();
+					}
+					else
+					{
+						$('.first_hidden').hide();
+					}
+				});
+			
+			$('.second_show').change(function()
+				{
+					if($('#second_show1').is(':checked') || $('#second_show2').is(':checked'))
+					{
+						$('.second_hidden').show();
+					}
+					else
+					{
+						$('.second_hidden').hide();
+					}
+				});
+			
+		</script>
 		
     </body>
 		

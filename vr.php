@@ -29,78 +29,32 @@
 	</head>
 								
     <body>
-		
+		<!--
 		<form name='user_search' action='handler.php' method='post'>
 			
 			<input type='text' name='search_input'>	
 			<input type='submit' value='Search!'>
 
 		</form>
+		-->
 		
 		<div class="leftBox">
-		<h3>GitHub</h3>
-		<!--
-		<a href="javascript:tile('Data/gh_data_52642.json', 'gh_all', null);">Santiago Pastorino</a>
-		<br>
-		<a href="javascript:tile('Data/gh_data_9582.json', 'gh_all', null);">Jose Valim</a>
-		<br>
-		<a href="javascript:tile('Data/gh_data_3359.json', 'gh_all', null);">Emilio Tagua</a>
-		<br>
-		<a href="javascript:tile('Data/gh_data_3387.json', 'gh_all', null);">Xavier Noria</a>
-		<br>
-		<a href="javascript:tile('Data/gh_data_137.json', 'gh_all', null);">Joshua Peek</a>
-		-->
-<a href="javascript:tile('Data/tgh_data_367029.json', 'gh_all', null);">GHuser1</a><br>
-<a href="javascript:tile('Data/tgh_data_167022.json', 'gh_all', null);">GHuser2</a><br>
-<a href="javascript:tile('Data/tgh_data_1175.json', 'gh_all', null);">GHuser3</a><br>
-<a href="javascript:tile('Data/tgh_data_59140.json', 'gh_all', null);">GHuser4</a><br>
-<a href="javascript:tile('Data/tgh_data_108369.json', 'gh_all', null);">GHuser5</a><br>
-<a href="javascript:tile('Data/tgh_data_718.json', 'gh_all', null);">GHuser6</a><br>
-<a href="javascript:tile('Data/tgh_data_1284.json', 'gh_all', null);">GHuser7</a><br>
-<a href="javascript:tile('Data/tgh_data_17791.json', 'gh_all', null);">GHuser8</a><br>
-<a href="javascript:tile('Data/tgh_data_38495.json', 'gh_all', null);">GHuser9</a><br>
-<a href="javascript:tile('Data/tgh_data_378646.json', 'gh_all', null);">GHuser10</a><br>
-<a href="javascript:tile('Data/tgh_data_665.json', 'gh_all', null);">GHuser11</a><br>
-<a href="javascript:tile('Data/tgh_data_40605.json', 'gh_all', null);">GHuser12</a><br>
-<a href="javascript:tile('Data/tgh_data_14514.json', 'gh_all', null);">GHuser13</a><br>
-<a href="javascript:tile('Data/tgh_data_43391.json', 'gh_all', null);">GHuser14</a><br>
-<a href="javascript:tile('Data/tgh_data_52201.json', 'gh_all', null);">GHuser15</a><br>
-<a href="javascript:tile('Data/tgh_data_22148.json', 'gh_all', null);">GHuser16</a><br>
-
-
-		<h3>Stack Overflow</h3>
-<a href="javascript:tile('Data/tso_data_449311.json', 'so_all', null);">SOuser1</a><br>
-<a href="javascript:tile('Data/tso_data_100839.json', 'so_all', null);">SOuser2</a><br>
-<a href="javascript:tile('Data/tso_data_14895.json', 'so_all', null);">SOuser3</a><br>
-<a href="javascript:tile('Data/tso_data_3381.json', 'so_all', null);">SOuser4</a><br>
-<a href="javascript:tile('Data/tso_data_303083.json', 'so_all', null);">SOuser5</a><br>
-<a href="javascript:tile('Data/tso_data_42413.json', 'so_all', null);">SOuser6</a><br>
-<a href="javascript:tile('Data/tso_data_29691.json', 'so_all', null);">SOuser7</a><br>
-<a href="javascript:tile('Data/tso_data_154907.json', 'so_all', null);">SOuser8</a><br>
-<a href="javascript:tile('Data/tso_data_165079.json', 'so_all', null);">SOuser9</a><br>
-<a href="javascript:tile('Data/tso_data_214365.json', 'so_all', null);">SOuser10</a><br>
-<a href="javascript:tile('Data/tso_data_211136.json', 'so_all', null);">SOuser11</a><br>
-<a href="javascript:tile('Data/tso_data_50176.json', 'so_all', null);">SOuser12</a><br>
-<a href="javascript:tile('Data/tso_data_2774.json', 'so_all', null);">SOuser13</a><br>
-<a href="javascript:tile('Data/tso_data_133012.json', 'so_all', null);">SOuser14</a><br>
-<a href="javascript:tile('Data/tso_data_54247.json', 'so_all', null);">SOuser15</a><br>
-<a href="javascript:tile('Data/tso_data_75284.json', 'so_all', null);">SOuser16</a><br>
-
-		<!--
-		<a href="javascript:tile('Data/so_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
-		<br>
-		<a href="javascript:tile('Data/so_data_588267.json', 'so_all', null);">Jose Valim</a>
-		<br>
-		<a href="javascript:tile('Data/so_data_50742.json', 'so_all', null);">Chuck</a>
-		<br>
-		<a href="javascript:tile('Data/so_data_1423.json', 'so_all', null);">AgileJon</a>
-		<br>
-		<a href="javascript:tile('Data/so_data_1623.json', 'so_all', null);">Rob Pilkington</a>
-		<br>
-		<a href="javascript:tile('Data/so_data_3295.json', 'so_all', null);">toolkit</a>
-		-->
-		<!--<br>
-		<a href="javascript:tile('Data/test.json', 'so_all', null);">test</a>-->
+		<h3>Paolo Perrotta</h3>
+		<a href="javascript:tile('Data/tgh_data_17791.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_154907.json', 'so_all', null);">Stack Overflow</a><br>
+		<h3>Mathieu Ravaux</h3>
+		<a href="javascript:tile('Data/tgh_data_38495.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_165079.json', 'so_all', null);">Stack Overflow</a><br>
+		<h3>Mac Martine</h3>
+		<a href="javascript:tile('Data/tgh_data_378646.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_214365.json', 'so_all', null);">Stack Overflow</a><br>
+		<h3>Zach Inglis</h3>
+		<a href="javascript:tile('Data/tgh_data_665.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_50176.json', 'so_all', null);">Stack Overflow</a><br>
+		<h3>John F. Douthat</h3>
+		<a href="javascript:tile('Data/tgh_data_40605.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_2774.json', 'so_all', null);">Stack Overflow</a><br>
+		
 		<!--
 		<p>
 			<a href="javascript:rearrange_tiles('user');">re-arrange!</a>
