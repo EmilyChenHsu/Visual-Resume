@@ -135,9 +135,22 @@ function tile(source, type, tag)
 					.attr("class","smallText")
 					.html(" rep");
 				
-				data_format(source, "so_all", null);
-				legend(tileID, "bar", "so");
-				pie_chart(source, "so_all", null);
+				// This is a sad, sad way to ensure things don't fire early..
+				setTimeout(function()
+				{
+					data_format(source, "so_all", null);
+					setTimeout(function()
+					{
+						legend(tileID, "bar", "so");
+						setTimeout(function()
+						{
+							pie_chart(source, "so_all", null);
+						}, global_timeout);
+					}, global_timeout);
+				}, global_timeout);
+				//data_format(source, "so_all", null);
+				//legend(tileID, "bar", "so");
+				//pie_chart(source, "so_all", null);
 			}
 		});
 	}
@@ -155,7 +168,7 @@ function tile(source, type, tag)
 		{
 			// Some finangling to get the 'tag' to the correct format as a string
 			String(tag);
-			var tmp = tag;
+			var tmp = get_strip(tag);
 			//String(tag);
 			var tagID = set_strip(tag);
 			tileID = "so_" + data.id + "_" + tagID + "_tile";
@@ -187,7 +200,7 @@ function tile(source, type, tag)
 						return data.name;
 					});
 				
-				var tmp_string = data.displayName + ' >> ' + tmp;
+				var tmp_string = data.displayName + ' >> ' + get_strip(tmp);
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(function(d)
@@ -289,9 +302,22 @@ function tile(source, type, tag)
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
 				
-				pie_chart(source, "so_tag", tag);
-				data_format(source, "so_tag", tag);
-				legend(tileID, "bar", "so");
+				// This is a sad, sad way to ensure things don't fire early..
+				setTimeout(function()
+				{
+					data_format(source, "so_tag", tag);
+					setTimeout(function()
+					{
+						legend(tileID, "bar", "so");
+						setTimeout(function()
+						{
+							pie_chart(source, "so_tag", tag);
+						}, global_timeout);
+					}, global_timeout);
+				}, global_timeout);
+				//pie_chart(source, "so_tag", tag);
+				//data_format(source, "so_tag", tag);
+				//legend(tileID, "bar", "so");
 			}
 		})
 	}
@@ -483,9 +509,22 @@ function tile(source, type, tag)
 					return data.name;
 				});
 				
-				pie_chart(source, "gh", null);
-				data_format(source, "gh");
-				legend(tileID, "bar", "gh");
+				// This is a sad, sad way to ensure things don't fire early..
+				setTimeout(function()
+				{
+					data_format(source, "gh");
+					setTimeout(function()
+					{
+						legend(tileID, "bar", "gh");
+						setTimeout(function()
+						{
+							pie_chart(source, "gh", null);
+						}, global_timeout);
+					}, global_timeout);
+				}, global_timeout);
+				//pie_chart(source, "gh", null);
+				//data_format(source, "gh");
+				//legend(tileID, "bar", "gh");
 			}
 		});
 	}
@@ -654,9 +693,22 @@ function tile(source, type, tag)
 				.append("text")
 				.html('<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
 			
-				pie_chart(source, "gh_repo", tag);
-				data_format(source, "gh_repo", tag);
-				legend(tileID, "bar", "gh");
+				// This is a sad, sad way to ensure things don't fire early..
+				setTimeout(function()
+				{
+					data_format(source, "gh_repo", tag);
+					setTimeout(function()
+					{
+						legend(tileID, "bar", "gh");
+						setTimeout(function()
+						{
+							pie_chart(source, "gh_repo", tag);
+						}, global_timeout);
+					}, global_timeout);
+				}, global_timeout);
+				//pie_chart(source, "gh_repo", tag);
+				//data_format(source, "gh_repo", tag);
+				//legend(tileID, "bar", "gh");
 			}
 		});
 	}

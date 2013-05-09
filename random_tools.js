@@ -389,6 +389,7 @@ function show_languages()
 
 function remove_tile(el, id)
 {
+    console.log(global_coordinates);
     global_coordinates.forEach(function(d,i)
         {
             if(d.id == id)
@@ -397,7 +398,7 @@ function remove_tile(el, id)
                 global_coordinates[i].occupied = false;
             }
         });
-
+    console.log(global_coordinates);
     $(el).parent().empty().remove();
     $('#' + id + "_tip").empty().remove();
 	

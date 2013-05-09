@@ -4,7 +4,7 @@
     <body>
         
         <?php
-            require('set_strip.php');
+            //require('set_tagID.php');
             class so_user
             {
                 public $displayName = 'Click';
@@ -19,7 +19,7 @@
                 public $tags = null;
             }
             
-            $user = new so_user();
+            //$user = new so_user();
             
             $server = "cse.unl.edu";
             $username = "stackoverflow";
@@ -28,7 +28,17 @@
             
             if(isset($_POST['userID']))
             {
-                $user_id = $_POST['userID'];
+                $file_handle = fopen("input.txt", "r");
+                while (!feof($file_handle))
+                {
+                $line = fgets($file_handle);
+                unset($user);
+                unset($activity);
+                unset($tags);
+                $user = new so_user();
+                $user_id = $line;
+                $user_id = trim($user_id);
+                //$user_id = $_POST['userID'];
             
                 $mysqli = new mysqli($server,$username,$password,$database);
                 
@@ -45,7 +55,7 @@
                 
                 }
                 
-                $myFile = "Data/so_data_" . $user_id . ".json"; 
+                $myFile = "Data/tso_data_" . $user_id . ".json"; 
                 if($fh = fopen($myFile, 'x'))
                 {
             
@@ -321,10 +331,12 @@
                 $user->tags = $tags;
                 
                 $mysqli->close();
+                unset($new_json);
                 $new_json = json_encode($user);
                 
                 fwrite($fh, $new_json);
                 fclose($fh);
+                chmod($myFile,0777);
                 echo 'Done!';
                 }
                 else
@@ -337,6 +349,8 @@
                            <input type='hidden' name='displayName' value='$user->displayName'>	
                            <input type='submit' value='Show me his record!'>
                         </form>";
+            }
+            fclose($file_handle);
             }
             else
             {

@@ -698,202 +698,213 @@ function pie_chart(source, type, tag)
         .style("text-anchor", "middle")
         .style('font-size', '12px')
         .style('text-decoration', 'underline');
-        
-      _.keys(data.tags).forEach(function(d,i)
-        {
-          var totalContribution = toInt(data.tags[d].answerCount) + toInt(data.tags[d].questionCount) + toInt(data.tags[d].commentCount);
-          tagArray[i] = {tag:d,total:totalContribution};
-          fullPie += totalContribution;
-          otherTagArray[i] = {tag:d,total:totalContribution};
-        });
-      // Sort array of tag objects by their contribution scores from highest to lowest
-      otherTagArray.sort(function(a,b)
-        {
-          return b.total - a.total;
-        });
-      if(otherTagArray.length > 3)
+      
+      if(data.tags != null)
       {
-        otherTagArray = otherTagArray.slice(3);
-      }
-  
-      tagArray.sort(function(a,b)
+        _.keys(data.tags).forEach(function(d,i)
+          {
+            var totalContribution = toInt(data.tags[d].answerCount) + toInt(data.tags[d].questionCount) + toInt(data.tags[d].commentCount);
+            tagArray[i] = {tag:d,total:totalContribution};
+            fullPie += totalContribution;
+            otherTagArray[i] = {tag:d,total:totalContribution};
+          });
+
+        // Sort array of tag objects by their contribution scores from highest to lowest
+        otherTagArray.sort(function(a,b)
+          {
+            return b.total - a.total;
+          });
+        if(otherTagArray.length > 3)
         {
-          return b.total - a.total;
-        });
-      var otherTotal = 0;
-      
-      if(tagArray.length > 3)
-        { 
-          otherTotal = tagArray[3].total;
-          for(var i = 4; i < tagArray.length; i++)
-          {
-            tagArray[3].total += tagArray[i].total;
-            otherTotal += tagArray[i].total;
-          }
-        
-          tagArray[3].tag = "other";
-          var deleteNum = tagArray.length - 3;
-          tagArray.splice(4,deleteNum);
+          otherTagArray = otherTagArray.slice(3);
         }
-  
-      var g = svg.selectAll(".arc")
-        .data(pie(tagArray))
-        .enter().append("g")
-          .attr("class", "arc");
+    
+        tagArray.sort(function(a,b)
+          {
+            return b.total - a.total;
+          });
+        var otherTotal = 0;
+        
+        if(tagArray.length > 3)
+          { 
+            otherTotal = tagArray[3].total;
+            for(var i = 4; i < tagArray.length; i++)
+            {
+              tagArray[3].total += tagArray[i].total;
+              otherTotal += tagArray[i].total;
+            }
+          
+            tagArray[3].tag = "other";
+            var deleteNum = tagArray.length - 3;
+            tagArray.splice(4,deleteNum);
+          }
+    
+        var g = svg.selectAll(".arc")
+          .data(pie(tagArray))
+          .enter().append("g")
+            .attr("class", "arc");
+        
+        g.append("path")
+          .attr("d", arc)
+          .style("fill", function(d,i)
+            {
+              return sliceColor(tagArray[i].tag);
+            })
+          .style("opacity", "1")
+          .attr("id",function(d)
+            {
+              return (tileID + "_pie_" + d.data.tag);
+            })
+          .attr("title",function(d)
+            {
+              //$(this).tipsy({gravity: 's', html: true, hoverable: true});
+              if(d.data.tag != "other")
+              {
+                $(this).tipsy({gravity: 's', html: true, hoverable: false});
+                var percentage = per_long(d.data.total/fullPie);
+                //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(d.data.tag) + "\");'>"
+                //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
+                var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
+                return temp_title;
+              }
+              else
+              {
+                $(this).tipsy({gravity: 's', html: true, hoverable: true});
+                //
+                var content = "Other Tags:</br></br><table>";
+                var other_count = otherTagArray.length;
+                if(other_count > 7)
+                {
+                  for(var i = 0; i < 7; i++)
+                  {
+                    var percentage = per_long(otherTagArray[i].total/fullPie);
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  }
+                  content += "</table>";
+                }
+                else
+                {
+                  for(var i = 0; i < otherTagArray.length; i++)
+                  {
+                    var percentage = per_long(otherTagArray[i].total/fullPie);
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  }
+                  content += "</table>";
+                }
+                return content;
+                //
+              }
+            })
+          .on("click",function(d)
+            {
+              if(d.data.tag != "other")
+              {
+                click(d.data.tag, "so_tag");
+              }
+            })
+          .on("mouseover",function(d)
+            { 
+              d3.select(this).style("opacity",".6");
+              
+              var tempID = set_strip(d.data.tag);
+              var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
+              var tempEl = document.getElementById(tempTileID);
+              
+              if(tempEl != null)
+              {
+                tempEl.style.backgroundColor='#aaa';
+              }
+            })
+          .on("mouseout",function(d)
+            {
+              d3.select(this).style("opacity","1");
+              var temp = '#' + tipID;
+              $(temp).hide();
+              
+              var tempID = set_strip(d.data.tag);
+              var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
+              var tempEl = document.getElementById(tempTileID);
+              
+              if(tempEl != null)
+              {
+                tempEl.style.backgroundColor='#fff';
+              }
+            });      
+          
+    // ===== BEGIN pie chart labeling ===== //
+          var pie_legend = svg.selectAll(".pie_legend")
+            .data(sliceColor.domain().slice())
+          .enter().append("g")
+            .attr("class", "pie_legend")
+            .attr("transform", function(d, i)
+              {
+                if(i < 2)
+                {
+                  var vert_offset = i * 15 + i * 5 + 5;
+                  var horiz_offset = -60;
+                  return "translate(" + horiz_offset + "," + vert_offset + ")";
+                }
+                else
+                {
+                  var vert_offset = (i - 2) * 15 + (i - 2) * 5 + 5;
+                  var horiz_offset = 20;
+                  return "translate(" + horiz_offset + "," + vert_offset + ")";  
+                }
+              });
       
-      g.append("path")
-        .attr("d", arc)
-        .style("fill", function(d,i)
-          {
-            return sliceColor(tagArray[i].tag);
-          })
-        .style("opacity", "1")
-        .attr("id",function(d)
-          {
-            return (tileID + "_pie_" + d.data.tag);
-          })
-        .attr("title",function(d)
-          {
-            //$(this).tipsy({gravity: 's', html: true, hoverable: true});
-            if(d.data.tag != "other")
+        pie_legend.append("rect")
+          .attr("x",horizontal_offset)
+          .attr("y",legend_height)
+          .attr("width", cube_width)
+          .attr("height", cube_height)
+          .style("fill", function(d,i)
+            {
+              return sliceColor(d);
+            })
+          .style("opacity", "1");
+      
+        pie_legend.append("text")
+          .attr("x", horizontal_offset - 3)
+          .attr("y", cube_height/2 + legend_height)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d)
+            {
+              // If the tag/language title is too long, we'll need to shorten it
+              var tmp = get_strip(d);
+              if(tmp.length > 6)
+              {
+                return tmp.substr(0,6) + ".."
+              }
+              return tmp;
+            })
+          .attr("title",function(d)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
-              var percentage = per_long(d.data.total/fullPie);
-              //var temp_link = "<a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(d.data.tag) + "\");'>"
-              //var temp_title = "<table><tr><td>" + temp_link + d.data.tag + ":</a></td><td>" + temp_link + percentage + "</a></td></tr></table>";
-              var temp_title = "<table><tr><td>" + d.data.tag + ":</td><td>" + percentage + "</td></tr></table>";
-              return temp_title;
-            }
-            else
-            {
-              $(this).tipsy({gravity: 's', html: true, hoverable: true});
-              //
-              var content = "Other Tags:</br></br><table>";
-              var other_count = otherTagArray.length;
-              if(other_count > 7)
-              {
-                for(var i = 0; i < 7; i++)
-                {
-                  var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
-                }
-                content += "</table>";
-              }
-              else
-              {
-                for(var i = 0; i < otherTagArray.length; i++)
-                {
-                  var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
-                }
-                content += "</table>";
-              }
-              return content;
-              //
-            }
-          })
-        .on("click",function(d)
-          {
-            if(d.data.tag != "other")
-            {
-              click(d.data.tag, "so_tag");
-            }
-          })
-        .on("mouseover",function(d)
-          { 
-            d3.select(this).style("opacity",".6");
-            
-            var tempID = set_strip(d.data.tag);
-            var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
-            var tempEl = document.getElementById(tempTileID);
-            
-            if(tempEl != null)
-            {
-              tempEl.style.backgroundColor='#aaa';
-            }
-          })
-        .on("mouseout",function(d)
-          {
-            d3.select(this).style("opacity","1");
-            var temp = '#' + tipID;
-            $(temp).hide();
-            
-            var tempID = set_strip(d.data.tag);
-            var tempTileID = "so_" + data.id + "_" + tempID + "_tile";
-            var tempEl = document.getElementById(tempTileID);
-            
-            if(tempEl != null)
-            {
-              tempEl.style.backgroundColor='#fff';
-            }
-          });      
-        
-  // ===== BEGIN pie chart labeling ===== //
-        var pie_legend = svg.selectAll(".pie_legend")
-          .data(sliceColor.domain().slice())
-        .enter().append("g")
-          .attr("class", "pie_legend")
-          .attr("transform", function(d, i)
-            {
-              if(i < 2)
-              {
-                var vert_offset = i * 15 + i * 5 + 5;
-                var horiz_offset = -60;
-                return "translate(" + horiz_offset + "," + vert_offset + ")";
-              }
-              else
-              {
-                var vert_offset = (i - 2) * 15 + (i - 2) * 5 + 5;
-                var horiz_offset = 20;
-                return "translate(" + horiz_offset + "," + vert_offset + ")";  
-              }
+              return d;
             });
-    
-      pie_legend.append("rect")
-        .attr("x",horizontal_offset)
-        .attr("y",legend_height)
-        .attr("width", cube_width)
-        .attr("height", cube_height)
-        .style("fill", function(d,i)
-          {
-            return sliceColor(d);
-          })
-        .style("opacity", "1");
-    
-      pie_legend.append("text")
-        .attr("x", horizontal_offset - 3)
-        .attr("y", cube_height/2 + legend_height)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d)
-          {
-            // If the tag/language title is too long, we'll need to shorten it
-            var tmp = get_strip(d);
-            if(tmp.length > 6)
-            {
-              return tmp.substr(0,6) + ".."
-            }
-            return tmp;
-          })
-        .attr("title",function(d)
-          {
-            $(this).tipsy({gravity: 's', html: true, hoverable: false});
-            return d;
-          });
-      
-      pie_legend.append("text")
-        .attr("x", horizontal_offset + cube_width/2)
-        .attr("y", cube_height/2 + legend_height)
-        .attr("dy", ".35em")
-        .attr("fill","white")
-        .style("text-anchor", "middle")
-        .text(function(d,i)
-          {
-            var value = tagArray[i].total / fullPie;
-            return per(value);
-          });
-  // ===== END pie chart labeling ===== //
         
+        pie_legend.append("text")
+          .attr("x", horizontal_offset + cube_width/2)
+          .attr("y", cube_height/2 + legend_height)
+          .attr("dy", ".35em")
+          .attr("fill","white")
+          .style("text-anchor", "middle")
+          .text(function(d,i)
+            {
+              var value = tagArray[i].total / fullPie;
+              return per(value);
+            });
+    // ===== END pie chart labeling ===== //
+      }
+      else
+      {
+        svg.append("text")
+          .text("None")
+          .attr("y",0)
+          .style("text-anchor", "middle")
+          .style('font-size', '10px');
+      }
     });
   }
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //

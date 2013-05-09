@@ -14,46 +14,81 @@ function data_format(source, type, tag)
                 var tileID = "so_" + data.id + "_tile";
             
                 var graphData = new Array();
+                
+                if(data.activity != null)
+                {
+                        _.keys(data.activity).forEach(function(d,i)
+                        {      
+                            var qc = toInt(data.activity[d].questionCount);
+                            var ac = toInt(data.activity[d].answerCount);
+                            var cc = toInt(data.activity[d].commentCount);
+                      
+                            var monthTotal = qc + ac + cc;
+                          
+                            var y0 = 0;
+                      
+                            var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
+                            graphData[i] =
+                            {
+                            
+                              month:d,
+                              fullDate: fullDate,
+                              total:monthTotal,
+                              counts:[
+                                {
+                                  value:ac,
+                                  y0:y0,
+                                  y1:y0 += ac,
+                                  title:"answers"
+                                },
+                                {
+                                  value:cc,
+                                  y0:y0,
+                                  y1:y0 += cc,
+                                  title:"comments"
+                                },
+                                {
+                                  value:qc,
+                                  y0:y0,
+                                  y1:y0 += qc,
+                                  title:"questions"
+                                }]
+                            };
                     
-                _.keys(data.activity).forEach(function(d,i)
+                        });
+                }
+                else
                 {      
-                    var qc = toInt(data.activity[d].questionCount);
-                    var ac = toInt(data.activity[d].answerCount);
-                    var cc = toInt(data.activity[d].commentCount);
-              
-                    var monthTotal = qc + ac + cc;
-                  
                     var y0 = 0;
               
-                    var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
-                    graphData[i] =
+                    var fullDate = new Date(tempDate.substr(0,4),(+tempDate.substr(5,7) - 1));
+                    graphData[0] =
                     {
                     
-                      month:d,
+                      month: tempDate,
                       fullDate: fullDate,
-                      total:monthTotal,
+                      total: 0,
                       counts:[
                         {
-                          value:ac,
+                          value:0,
                           y0:y0,
-                          y1:y0 += ac,
+                          y1:y0 += 0,
                           title:"answers"
                         },
                         {
-                          value:cc,
+                          value:0,
                           y0:y0,
-                          y1:y0 += cc,
+                          y1:y0 += 0,
                           title:"comments"
                         },
                         {
-                          value:qc,
+                          value:0,
                           y0:y0,
-                          y1:y0 += qc,
+                          y1:y0 += 0,
                           title:"questions"
                         }]
                     };
-            
-                });
+                }
                 
                 // ===== Sort the data by date ===== //
                 function byDate(a,b)
@@ -325,46 +360,82 @@ function data_format(source, type, tag)
                 var tileID = "gh_" + data.id + "_tile";
             
                 var graphData = new Array();
-                    
-                _.keys(data.activity).forEach(function(d,i)
-                {      
-                    var ic = toInt(data.activity[d].issueCount);
-                    var cic = toInt(data.activity[d].commitCount);
-                    var cc = toInt(data.activity[d].commentCount);
-              
-                    var monthTotal = ic + cic + cc;
-                  
-                    var y0 = 0;
-              
-                    var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
-                    graphData[i] =
-                    {
-                    
-                      month:d,
-                      fullDate: fullDate,
-                      total:monthTotal,
-                      counts:[
-                        {
-                          value:cic,
-                          y0:y0,
-                          y1:y0 += cic,
-                          title:"commits"
-                        },
-                        {
-                          value:cc,
-                          y0:y0,
-                          y1:y0 += cc,
-                          title:"comments"
-                        },
-                        {
-                          value:ic,
-                          y0:y0,
-                          y1:y0 += ic,
-                          title:"issues"
-                        }]
-                    };
-            
-                });
+                
+                if(data.activity != null)
+                {
+                        _.keys(data.activity).forEach(function(d,i)
+                        {      
+                            var ic = toInt(data.activity[d].issueCount);
+                            var cic = toInt(data.activity[d].commitCount);
+                            var cc = toInt(data.activity[d].commentCount);
+                      
+                            var monthTotal = ic + cic + cc;
+                          
+                            var y0 = 0;
+                      
+                            var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
+                            graphData[i] =
+                            {
+                            
+                              month:d,
+                              fullDate: fullDate,
+                              total:monthTotal,
+                              counts:[
+                                {
+                                  value:cic,
+                                  y0:y0,
+                                  y1:y0 += cic,
+                                  title:"commits"
+                                },
+                                {
+                                  value:cc,
+                                  y0:y0,
+                                  y1:y0 += cc,
+                                  title:"comments"
+                                },
+                                {
+                                  value:ic,
+                                  y0:y0,
+                                  y1:y0 += ic,
+                                  title:"issues"
+                                }]
+                            };
+                        });
+                }
+                else
+                {
+                            var monthTotal = 0;
+                          
+                            var y0 = 0;
+                      
+                            var fullDate = new Date(tempDate.substr(0,4),(+tempDate.substr(5,7) - 1));
+                            graphData[0] =
+                            {
+                            
+                              month: tempDate,
+                              fullDate: fullDate,
+                              total: monthTotal,
+                              counts:[
+                                {
+                                  value: 0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"commits"
+                                },
+                                {
+                                  value: 0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"comments"
+                                },
+                                {
+                                  value: 0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"issues"
+                                }]
+                            };
+                }
                 
                 // ===== Sort the data by date ===== //
                 function byDate(a,b)
