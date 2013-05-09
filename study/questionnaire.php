@@ -5,6 +5,7 @@
     
         <title>Questionnaire</title>
 	    <link rel='stylesheet' type='text/css' href='simple.css' />
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		
 	</head>
 			

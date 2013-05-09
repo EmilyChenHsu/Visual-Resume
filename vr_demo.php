@@ -3,7 +3,7 @@
 <html>
     <head>
     
-        <title>Visual Resume</title>
+        <title>Visual Resume Demo</title>
 		
         <link rel='stylesheet' type='text/css' href='vr.css' />
 		<link rel='stylesheet' type='text/css' href='resources/tipsy/src/stylesheets/tipsy.css' />
