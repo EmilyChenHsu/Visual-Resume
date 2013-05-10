@@ -1,4 +1,7 @@
-function tile(source, type, tag)
+// other is an array
+// other[0] is the type of SO contribution
+// other[1] is the month of the SO contribution
+function tile(source, type, tag, other)
 {
 	var coordinates = new Array();
 	var temp_i = 0;
@@ -48,8 +51,8 @@ function tile(source, type, tag)
 					.attr("id","avatar_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
-					.attr("class","reputation")
-					.attr("id","reputation_" + tileID);
+					.attr("class","below_avatar")
+					.attr("id","below_avatar_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","badges")
@@ -128,9 +131,15 @@ function tile(source, type, tag)
 				.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 				.style('font-size', global_name_font_size);
 							
-			d3.select("#reputation_" + tileID)
+			d3.select("#below_avatar_" + tileID)
+				.append("span")
+					.attr("class","smallText")
+					.html(function()
+						{
+							return data.website != null ? ("<a href='" + data.website + "' target='_blank'>website</a><br>") : "";
+						})
 				.append("text")
-					.text(Comma(data.reputation))
+					.html('<bigger>' + Comma(data.reputation) + '</bigger>')
 				.append("span")
 					.attr("class","smallText")
 					.html(" rep");
@@ -400,8 +409,15 @@ function tile(source, type, tag)
 					.attr("id","avatar_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
-					.attr("class","gh_info")
-					.attr("id","followers_" + tileID);
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID)
+					.append("text")
+					.html(function()
+						{
+							return data.website != null ? ("<a href='" + data.website + "' target='_blank'>website</a><br>") : "";
+						})
+					.append('text')
+					.html("<bigger>" + data.followers + "</bigger>" + " followers");
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","pieChart")
@@ -483,7 +499,6 @@ function tile(source, type, tag)
 				
 				infoEl.innerHTML = member_for(data.creationDate);
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
-				folEl.innerHTML = "<bigger>" + data.followers + "</bigger>" + " followers";
 			
 			d3.select("#" + tileID)
 				.append("div")
@@ -599,7 +614,7 @@ function tile(source, type, tag)
 
 				d3.select("#" + tileID)
 					.append("div")
-					.attr("class","gh_info")
+					.attr("class","below_avatar")
 					.attr("id","info_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
@@ -783,7 +798,7 @@ function tile(source, type, tag)
 						});
 				d3.select("#" + tileID)
 					.append("div")
-					.attr("class","gh_info")
+					.attr("class","below_avatar")
 					.attr("id","followers_" + tileID);
 				d3.select("#" + tileID)
 					.append("div")
@@ -815,7 +830,15 @@ function tile(source, type, tag)
 							
 			_.keys(data.repos).forEach(function(d)
 				{
-					if(data.repos[d].language == tag)
+					if(tag == 'unknown' && data.repos[d].language == undefined)
+					{
+						var tmp_repo = d.split('/');
+						var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+						d3.select("#repo_list_" + tileID)
+							.append("text")
+							.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+					}
+					else if(data.repos[d].language == tag)
 					{
 						var tmp_repo = d.split('/');
 						var repofull = tmp_repo[0] + '-' + tmp_repo[1];
@@ -829,6 +852,183 @@ function tile(source, type, tag)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End draw tile for user's repositories by language <==
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's SO questions ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "so_questions")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","so_questions_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+				
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p>Questions for ' + other[1] + '</p>')
+				.style('text-decoration', 'underline');
+				
+			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
+			console.log(other);
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's SO questions <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's SO answers ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "so_answers" && tag == undefined)
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","so_answers_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+				
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p>Answers for ' + other[1] + '</p>')
+				.style('text-decoration', 'underline');
+				
+			get_so(other[0], other[1], data.id, "repo_list_" + tileID);
+			console.log(other);
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's SO answers <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's SO comments ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "so_comments" && tag == undefined)
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","so_comments_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+				
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p>Comments for ' + other[1] + '</p>')
+				.style('text-decoration', 'underline');
+				
+			get_so(other[0], other[1], data.id, "repo_list_" + tileID);
+			console.log(other);
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's SO comments <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	
-	else { alert("Unknown data type parameter passed to tile()"); }
+	else { console.log("Unknown data type parameter passed to tile()"); }
 }

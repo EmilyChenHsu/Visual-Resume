@@ -29,14 +29,14 @@
 	</head>
 								
     <body>
-		<!--
+		
 		<form name='user_search' action='handler.php' method='post'>
 			
 			<input type='text' name='search_input'>	
 			<input type='submit' value='Search!'>
 
 		</form>
-		-->
+		
 		
 		<div class="leftBox">
 		<h3>Paolo Perrotta</h3>
@@ -173,6 +173,8 @@
 					temp_column++;
 				}
 			
+			//var global_temp_ajax = '';
+			var global_temp_source = '';
 			var global_start_date = '2008-03';
 			var global_end_date = '2012-05',
 				global_month_count = 50;

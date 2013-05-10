@@ -330,6 +330,12 @@ function set_url(tag)
     tag = tag.replace(/\#/g,'%23');
     return tag;
 }
+function unset_url(tag)
+{
+    tag = tag.replace(/\%2B/g,'+');
+    tag = tag.replace(/\%23/g,'#');
+    return tag;
+}
 
 function show_stacked()
 {
@@ -389,7 +395,7 @@ function show_languages()
 
 function remove_tile(el, id)
 {
-    console.log(global_coordinates);
+    //console.log(global_coordinates);
     global_coordinates.forEach(function(d,i)
         {
             if(d.id == id)
@@ -398,7 +404,7 @@ function remove_tile(el, id)
                 global_coordinates[i].occupied = false;
             }
         });
-    console.log(global_coordinates);
+    //console.log(global_coordinates);
     $(el).parent().empty().remove();
     $('#' + id + "_tip").empty().remove();
 	
@@ -589,4 +595,60 @@ function exchange(first, second)
         global_coordinates[first].id = null;
         global_coordinates[first].occupied = false;
     }
+}
+
+/*
+ * function obtained from http://www.tizag.com/ajaxTutorial/ajax-mysql-database.php
+ */
+function get_so(type, month, user, id, tag)
+{
+	var ajaxRequest;  // The variable that makes Ajax possible!
+	
+	try
+    {
+		// Opera 8.0+, Firefox, Safari
+		ajaxRequest = new XMLHttpRequest();
+	}
+    catch (e)
+    {
+		// Internet Explorer Browsers
+		try
+        {
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		}
+        catch (e)
+        {
+			try
+            {
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+            catch (e)
+            {
+				// Something went wrong
+				alert("AJAX error!");
+				return false;
+			}
+		}
+	}
+	// Create a function that will receive data sent from the server
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+            console.log(id);
+			document.getElementById(id).innerHTML = ajaxRequest.responseText;
+            //return ajaxRequest.responseText;
+		}
+	}
+	var month2 = date_add(month,1);
+	if(tag == undefined || tag == null || tag == "")
+	{
+		var queryString = "?month1=" + month + "&month2=" + month2 +"&user=" + user + "&type=" + type;
+	}
+	else
+	{
+		tag = set_url(tag);
+		var queryString = "?month1=" + month + "&month2=" + month2 +"&user=" + user + "&type=" + type + "&tag=" + tag;
+	}
+    document.getElementById(id).innerHTML = "Loading. This could take a few minutes if you're looking at a super user..";
+	ajaxRequest.open("GET", "so_call.php" + queryString, true);
+	ajaxRequest.send(null); 
 }

@@ -1274,7 +1274,14 @@ function language_pie(source)
           var temp_total = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
           var temp_language = data.repos[d].language != undefined ? data.repos[d].language : 'unknown';
           String(temp_language);
-          temp_languageArray[temp_language] = {language:temp_language, total:temp_total};
+          if(temp_languageArray[temp_language] == null)
+          {
+            temp_languageArray[temp_language] = {language:temp_language, total:temp_total};
+          }
+          else
+          {
+            temp_languageArray[temp_language].total += temp_total;
+          }
           fullPie += temp_total;
         });
       
@@ -1459,7 +1466,8 @@ function language_pie(source)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
-          });
+          })
+        .on('click', function(d) { click(get_strip(d), "gh_languages") } );
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)

@@ -103,6 +103,16 @@ div.so_tag_user_tile
     border:2px solid #aaaaaa;
     border-radius: 10px;
 }
+div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile
+{
+    position: absolute;
+    width:300px;
+    height:480px;
+    
+    background-color: #FFFFFF;
+    border:2px solid #aaaaaa;
+    border-radius: 10px;
+}
 
 div.tile_container
 {
@@ -196,17 +206,6 @@ img.icon
     width: auto;
 }
 
-div.reputation
-{
-    clear: left;
-    float: left;
-    margin-top: 3px;
-    margin-left:10px;
-    border: none;
-    font:22px sans-serif;
-    line-height: 60%;
-}
-
 div.tag
 {
     clear: left;
@@ -224,7 +223,7 @@ div.tag
     border: none;
 }
 
-div.gh_info
+div.below_avatar
 {
     clear: left;
     float: left;
@@ -258,7 +257,7 @@ div.pie_replacement
     margin-left: 10px;
 }
 
-div.gh_info bigger
+div.below_avatar bigger
 {
     font:22px sans-serif;
 }

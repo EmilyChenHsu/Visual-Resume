@@ -1,4 +1,4 @@
-function redraw(data, id, type)
+function redraw(data, id, type, other)
 {
 	var x = d3.scale.ordinal()
 		.rangeBands([0, global_width], .1);
@@ -155,7 +155,37 @@ function redraw(data, id, type)
 				  temp_title = temp_title.slice(0,-1);
 				}
 				return temp_title;
-			  });
+			  })
+			.on("click", function(d)
+				{
+					var temp_other = new Array();
+					temp_other[0] = d.title.slice(0,-1);
+					temp_other[1] = d.month;
+					var temp_tag = null;
+					if(d.tag != undefined)
+					{
+						temp_tag = d.tag;
+					}
+					console.log(temp_tag);
+					console.log(d.type);
+					if(d.type == 'gh')
+					{
+						
+					}
+					else if(d.type == 'gh_repo')
+					{
+						
+					}
+					else if(d.type == 'so_all')
+					{
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other);
+					}
+					else if(d.type == 'so_tag')
+					{
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other);
+					}
+					
+				});
 	}
     // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// End redraw of grouped bar chart <==
@@ -284,7 +314,35 @@ function redraw(data, id, type)
 				  temp_title = temp_title.slice(0,-1);
 				}
 				return temp_title;
-			  });
+			  })
+			.on("click", function(d)
+				{
+					var temp_other = new Array();
+					temp_other[0] = d.title.slice(0,-1);
+					temp_other[1] = d.month;
+					var temp_tag = null;
+					if(d.tag != undefined)
+					{
+						temp_tag = d.tag;
+					}
+					console.log(d.type);
+					if(d.type == 'gh')
+					{
+						
+					}
+					else if(d.type == 'gh_repo')
+					{
+						
+					}
+					else if(d.type == 'so_all')
+					{
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other);
+					}
+					else if(d.type == 'so_tag')
+					{
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other);
+					}
+				});
 		
 		if(id[0] + id[1] == "so")
 		{

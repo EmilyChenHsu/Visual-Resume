@@ -11,6 +11,7 @@
                 public $id = null;
                 public $avatar = '';
                 public $creationDate = '';
+                public $website = null;
                 public $reputation = 0;
                 public $questionCount = 0;
                 public $answerCount = 0;
@@ -49,6 +50,7 @@
                 
                     $user->displayName = $row["display_name"];
                     $user->id = $row["id"];
+                    $user->website = $row["website_url"];
                     $user->avatar = $row["email_hash"];
                     $user->creationDate = $row["creation_date"];
                     $user->reputation = $row["reputation"];

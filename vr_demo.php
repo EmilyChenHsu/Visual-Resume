@@ -27,7 +27,7 @@
 		<script src="legend.js"></script>
 	        
 	</head>
-								
+	
     <body>
 		
 		<div class="leftBox">
@@ -40,9 +40,9 @@
 
 		<h3>Stack Overflow</h3>
 
-		<a href="javascript:tile('Data/so_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
+		<a href="javascript:tile('Data/tso_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
 		<br>
-		<a href="javascript:tile('Data/so_data_50742.json', 'so_all', null);">Chuck</a>
+		<a href="javascript:tile('Data/tso_data_50742.json', 'so_all', null);">Chuck</a>
 
 		</div>
 		

@@ -36,18 +36,27 @@ function data_format(source, type, tag)
                               total:monthTotal,
                               counts:[
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:ac,
                                   y0:y0,
                                   y1:y0 += ac,
                                   title:"answers"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:cc,
                                   y0:y0,
                                   y1:y0 += cc,
                                   title:"comments"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:qc,
                                   y0:y0,
                                   y1:y0 += qc,
@@ -70,18 +79,27 @@ function data_format(source, type, tag)
                       total: 0,
                       counts:[
                         {
+                                type: type,
+                                user_id: data.id,
+                                month: tempDate,
                           value:0,
                           y0:y0,
                           y1:y0 += 0,
                           title:"answers"
                         },
                         {
+                                type: type,
+                                user_id: data.id,
+                                month: tempDate,
                           value:0,
                           y0:y0,
                           y1:y0 += 0,
                           title:"comments"
                         },
                         {
+                                type: type,
+                                user_id: data.id,
+                                month: tempDate,
                           value:0,
                           y0:y0,
                           y1:y0 += 0,
@@ -129,18 +147,27 @@ function data_format(source, type, tag)
                                 overall_month_total:0,
                                 counts:[
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"answers"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"comments"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
@@ -226,18 +253,30 @@ function data_format(source, type, tag)
                         fullDate: fullDate,
                         counts:[
                           {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:d,
                             value:ac,
                             y0:y0,
                             y1:y0 += ac,
                             title:"answers"
                           },
                           {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:d,
                             value:cc,
                             y0:y0,
                             y1:y0 += cc,
                             title:"comments"
                           },
                           {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:d,
                             value:qc,
                             y0:y0,
                             y1:y0 += qc,
@@ -285,18 +324,30 @@ function data_format(source, type, tag)
                             fullDate: fullDate,
                             counts:[
                               {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:tempDate,
                                 value:0,
                                 y0:0,
                                 y1:0,
                                 title:"answers"
                               },
                               {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:tempDate,
                                 value:0,
                                 y0:0,
                                 y1:0,
                                 title:"comments"
                               },
                               {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:tempDate,
                                 value:0,
                                 y0:0,
                                 y1:0,
@@ -376,24 +427,32 @@ function data_format(source, type, tag)
                             var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
                             graphData[i] =
                             {
-                            
                               month:d,
                               fullDate: fullDate,
                               total:monthTotal,
                               counts:[
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:cic,
                                   y0:y0,
                                   y1:y0 += cic,
                                   title:"commits"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:cc,
                                   y0:y0,
                                   y1:y0 += cc,
                                   title:"comments"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
                                   value:ic,
                                   y0:y0,
                                   y1:y0 += ic,
@@ -417,18 +476,27 @@ function data_format(source, type, tag)
                               total: monthTotal,
                               counts:[
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month: tempDate,
                                   value: 0,
                                   y0:y0,
                                   y1:y0 += 0,
                                   title:"commits"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month: tempDate,
                                   value: 0,
                                   y0:y0,
                                   y1:y0 += 0,
                                   title:"comments"
                                 },
                                 {
+                                        type: type,
+                                        user_id: data.id,
+                                        month: tempDate,
                                   value: 0,
                                   y0:y0,
                                   y1:y0 += 0,
@@ -476,18 +544,27 @@ function data_format(source, type, tag)
                                 overall_month_total:0,
                                 counts:[
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"commits"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"comments"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
@@ -581,18 +658,27 @@ function data_format(source, type, tag)
                       total:monthTotal,
                       counts:[
                         {
+                                type: type,
+                                user_id: data.id,
+                                month:d,
                           value:cic,
                           y0:y0,
                           y1:y0 += cic,
                           title:"commits"
                         },
                         {
+                                type: type,
+                                user_id: data.id,
+                                month:d,
                           value:cc,
                           y0:y0,
                           y1:y0 += cc,
                           title:"comments"
                         },
                         {
+                                type: type,
+                                user_id: data.id,
+                                month:d,
                           value:ic,
                           y0:y0,
                           y1:y0 += ic,
@@ -640,18 +726,27 @@ function data_format(source, type, tag)
                                 overall_month_total:0,
                                 counts:[
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"commits"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
                                         title:"comments"
                                     },
                                     {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
                                         value:0,
                                         y0:0,
                                         y1:0,
