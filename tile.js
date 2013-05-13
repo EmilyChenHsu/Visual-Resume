@@ -854,6 +854,142 @@ function tile(source, type, tag, other)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	//
 	//
+		// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's GH commits ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_commits")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "gh_commits_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "gh_commits_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_commits_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Commits for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				console.log(other);
+				
+				if(tag == undefined)
+				{
+					_.keys(data.repos).forEach(function(d,i)
+                    {
+						var temp_repo = d;
+						_.keys(data.repos[temp_repo].commits).forEach(function(d,i)
+						{
+							if(data.repos[temp_repo].commits[d].date == other[1])
+							{
+								d3.select('#repo_list_' + tileID)
+									.append('text')
+									.html(function()
+										{
+											if(data.repos[temp_repo].commits[d].url != undefined)
+											{
+												var url_array = data.repos[temp_repo].commits[d].url.split('/');
+												var api_string = url_array[2].split('.');
+												
+												var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
+												return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+											}
+											else
+											{
+												var url = 'https://github.com/' + temp_repo + '/commit/' + data.repos[temp_repo].commits[d].hash;
+												return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+											}
+										});
+							}
+						});
+					});
+				}
+				else
+				{
+					tag = get_strip(tag);
+					console.log(tag);
+					_.keys(data.repos).forEach(function(d,i)
+                    {
+						if(d == tag)
+						{
+							var temp_repo = d;
+							_.keys(data.repos[temp_repo].commits).forEach(function(d,i)
+							{
+								if(data.repos[temp_repo].commits[d].date == other[1])
+								{
+									d3.select('#repo_list_' + tileID)
+										.append('text')
+										.html(function()
+											{
+												if(data.repos[temp_repo].commits[d].url != undefined)
+												{
+													var url_array = data.repos[temp_repo].commits[d].url.split('/');
+													var api_string = url_array[2].split('.');
+													
+													var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
+													return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+												}
+												else
+												{
+													var url = 'https://github.com/' + temp_repo + '/commit/' + data.repos[temp_repo].commits[d].hash;
+													return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+												}
+											});
+								}
+							});
+						}
+					});
+				}
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's GH commits <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for user's SO questions ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //

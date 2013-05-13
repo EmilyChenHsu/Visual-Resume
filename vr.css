@@ -103,7 +103,7 @@ div.so_tag_user_tile
     border:2px solid #aaaaaa;
     border-radius: 10px;
 }
-div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile
+div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile, div.gh_commits_user_tile
 {
     position: absolute;
     width:300px;
