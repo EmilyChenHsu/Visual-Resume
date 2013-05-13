@@ -326,7 +326,7 @@ function redraw(data, id, type, other)
 						temp_tag = d.tag;
 					}
 					console.log(d.type);
-					if(d.type == 'gh')
+					if(d.type == 'gh_all')
 					{
 						
 					}

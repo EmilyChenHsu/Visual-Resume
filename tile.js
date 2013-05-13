@@ -503,7 +503,7 @@ function tile(source, type, tag, other)
 			d3.select("#" + tileID)
 				.append("div")
 				.attr("class","icon")
-				.html("<a href='javascript:tile(null,\"gh\")'><img class='gh_icon' src='media/gh_logo.png'></a>");
+				.html("<a href='https://github.com/explore' target='_blank'><img class='gh_icon' src='media/gh_logo.png'></a>");
 				
 			d3.select("#" + tileID)
 				.append("span")
@@ -861,7 +861,16 @@ function tile(source, type, tag, other)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "so_questions_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -916,11 +925,21 @@ function tile(source, type, tag, other)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for user's SO answers ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-	else if(type === "so_answers" && tag == undefined)
+	//else if(type === "so_answers" && tag == undefined)
+	else if(type === "so_answers")
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "so_answers_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -961,7 +980,7 @@ function tile(source, type, tag, other)
 				.html('<p>Answers for ' + other[1] + '</p>')
 				.style('text-decoration', 'underline');
 				
-			get_so(other[0], other[1], data.id, "repo_list_" + tileID);
+			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			console.log(other);
 			}
 
@@ -975,11 +994,21 @@ function tile(source, type, tag, other)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for user's SO comments ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-	else if(type === "so_comments" && tag == undefined)
+	//else if(type === "so_comments" && tag == undefined)
+	else if(type === "so_comments")
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "so_comments_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -1020,7 +1049,7 @@ function tile(source, type, tag, other)
 				.html('<p>Comments for ' + other[1] + '</p>')
 				.style('text-decoration', 'underline');
 				
-			get_so(other[0], other[1], data.id, "repo_list_" + tileID);
+			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			console.log(other);
 			}
 

@@ -31,18 +31,13 @@
     <body>
 		
 		<div class="leftBox">
-		<h3>GitHub</h3>
 
-		<a href="javascript:tile('Data/gh_data_9582.json', 'gh_all', null);">Jose Valim</a>
-		<br>
-		<a href="javascript:tile('Data/gh_data_137.json', 'gh_all', null);">Joshua Peek</a>
-
-
-		<h3>Stack Overflow</h3>
-
-		<a href="javascript:tile('Data/tso_data_1968.json', 'so_all', null);">Konrad Rudolph</a>
-		<br>
-		<a href="javascript:tile('Data/tso_data_50742.json', 'so_all', null);">Chuck</a>
+		<h3>Ben Scheirman</h3>
+		<a href="javascript:tile('Data/tgh_data_59140.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_3381.json', 'so_all', null);">Stack Overflow</a><br>
+		<h3>Chris Lloyd</h3>
+		<a href="javascript:tile('Data/tgh_data_718.json', 'gh_all', null);">GitHub</a><br>
+		<a href="javascript:tile('Data/tso_data_42413.json', 'so_all', null);">Stack Overflow</a><br>
 
 		</div>
 		
