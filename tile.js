@@ -39,6 +39,29 @@ function tile(source, type, tag, other)
 
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","username")
 					.attr("id","username_" + tileID);
 				d3.select("#" + tileID)
@@ -192,6 +215,29 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+				
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
 				
 				d3.select("#" + tileID)
 					.append("div")
@@ -352,6 +398,29 @@ function tile(source, type, tag, other)
 				.style('top', coordinates[0] + 'px')
 				.style('left', coordinates[1] + 'px');
 				
+			d3.select("#" + tileID)
+				.append("div")
+				.attr("class","hanger")
+				.attr("id","hanger_" + tileID)
+				.append('img')
+				.attr('src','media/hanger.png')
+				.attr('class', 'hanger')
+				.attr("id","hangerimg_" + tileID)
+				.on('click', function()
+					{
+						if(global_click1 === '')
+						{
+							global_click1 = tileID;
+							$(this).css('opacity','.3');
+						}
+						else
+						{
+							$('#hangerimg_' + global_click1).css('opacity','1');
+							swap(tileID, global_click1);
+							global_click1 = '';
+						}
+					});	
+				
 			d3.select("#so_general_tile")
 				.append("text")
 				.html("<a href='http://stackoverflow.com/' target='_blank'><img class='so_general' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a><hr>Stack Overflow is <b>a programming Q & A site that's free.</b> Free to ask questions, free to answer questions, free to read, free to index, built with plain old HTML, no fake rot13 text on the home page, no scammy google-cloaking tactics, no salespeople, no JavaScript windows dropping down in front of the answer asking for $12.95 to go away. You can register if you want to collect karma and win valuable flair that will appear next to your name, but otherwise, it's just free. And fast. Very, very fast.");
@@ -395,6 +464,29 @@ function tile(source, type, tag, other)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
 
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","username")
@@ -571,6 +663,29 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
 					
 				d3.select("#" + tileID)
 					.append("div")
@@ -759,6 +874,29 @@ function tile(source, type, tag, other)
 					
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
@@ -884,6 +1022,29 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
 					
 				d3.select("#" + tileID)
 					.append("div")
@@ -1052,6 +1213,29 @@ function tile(source, type, tag, other)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
 					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
 				if(tag != undefined) { tag = get_strip(tag) };
 					
 				d3.select("#" + tileID)
@@ -1199,6 +1383,29 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
 					
 				d3.select("#" + tileID)
 					.append("div")
@@ -1361,6 +1568,29 @@ function tile(source, type, tag, other)
 					
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
@@ -1471,6 +1701,29 @@ function tile(source, type, tag, other)
 					
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
+					
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
@@ -1578,6 +1831,29 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","hanger")
+					.attr("id","hanger_" + tileID)
+					.append('img')
+					.attr('src','media/hanger.png')
+					.attr('class', 'hanger')
+					.attr("id","hangerimg_" + tileID)
+					.on('click', function()
+						{
+							if(global_click1 === '')
+							{
+								global_click1 = tileID;
+								$(this).css('opacity','.3');
+							}
+							else
+							{
+								$('#hangerimg_' + global_click1).css('opacity','1');
+								swap(tileID, global_click1);
+								global_click1 = '';
+							}
+						});	
 					
 				d3.select("#" + tileID)
 					.append("div")

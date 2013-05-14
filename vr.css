@@ -544,3 +544,15 @@ td.right
 {
     text-align: right;
 }
+
+div.hanger
+{
+    position: absolute;
+    top: -35px;
+    left: 130px;
+}
+img.hanger
+{
+    width: 50px;
+    height: auto;
+}
