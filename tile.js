@@ -939,7 +939,6 @@ function tile(source, type, tag, other)
 					.html('<p>Comments for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
 					
-				console.log(other);
 				
 				if(tag == undefined)
 				{
@@ -958,7 +957,6 @@ function tile(source, type, tag, other)
 										/*
 										else if(data.comments[d].url != undefined)
 										{
-											console.log(data.comments[d].url);
 											return '<p><a href="' + data.comments[d].url + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
 										}
 										else
@@ -987,9 +985,7 @@ function tile(source, type, tag, other)
 										if(data.comments[d].parent_url != '')
 										{
 											var url_array = data.comments[d].parent_url.split('/');
-											console.log(url_array);
 											var this_repo = url_array[3] + '/' + url_array[4];
-											console.log(tag,this_repo);
 											if(tag == this_repo)
 											{
 												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
@@ -1002,7 +998,6 @@ function tile(source, type, tag, other)
 										/*
 										else if(data.comments[d].url != undefined)
 										{
-											console.log(data.comments[d].url);
 											return '<p><a href="' + data.comments[d].url + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
 										}
 										else
@@ -1043,7 +1038,6 @@ function tile(source, type, tag, other)
 			{
 				var tileID = "gh_issues_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
 			}
-			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
 			
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
@@ -1057,6 +1051,8 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				if(tag != undefined) { tag = get_strip(tag) };
 					
 				d3.select("#" + tileID)
 					.append("div")
@@ -1110,8 +1106,6 @@ function tile(source, type, tag, other)
 					.html('<p>Issues for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
 					
-				console.log(other);
-				
 				if(tag == undefined)
 				{
 					_.keys(data.issues).forEach(function(d,i)
@@ -1139,20 +1133,28 @@ function tile(source, type, tag, other)
 					tag = get_strip(tag);
 					_.keys(data.issues).forEach(function(d,i)
                     {
-						console.log(d);
 						if(data.issues[d].date == other[1])
 						{
 							d3.select('#repo_list_' + tileID)
 								.append('text')
 								.html(function()
 									{
-										if(data.issues[d].url != undefined)
+										var url_array = data.issues[d].url.split('/');
+										var this_repo = url_array[3] + '/' + url_array[4];
+										if(tag == this_repo)
 										{
-											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+											if(data.issues[d].url != undefined)
+											{
+												return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+											}
+											else
+											{
+												return '<p>' + data.issues[d].body + '</p><hr>';
+											}
 										}
 										else
 										{
-											return '<p>' + data.issues[d].body + '</p><hr>';
+											return '';
 										}
 									});
 						}
@@ -1252,8 +1254,6 @@ function tile(source, type, tag, other)
 					.html('<p>Commits for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
 					
-				console.log(other);
-				
 				if(tag == undefined)
 				{
 					_.keys(data.repos).forEach(function(d,i)
@@ -1288,7 +1288,6 @@ function tile(source, type, tag, other)
 				else
 				{
 					tag = get_strip(tag);
-					console.log(tag);
 					_.keys(data.repos).forEach(function(d,i)
                     {
 						if(d == tag)
@@ -1430,7 +1429,6 @@ function tile(source, type, tag, other)
 				.style('text-decoration', 'underline');
 				
 			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
-			console.log(other);
 			}
 
 		});
@@ -1541,7 +1539,6 @@ function tile(source, type, tag, other)
 				.style('text-decoration', 'underline');
 				
 			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
-			console.log(other);
 			}
 
 		});
@@ -1652,7 +1649,6 @@ function tile(source, type, tag, other)
 				.style('text-decoration', 'underline');
 				
 			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
-			console.log(other);
 			}
 
 		});
