@@ -103,7 +103,7 @@ div.so_tag_user_tile
     border:2px solid #aaaaaa;
     border-radius: 10px;
 }
-div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile, div.gh_commits_user_tile
+div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile, div.gh_commits_user_tile, div.gh_issues_user_tile, div.gh_comments_user_tile
 {
     position: absolute;
     width:300px;
@@ -199,6 +199,42 @@ img.icon
     width: auto;
 }
 .so_tag_user_tile img.so_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
+
+.so_questions_user_tile img.so_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
+.so_answers_user_tile img.so_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
+.so_comments_user_tile img.so_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
+.gh_issues_user_tile img.gh_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
+.gh_comments_user_tile img.gh_icon
 {
     position: relative;
     top: 7px;

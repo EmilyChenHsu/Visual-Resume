@@ -292,12 +292,12 @@
                         {
                             if(strpos($question_array[$map[$value->parent_id]]->tags, $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b><br></a>' . $value->body . '</p><hr>';
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a>' . $value->body . '</p><hr>';
                             }
                         }
                         else
                         {
-                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b><br></a>' . $value->body . '</p><hr>';
+                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a>' . $value->body . '</p><hr>';
                         }
                         
                     }

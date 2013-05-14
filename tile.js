@@ -147,10 +147,10 @@ function tile(source, type, tag, other)
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
-					data_format(source, "so_all", null);
+					legend(tileID, "bar", "so");
 					setTimeout(function()
 					{
-						legend(tileID, "bar", "so");
+						data_format(source, "so_all", null);
 						setTimeout(function()
 						{
 							pie_chart(source, "so_all", null);
@@ -314,10 +314,10 @@ function tile(source, type, tag, other)
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
-					data_format(source, "so_tag", tag);
+					legend(tileID, "bar", "so");
 					setTimeout(function()
 					{
-						legend(tileID, "bar", "so");
+						data_format(source, "so_tag", tag);
 						setTimeout(function()
 						{
 							pie_chart(source, "so_tag", tag);
@@ -527,10 +527,10 @@ function tile(source, type, tag, other)
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
-					data_format(source, "gh");
+					legend(tileID, "bar", "gh");
 					setTimeout(function()
 					{
-						legend(tileID, "bar", "gh");
+						data_format(source, "gh");
 						setTimeout(function()
 						{
 							pie_chart(source, "gh", null);
@@ -711,10 +711,10 @@ function tile(source, type, tag, other)
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
-					data_format(source, "gh_repo", tag);
+					legend(tileID, "bar", "gh");
 					setTimeout(function()
 					{
-						legend(tileID, "bar", "gh");
+						data_format(source, "gh_repo", tag);
 						setTimeout(function()
 						{
 							pie_chart(source, "gh_repo", tag);
@@ -854,7 +854,297 @@ function tile(source, type, tag, other)
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	//
 	//
-		// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's GH comments ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_comments")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "gh_comments_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "gh_comments_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_comments_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp = tag == undefined ? 'comments' : tag + ' >> comments';
+				var tmp_string = data.login + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							return '>> ' + tmp;
+						});
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Comments for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				console.log(other);
+				
+				if(tag == undefined)
+				{
+					_.keys(data.comments).forEach(function(d,i)
+                    {
+						if(data.comments[d].date == other[1])
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.comments[d].parent_url != '')
+										{
+											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+										}
+										else if(data.comments[d].url != undefined)
+										{
+											console.log(data.comments[d].url);
+											return '<p><a href="' + data.comments[d].url + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+										}
+										else
+										{
+											return '<p>' + data.comments[d].body + '</p><hr>';
+										}
+									});
+						}
+					});
+				}
+				else
+				{
+					_.keys(data.comments).forEach(function(d,i)
+                    {
+						if(data.comments[d].date == other[1])
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.comments[d].parent_url != '')
+										{
+											var url_array = data.comments[d].parent_url.split('/');
+											console.log(url_array);
+											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+										}
+										else if(data.comments[d].url != undefined)
+										{
+											console.log(data.comments[d].url);
+											return '<p><a href="' + data.comments[d].url + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+										}
+										else
+										{
+											return '<p>' + data.comments[d].body + '</p><hr>';
+										}
+									});
+						}
+					});
+				}
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's GH comments <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's GH issues ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_issues")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "";
+			if(tag == undefined)
+			{
+				var tileID = "gh_issues_" + other[1] + "_" + data.id + "_tile";
+			}
+			else
+			{
+				var tileID = "gh_issues_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+			}
+			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+			
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_issues_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp = tag == undefined ? 'issues' : tag + ' >> issues';
+				var tmp_string = data.login + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							return '>> ' + tmp;
+						});
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Issues for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				console.log(other);
+				
+				if(tag == undefined)
+				{
+					_.keys(data.issues).forEach(function(d,i)
+                    {
+						if(data.issues[d].date == other[1])
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.issues[d].url != undefined)
+										{
+											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+										}
+										else
+										{
+											return '<p>' + data.issues[d].body + '</p><hr>';
+										}
+									});
+						}
+					});
+				}
+				else
+				{
+					tag = get_strip(tag);
+					_.keys(data.issues).forEach(function(d,i)
+                    {
+						console.log(d);
+						if(data.issues[d].date == other[1])
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.issues[d].url != undefined)
+										{
+											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+										}
+										else
+										{
+											return '<p>' + data.issues[d].body + '</p><hr>';
+										}
+									});
+						}
+					});
+				}
+			}
+
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's GH issues <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for user's GH commits ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	else if(type === "gh_commits")
@@ -1022,6 +1312,48 @@ function tile(source, type, tag, other)
 					
 				d3.select("#" + tileID)
 					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				var tmp = tag == undefined ? ' >> questions' : tag + ' >> questions';
+				var tmp_string = data.displayName + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var tag_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = tag_length - temp_diff;
+								if(temp_end > 0)
+								{
+									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
+									return tmp;
+								}
+							}
+							return tmp;
+							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
+						})
+					.attr('title', function(d)
+						{
+							//$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});		
+			
+				d3.select("#" + tileID)
+					.append("div")
 					.attr("class","below_avatar")
 					.attr("id","followers_" + tileID);
 				d3.select("#" + tileID)
@@ -1088,6 +1420,48 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				var tmp = tag == undefined ? ' >> answers' : tag + ' >> answers';
+				var tmp_string = data.displayName + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var tag_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = tag_length - temp_diff;
+								if(temp_end > 0)
+								{
+									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
+									return tmp;
+								}
+							}
+							return tmp;
+							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp + '</a>';
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
 					
 				d3.select("#" + tileID)
 					.append("div")
@@ -1158,6 +1532,48 @@ function tile(source, type, tag, other)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
 					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				var tmp = tag == undefined ? ' >> comments' : tag + ' >> comments';
+				var tmp_string = data.displayName + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var tag_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = tag_length - temp_diff;
+								if(temp_end > 0)
+								{
+									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
+									return tmp;
+								}
+							}
+							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp + '</a>';
+							return tmp;
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;
+						});
+				
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
