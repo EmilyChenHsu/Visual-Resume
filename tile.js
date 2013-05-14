@@ -901,6 +901,8 @@ function tile(source, type, tag, other)
 						return data.name;
 					});
 				
+				if(tag != undefined) { tag = get_strip(tag) };
+				
 				var tmp = tag == undefined ? 'comments' : tag + ' >> comments';
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -953,6 +955,7 @@ function tile(source, type, tag, other)
 										{
 											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
 										}
+										/*
 										else if(data.comments[d].url != undefined)
 										{
 											console.log(data.comments[d].url);
@@ -961,6 +964,11 @@ function tile(source, type, tag, other)
 										else
 										{
 											return '<p>' + data.comments[d].body + '</p><hr>';
+										}
+										*/
+										else
+										{
+											return '';
 										}
 									});
 						}
@@ -980,8 +988,18 @@ function tile(source, type, tag, other)
 										{
 											var url_array = data.comments[d].parent_url.split('/');
 											console.log(url_array);
-											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+											var this_repo = url_array[3] + '/' + url_array[4];
+											console.log(tag,this_repo);
+											if(tag == this_repo)
+											{
+												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+											}
+											else
+											{
+												return '';
+											}
 										}
+										/*
 										else if(data.comments[d].url != undefined)
 										{
 											console.log(data.comments[d].url);
@@ -990,6 +1008,11 @@ function tile(source, type, tag, other)
 										else
 										{
 											return '<p>' + data.comments[d].body + '</p><hr>';
+										}
+										*/
+										else
+										{
+											return '';
 										}
 									});
 						}
@@ -1101,11 +1124,11 @@ function tile(source, type, tag, other)
 									{
 										if(data.issues[d].url != undefined)
 										{
-											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].title + '</a></p><hr>';
 										}
 										else
 										{
-											return '<p>' + data.issues[d].body + '</p><hr>';
+											return '<p>' + data.issues[d].title + '</p><hr>';
 										}
 									});
 						}
@@ -1174,6 +1197,33 @@ function tile(source, type, tag, other)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				if(tag != undefined) { tag = get_strip(tag) };
+				
+				var tmp = tag == undefined ? 'commits' : tag + ' >> commits';
+				var tmp_string = data.login + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							return '>> ' + tmp;
+						});
 					
 				d3.select("#" + tileID)
 					.append("div")

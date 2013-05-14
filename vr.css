@@ -52,6 +52,7 @@ div.breadcrumbs
     margin-bottom: 10px;
     margin-left:10px;
     font-weight: bold;
+    line-height: 20px;
 }
 div.gh_user_tile
 {
@@ -241,6 +242,13 @@ img.icon
     height: 35px;
     width: auto;
 }
+.gh_commits_user_tile img.gh_icon
+{
+    position: relative;
+    top: 7px;
+    height: 35px;
+    width: auto;
+}
 
 div.tag
 {
@@ -367,6 +375,7 @@ div.repos
     width: 270px;
     height: 350px;
     font-size: 12px;
+    padding-right: 15px;
 }
 
 div.barChart
