@@ -30,13 +30,14 @@
 								
     <body>
 		
+		<!--
 		<form name='user_search' action='handler.php' method='post'>
 			
 			<input type='text' name='search_input'>	
 			<input type='submit' value='Search!'>
 
 		</form>
-		
+		-->
 		
 		<div class="leftBox">
 		<h3>Paolo Perrotta</h3>
@@ -61,14 +62,16 @@
 		</p>
 		-->
 		</div>
+		<!--
 		<?php
-		
+		/*
 			if(isset($_POST['userID']) && isset($_POST['displayName']))
 			{
 				echo '<script>tile(\'Data/so_data_' . $_POST['userID'] . '.json\', \'so_all\');</script>';
 			}
-		
+		*/
 		?>
+		-->
 		
 		<script>
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
