@@ -84,7 +84,7 @@
 						num: i,
 						id: null
 					}
-					
+					/*
 					if((i + 1) % 3 !== 0)
 					{
 						d3.select('body')
@@ -140,6 +140,7 @@
 									 d3.select(this).style("opacity","1");	
 								});
 					}
+					*/
 					
 					temp_column++;
 				}
@@ -147,6 +148,8 @@
 			var global_start_date = '2008-03';
 			var global_end_date = '2012-05',
 				global_month_count = 50;
+			
+			var global_click1 = '';
 			
 			var global_ready_mouseup = false;
 			var global_mousedown = false;
