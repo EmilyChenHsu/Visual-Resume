@@ -831,20 +831,42 @@ function tile(source, type, tag, other)
 			_.keys(data.repos).forEach(function(d)
 				{
 					if(tag == 'unknown' && data.repos[d].language == undefined)
-					{
-						var tmp_repo = d.split('/');
-						var repofull = tmp_repo[0] + '-' + tmp_repo[1];
-						d3.select("#repo_list_" + tileID)
-							.append("text")
-							.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+					{	
+						var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+						if(temp_total > 0)
+						{
+							var tmp_repo = d.split('/');
+							var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+						}
+						else
+						{
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.style('color', '#bbb')
+								.html(d + '<br>');
+						}
 					}
 					else if(data.repos[d].language == tag)
 					{
-						var tmp_repo = d.split('/');
-						var repofull = tmp_repo[0] + '-' + tmp_repo[1];
-						d3.select("#repo_list_" + tileID)
-							.append("text")
-							.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+						var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+						if(temp_total > 0)
+						{
+							var tmp_repo = d.split('/');
+							var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+						}
+						else
+						{
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.style('color', '#bbb')
+								.html(d + '<br>');
+						}
 					}
 				})
 		});

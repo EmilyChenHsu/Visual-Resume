@@ -544,3 +544,8 @@ td.right
 {
     text-align: right;
 }
+
+tr.empty_repo
+{
+    color: #aaa;
+}
