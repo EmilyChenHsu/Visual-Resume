@@ -58,6 +58,9 @@
             
             $mod_tag = '<' . $tag . '>';
             
+            // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+            // Begin QUESTIONS ==>
+            // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
             if($_GET['type'] == 'question')
             {       
                 $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1) AND (creation_date between '$datetime1' AND '$datetime2');";
@@ -98,7 +101,7 @@
                         {
                             if (strpos($row['tags'], $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank">' . $row['title'] . '</a></p><hr>';
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a></p><p>' . $row['title'] . '</p><hr>';
                             }
                             /*
                             if (in_array($tag, $array))
@@ -112,7 +115,7 @@
                         else
                         {
                             //$output = $output . $row['title'] . '<br>';
-                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank">' . $row['title'] . '</a></p><hr>';
+                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a></p><p>' . $row['title'] . '</p><hr>';
                         }
                         // ======== //
                         // END TAGS //
@@ -124,6 +127,11 @@
                 //echo $query . '<br>' . $output;
                 echo $output;
             }
+            // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+            // End QUESTIONS <==
+            // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+            //
+            //
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
             // Begin ANSWERS ==>
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
