@@ -165,7 +165,8 @@ function pie_chart(source, type, tag)
         .attr("d", arc)
         .style("fill", function(d,i)
           {
-            return sliceColor(repoArray[i].repo);
+            console.log(repoArray[i].repo)
+            return repoArray[i].repo != 'other' ? sliceColor(repoArray[i].owner + '/' + repoArray[i].repo) : sliceColor(repoArray[i].repo);
           })
         .style("opacity", "1")
         .attr("id",function(d)
@@ -317,7 +318,15 @@ function pie_chart(source, type, tag)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
-          });
+          })
+        .on('click', function(d)
+            {
+              if(d != 'other')
+              {
+                var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+              }
+            });
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)
@@ -374,6 +383,7 @@ function pie_chart(source, type, tag)
       // Some finangling to get the 'tag' to the correct format as a string
       String(tag);
       var tmp = tag.replace("-","/");
+      tmp = get_strip(tmp);
       
       var fullPie = 0;
       var tileID = "gh_" + data.id + "_" + tag + "_tile";
@@ -517,7 +527,7 @@ function pie_chart(source, type, tag)
           .attr("d", arc)
           .style("fill", function(d,i)
             {
-              return sliceColor(repoArray[i].repo);
+              return repoArray[i].repo != 'other' ? sliceColor(repoArray[i].owner + '/' + repoArray[i].repo) : sliceColor(repoArray[i].repo);
             })
           .style("opacity", "1")
           .attr("id",function(d)
@@ -667,6 +677,14 @@ function pie_chart(source, type, tag)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               return d;
+            })
+          .on('click', function(d)
+            {
+              if(d != 'other')
+              {
+                var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+              }
             });
         
         pie_legend.append("text")
@@ -918,7 +936,8 @@ function pie_chart(source, type, tag)
             {
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               return d;
-            });
+            })
+          .on('click', function(d) { if(d != 'other') click(get_strip(d), "so_tag") } );
         
         pie_legend.append("text")
           .attr("x", horizontal_offset + cube_width/2)
@@ -1181,7 +1200,8 @@ function pie_chart(source, type, tag)
           {
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
-          });
+          })
+        .on('click', function(d) { if(d != 'other') click(get_strip(d), "so_tag") } );
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)
@@ -1505,7 +1525,7 @@ function language_pie(source)
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
           })
-        .on('click', function(d) { click(get_strip(d), "gh_languages") } );
+        .on('click', function(d) { if(d != 'other') click(get_strip(d), "gh_languages") } );
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)

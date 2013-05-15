@@ -561,7 +561,10 @@ function tile(source, type, tag, other)
 			{
 				// Some finangling to get the 'tag' to the correct format as a string
 				String(tag);
-				var tmp = tag.replace("-","/");
+				var tmp = get_strip(tag);
+				tmp = tmp.replace("-","/");
+			
+				console.log(tmp);
 			
 				global_coordinates[temp_i].occupied = true;
 				global_coordinates[temp_i].id = tileID;

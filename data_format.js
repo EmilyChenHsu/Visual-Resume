@@ -636,6 +636,7 @@ function data_format(source, type, tag)
                 // Some finangling to get the 'tag' to the correct format as a string
                 String(tag);
                 var tmp = tag.replace("-","/");
+                tmp = get_strip(tmp);
                 tag = tmp;
                     
                     
