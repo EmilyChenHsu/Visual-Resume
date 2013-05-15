@@ -170,9 +170,7 @@ function redraw(data, id, type, other)
 					{
 						temp_tag = set_strip(d.repo);
 					}
-					//console.log(d);
-					//console.log(temp_tag);
-					//console.log(d.type);
+
 					if(d.type == 'gh')
 					{
 						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other);
@@ -334,7 +332,6 @@ function redraw(data, id, type, other)
 					{
 						temp_tag = set_strip(d.repo);
 					}
-					console.log(d.type);
 					if(d.type == 'gh')
 					{
 						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other);

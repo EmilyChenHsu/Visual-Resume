@@ -165,7 +165,6 @@ function pie_chart(source, type, tag)
         .attr("d", arc)
         .style("fill", function(d,i)
           {
-            console.log(repoArray[i].repo)
             return repoArray[i].repo != 'other' ? sliceColor(repoArray[i].owner + '/' + repoArray[i].repo) : sliceColor(repoArray[i].repo);
           })
         .style("opacity", "1")
@@ -236,7 +235,6 @@ function pie_chart(source, type, tag)
               var repofull = d.data.owner + '-' + d.data.repo;
               //var repofull = d.data.owner + '/' + d.data.repo;
               //String(repofull);
-              //console.log(repofull);
               click(repofull, "gh_repo");
             }
           })
@@ -422,7 +420,6 @@ function pie_chart(source, type, tag)
                 {
                   if($.inArray(d,collaborators) != -1)
                   {
-                    //console.log(d + " is in collaborators");
                     shared_users++;
                   }
                 }
@@ -433,7 +430,6 @@ function pie_chart(source, type, tag)
                 {
                   if($.inArray(d,contributors) != -1)
                   {
-                    //console.log(d + " is in contributors");
                     shared_users++;
                   }
                 }
@@ -450,7 +446,6 @@ function pie_chart(source, type, tag)
               var temp_language = data.repos[d].language != null ? data.repos[d].language : 'info not available';
               
               var tempTotal = data.repos[d].commitCount + data.repos[d].commentCount + data.repos[d].issueCount;
-              //console.log(tempTotal);
               
               repoArray[temp_index] = {
                 owner: owner,
@@ -1226,7 +1221,6 @@ function pie_chart(source, type, tag)
   
   function click(tag, type)
   {
-    //console.log(tag);
     tile(source, type, tag);
   }
 }
@@ -1546,7 +1540,6 @@ function language_pie(source)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   function click(language, type)
   {
-    //console.log(tag);
     tile(source, type, language);
   }
 }

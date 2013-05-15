@@ -1170,11 +1170,11 @@ function tile(source, type, tag, other)
 										{
 											if(data.issues[d].url != undefined)
 											{
-												return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].body + '</p><hr>';
+												return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].title + '</p><hr>';
 											}
 											else
 											{
-												return '<p>' + data.issues[d].body + '</p><hr>';
+												return '<p>' + data.issues[d].title + '</p><hr>';
 											}
 										}
 										else
