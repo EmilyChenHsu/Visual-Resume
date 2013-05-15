@@ -42,12 +42,32 @@
                 if (this.options.hoverable) {
                     $tip.hover(tipOver, tipOut);
                 }
-                
+				
+                /*
                 var pos = $.extend({}, this.$element.offset(), {
                     width: this.$element[0].offsetWidth,
                     height: this.$element[0].offsetHeight
                 });
-                
+				*/
+				
+				// Replaced *above* with *below* to handle firefox positioning weirdness
+				// Begin Commit: meunierd, b9cf0e1c0731d3265cd0cebded44a2af2278f979
+				var pos;
+				try
+				{
+                	pos = $.extend({}, this.$element.offset(), {
+						width: this.$element[0].getBBox().width,
+						height: this.$element[0].getBBox().height
+					});
+                }
+                catch (TypeError) {
+					pos = $.extend({}, this.$element.offset(), {
+						width: this.$element[0].offsetWidth,
+						height: this.$element[0].offsetHeight
+					});
+                }
+                // End Commit: meunierd, b9cf0e1c0731d3265cd0cebded44a2af2278f979
+				
                 var actualWidth = $tip[0].offsetWidth,
                     actualHeight = $tip[0].offsetHeight,
                     gravity = maybeCall(this.options.gravity, this.$element[0]);
