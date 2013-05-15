@@ -952,7 +952,7 @@ function tile(source, type, tag, other)
 									{
 										if(data.comments[d].parent_url != '')
 										{
-											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></p></a><p>' + data.comments[d].body + '</p><hr>';
 										}
 										/*
 										else if(data.comments[d].url != undefined)
@@ -988,7 +988,7 @@ function tile(source, type, tag, other)
 											var this_repo = url_array[3] + '/' + url_array[4];
 											if(tag == this_repo)
 											{
-												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank">' + data.comments[d].body + '</a></p><hr>';
+												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></p></a><p>' + data.comments[d].body + '</p><hr>';
 											}
 											else
 											{
@@ -1118,7 +1118,7 @@ function tile(source, type, tag, other)
 									{
 										if(data.issues[d].url != undefined)
 										{
-											return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].title + '</a></p><hr>';
+											return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].title + '</p><hr>';
 										}
 										else
 										{
@@ -1145,7 +1145,7 @@ function tile(source, type, tag, other)
 										{
 											if(data.issues[d].url != undefined)
 											{
-												return '<p><a href="' + data.issues[d].url + '" target="_blank">' + data.issues[d].body + '</a></p><hr>';
+												return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].body + '</p><hr>';
 											}
 											else
 											{
