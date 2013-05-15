@@ -1281,8 +1281,31 @@ function tile(source, type, tag, other)
 					
 				if(tag == undefined)
 				{
-					_.keys(data.repos).forEach(function(d,i)
+					_.keys(data.commits).forEach(function(d,i)
                     {
+						if(data.commits[d].date == other[1])
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.commits[d].url != undefined)
+										{
+											var url_array = data.commits[d].url.split('/');
+											var api_string = url_array[2].split('.');
+											
+											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.commits[d].message + '</p><hr>';
+										}
+										else
+										{
+											var url = 'https://github.com/' + data.commits[d].repo + '/commit/' + data.commits[d].hash;
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.commits[d].message + '</p><hr>';
+											//return '<p><b>Commit URL Missing</b></p><p>' + data.commits[d].message + '</p><hr>';
+										}
+									});
+						}
+						/*
 						var temp_repo = d;
 						_.keys(data.repos[temp_repo].commits).forEach(function(d,i)
 						{
@@ -1308,11 +1331,42 @@ function tile(source, type, tag, other)
 										});
 							}
 						});
+						*/
 					});
 				}
 				else
 				{
 					tag = get_strip(tag);
+					
+					_.keys(data.commits).forEach(function(d,i)
+                    {
+						console.log(tag);
+						if(data.commits[d].date == other[1] && data.commits[d].repo == tag)
+						{
+							d3.select('#repo_list_' + tileID)
+								.append('text')
+								.html(function()
+									{
+										if(data.commits[d].url != undefined)
+										{
+											var url_array = data.commits[d].url.split('/');
+											var api_string = url_array[2].split('.');
+											
+											console.log(url_array);
+											
+											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.commits[d].message + '</p><hr>';
+										}
+										else
+										{
+											var url = 'https://github.com/' + tag + '/commit/' + data.commits[d].hash;
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.commits[d].message + '</p><hr>';
+										}
+									});
+						}
+					});
+					
+					/*
 					_.keys(data.repos).forEach(function(d,i)
                     {
 						if(d == tag)
@@ -1344,6 +1398,7 @@ function tile(source, type, tag, other)
 							});
 						}
 					});
+					*/
 				}
 			}
 
