@@ -37,6 +37,7 @@ function pie_chart(source, type, tag)
         {
           return d.total;        
         })
+      .sort(null)
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2);
   
@@ -364,6 +365,7 @@ function pie_chart(source, type, tag)
         {
           return d.total;        
         })
+      .sort(null)
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2);
   
@@ -711,6 +713,7 @@ function pie_chart(source, type, tag)
         {
           return d.total;        
         })
+      .sort(null)
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2);
   
@@ -971,6 +974,7 @@ function pie_chart(source, type, tag)
         {
           return d.total;        
         })
+      .sort(null)
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2);
   
@@ -1247,6 +1251,7 @@ function language_pie(source)
         {
           return d.total;        
         })
+      .sort(null)
       .startAngle(-Math.PI/2)
       .endAngle(Math.PI/2);
   
