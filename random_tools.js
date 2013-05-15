@@ -397,6 +397,8 @@ function show_languages()
 
 function remove_tile(el, id)
 {
+    var index = null;
+    
     //console.log(global_coordinates);
     global_coordinates.forEach(function(d,i)
         {
@@ -408,7 +410,7 @@ function remove_tile(el, id)
         });
     //console.log(global_coordinates);
     $(el).parent().empty().remove();
-    $('#' + id + "_tip").empty().remove();
+    //$('#' + id + "_tip").empty().remove();
 	
 	// Remove data from global_data
 	
@@ -445,6 +447,8 @@ function remove_tile(el, id)
 		{
 			return d[0];
 		});
+        
+        if(global_grouped_y_max == undefined){ global_grouped_y_max = 0; }
 		
 		if(global_grouped_y_max !== old_ggym)
 		{
@@ -483,6 +487,8 @@ function remove_tile(el, id)
 			return d[0];
 		});
 		
+        if(global_stacked_y_max == undefined){ global_stacked_y_max = 0; }
+        
 		if(global_stacked_y_max !== old_ggym)
 		{
 			global_data.forEach(function(d)
