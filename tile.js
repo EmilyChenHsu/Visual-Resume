@@ -1273,12 +1273,12 @@ function tile(source, type, tag, other)
 												var api_string = url_array[2].split('.');
 												
 												var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
-												return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+												return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.repos[temp_repo].commits[d].message + '</p><hr>';
 											}
 											else
 											{
 												var url = 'https://github.com/' + temp_repo + '/commit/' + data.repos[temp_repo].commits[d].hash;
-												return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+												return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.repos[temp_repo].commits[d].message + '</p><hr>';
 											}
 										});
 							}
@@ -1307,12 +1307,12 @@ function tile(source, type, tag, other)
 													var api_string = url_array[2].split('.');
 													
 													var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
-													return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+													return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.repos[temp_repo].commits[d].message + '</p><hr>';
 												}
 												else
 												{
 													var url = 'https://github.com/' + temp_repo + '/commit/' + data.repos[temp_repo].commits[d].hash;
-													return '<p><a href="' + url + '" target="_blank">' + data.repos[temp_repo].commits[d].message + '</a></p><hr>';
+													return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></p></a><p>' + data.repos[temp_repo].commits[d].message + '</p><hr>';
 												}
 											});
 								}
