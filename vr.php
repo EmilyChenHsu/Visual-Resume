@@ -56,11 +56,13 @@
 		<a href="javascript:tile('Data/tgh_data_40605.json', 'gh_all', null);">GitHub</a><br>
 		<a href="javascript:tile('Data/tso_data_2774.json', 'so_all', null);">Stack Overflow</a><br>
 		
-		<!--
+
 		<p>
-			<a href="javascript:rearrange_tiles('user');">re-arrange!</a>
+			<a href="javascript:rearrange_tiles('user');">re-arrange by user!</a>
+			<br>
+			<a href="javascript:rearrange_tiles('community');">re-arrange by community!</a>
 		</p>
-		-->
+
 		</div>
 		<!--
 		<?php

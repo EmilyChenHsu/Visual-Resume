@@ -551,6 +551,7 @@ function rearrange_tiles(order)
 {
     if(order === 'user')
     {
+        /*
         var temp_coor = global_coordinates.slice(0);
         temp_coor.sort(function(a,b)
           {
@@ -558,6 +559,20 @@ function rearrange_tiles(order)
           });
         console.log(global_coordinates);
         console.log(temp_coor);
+        */
+        global_coordinates.forEach(function(d)
+            {
+                console.log(d);
+            });
+    }
+    else if(order === 'community')
+    {
+        global_coordinates.forEach(function(d, i)
+            {
+                console.log(d);
+                var community = d.id.substr(0,2);
+                console.log(community);
+            });
     }
 }
 
