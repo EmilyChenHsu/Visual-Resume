@@ -237,6 +237,10 @@ function pie_chart(source, type, tag)
               //String(repofull);
               click(repofull, "gh_repo");
             }
+            else
+            {
+              tile(source, "gh_otherRepos", null, otherRepoArray);
+            }
           })
         .on("mouseover",function(d)
           { 
@@ -323,6 +327,10 @@ function pie_chart(source, type, tag)
               {
                 var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
                 if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+              }
+              else
+              {
+                tile(source, "gh_otherRepos", null, otherRepoArray);
               }
             });
       
@@ -593,6 +601,10 @@ function pie_chart(source, type, tag)
                 var repofull = d.data.owner + '-' + d.data.repo;
                 click(repofull, "gh_repo");
               }
+              else
+              {
+                tile(source, "gh_otherRepos", null, otherRepoArray);
+              }
             })
           .on("mouseover",function(d)
             { 
@@ -679,6 +691,10 @@ function pie_chart(source, type, tag)
               {
                 var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
                 if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+              }
+              else
+              {
+                tile(source, "gh_otherRepos", null, otherRepoArray);
               }
             });
         
@@ -850,6 +866,10 @@ function pie_chart(source, type, tag)
               {
                 click(d.data.tag, "so_tag");
               }
+              else
+              {
+                tile(source, "so_otherTags", null, otherTagArray);
+              }
             })
           .on("mouseover",function(d)
             { 
@@ -932,7 +952,17 @@ function pie_chart(source, type, tag)
               $(this).tipsy({gravity: 's', html: true, hoverable: false});
               return d;
             })
-          .on('click', function(d) { if(d != 'other') click(get_strip(d), "so_tag") } );
+          .on('click', function(d)
+            {
+              if(d != 'other')
+              {
+                click(get_strip(d), "so_tag");
+              }
+              else
+              {
+                tile(source, "so_otherTags", null, otherTagArray);
+              }
+            });
         
         pie_legend.append("text")
           .attr("x", horizontal_offset + cube_width/2)
@@ -1116,6 +1146,10 @@ function pie_chart(source, type, tag)
             {
               click(d.data.tag, "so_tag");
             }
+            else
+            {
+              tile(source, "so_otherTags", null, otherTagArray);
+            }
           })
         .on("mouseover",function(d)
           { 
@@ -1196,7 +1230,17 @@ function pie_chart(source, type, tag)
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
           })
-        .on('click', function(d) { if(d != 'other') click(get_strip(d), "so_tag") } );
+        .on('click', function(d)
+          {
+            if(d != 'other')
+            {
+              click(get_strip(d), "so_tag");
+            }
+            else
+            {
+              tile(source, "so_otherTags", null, otherTagArray);
+            }
+          });
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)
@@ -1439,6 +1483,10 @@ function language_pie(source)
             {
               click(d.data.language, "gh_languages");
             }
+            else
+            {
+              tile(source, "gh_otherLanguages", null, otherLangArray);
+            }
           })
         .on("mouseover",function(d)
           { 
@@ -1519,7 +1567,17 @@ function language_pie(source)
             $(this).tipsy({gravity: 's', html: true, hoverable: false});
             return d;
           })
-        .on('click', function(d) { if(d != 'other') click(get_strip(d), "gh_languages") } );
+        .on('click', function(d)
+          {
+            if(d != 'other')
+            {
+              click(get_strip(d), "gh_languages");
+            }
+            else
+            {
+              tile(source, "gh_otherLanguages", null, otherLangArray);
+            }
+          });
       
       pie_legend.append("text")
         .attr("x", horizontal_offset + cube_width/2)

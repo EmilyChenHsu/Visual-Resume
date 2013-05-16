@@ -736,6 +736,384 @@ function tile(source, type, tag, other)
 	//
 	//
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's "other" tags ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "so_otherTags")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "so_otherTags_" + data.id + "_" + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				// Some finangling to get the 'tag' to the correct format as a string
+				//String(tag);
+				//tag = get_strip(tag);
+				//var tmp = tag;
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_otherTags_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				var tmp = tag == undefined ? ' >> questions' : tag + ' >> questions';
+				var tmp_string = data.displayName + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var tag_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = tag_length - temp_diff;
+								if(temp_end > 0)
+								{
+									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
+									return tmp;
+								}
+							}
+							return tmp;
+							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
+						})
+					.attr('title', function(d)
+						{
+							//$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart")
+					.attr("id","pieChart_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+			
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p><b>Other</b> Tags</p>')
+				.style('text-decoration', 'underline');
+							
+			other.forEach(function(d)
+				{
+					console.log(d);
+					d3.select("#repo_list_" + tileID)
+						.append("text")
+						.html('<a href="javascript:tile(\'' + source + '\',\'so_tag\',\'' + d.tag + '\');">' + d.tag + '</a><br>');
+				})
+			}
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's "other" tags <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's "other" languages ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_otherLanguages")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "gh_otherLanguages_" + data.id + "_" + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				// Some finangling to get the 'tag' to the correct format as a string
+				//String(tag);
+				//tag = get_strip(tag);
+				//var tmp = tag;
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_language_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp = "other repos";
+				var tmp_string = data.login + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var repo_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = repo_length - temp_diff;
+								if(temp_end > 0)
+								{
+									return '>> ' + tmp.substr(0,temp_end) + "..";
+								}
+							}
+							return '>> ' + tmp;
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart")
+					.attr("id","pieChart_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+			
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p><b>Other</b> Repositories</p>')
+				.style('text-decoration', 'underline');
+					
+					
+			var otherlangs = new Array();
+			
+			other.forEach(function(d)
+				{
+					console.log(d);
+					otherlangs.push(d.language);
+				});
+			
+			_.keys(data.repos).forEach(function(d)
+				{
+					var repo = d;
+					String(repo);
+					console.log(d);
+					
+					var temp_total = d.total;
+					if($.inArray(data.repos[repo].language, otherlangs) != -1)
+					{
+						console.log($.inArray(data.repos[repo].language, otherlangs));
+						if(temp_total > 0)
+						{
+							var repofull = repo.replace("/","-");
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + data.repos[repo].owner + '/' + repo + '</a><br>');
+						}
+						else
+						{
+							console.log(data);
+							d3.select("#repo_list_" + tileID)
+								.append("text")
+								.style('color', '#bbb')
+								.html(repo + '<br>');
+						}
+					}
+				})
+			}
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's "other" languages <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// Begin draw tile for user's "other" repositories ==>
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	else if(type === "gh_otherRepos")
+	{
+		d3.json(source,function(error,data)
+		{
+			var tileID = "gh_otherRepos_" + data.id + "_" + "_tile";
+			var tileEl = document.getElementById(tileID);
+			if(tileEl == null)
+			{
+				// Some finangling to get the 'tag' to the correct format as a string
+				//String(tag);
+				//tag = get_strip(tag);
+				//var tmp = tag;
+				
+				global_coordinates[temp_i].occupied = true;
+				global_coordinates[temp_i].id = tileID;
+				d3.select('body')
+					.append("div")
+					.attr("class","gh_language_user_tile")
+					.attr("id",tileID)
+					.style('top', coordinates[0] + 'px')
+					.style('left', coordinates[1] + 'px');
+					
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","breadcrumbs")
+					.attr("id","breadcrumbs_" + tileID)
+					.append('text')
+					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
+					
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
+					.attr("title",function(d)
+					{
+						$(this).tipsy({gravity: 's', html: true, hoverable: false});
+						return data.name;
+					});
+				
+				var tmp = "other repos";
+				var tmp_string = data.login + ' >> ' + tmp;
+				d3.select("#breadcrumbs_" + tileID)
+					.append("text")
+					.html(function(d)
+						{
+							// If the repo title is too long, we'll need to shorten it
+							if(tmp_string.length > 28)
+							{
+								var repo_length = tmp.length;
+								var temp_diff = tmp_string.length - 28;
+								var temp_end = repo_length - temp_diff;
+								if(temp_end > 0)
+								{
+									return '>> ' + tmp.substr(0,temp_end) + "..";
+								}
+							}
+							return '>> ' + tmp;
+						})
+					.attr('title', function(d)
+						{
+							$(this).tipsy({gravity: 's', html: true, hoverable: false});
+							return tmp;	
+						});
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","below_avatar")
+					.attr("id","followers_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","pieChart")
+					.attr("id","pieChart_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos_title")
+					.attr("id","repo_list_title_" + tileID);
+				d3.select("#" + tileID)
+					.append("div")
+					.attr("class","repos")
+					.attr("id","repo_list_" + tileID);
+				
+			d3.select("#" + tileID)
+				.append("span")
+				.attr("class","close_button")
+				.html("&otimes;")
+				.on("click",function()
+					{
+						remove_tile(this, tileID);
+					});
+			
+			d3.select("#repo_list_title_" + tileID)
+				.append("text")
+				.html('<p><b>Other</b> Repositories</p>')
+				.style('text-decoration', 'underline');
+							
+			other.forEach(function(d)
+				{
+					console.log(d);
+					
+					var temp_total = d.total;
+					if(temp_total > 0)
+					{
+						var repofull = d.owner + '-' + d.repo;
+						d3.select("#repo_list_" + tileID)
+							.append("text")
+							.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d.owner + '/' + d.repo + '</a><br>');
+					}
+					else
+					{
+						d3.select("#repo_list_" + tileID)
+							.append("text")
+							.style('color', '#bbb')
+							.html(d.owner + '/' + d.repo + '<br>');
+					}
+					
+				})
+			}
+		});
+	}
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	// End draw tile for user's "other" repositories <==
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
+	//
+	//
+	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	// Begin draw tile for user's repositories by language ==>
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 	else if(type === "gh_languages")
@@ -824,54 +1202,54 @@ function tile(source, type, tag, other)
 					{
 						remove_tile(this, tileID);
 					});
-			}
 			
-			d3.select("#repo_list_title_" + tileID)
-				.append("text")
-				.html('<p><b>' + tag + '</b> Repositories</p>')
-				.style('text-decoration', 'underline');
-							
-			_.keys(data.repos).forEach(function(d)
-				{
-					if(tag == 'unknown' && data.repos[d].language == undefined)
-					{	
-						var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
-						if(temp_total > 0)
-						{
-							var tmp_repo = d.split('/');
-							var repofull = tmp_repo[0] + '-' + tmp_repo[1];
-							d3.select("#repo_list_" + tileID)
-								.append("text")
-								.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
-						}
-						else
-						{
-							d3.select("#repo_list_" + tileID)
-								.append("text")
-								.style('color', '#bbb')
-								.html(d + '<br>');
-						}
-					}
-					else if(data.repos[d].language == tag)
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p><b>' + tag + '</b> Repositories</p>')
+					.style('text-decoration', 'underline');
+								
+				_.keys(data.repos).forEach(function(d)
 					{
-						var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
-						if(temp_total > 0)
-						{
-							var tmp_repo = d.split('/');
-							var repofull = tmp_repo[0] + '-' + tmp_repo[1];
-							d3.select("#repo_list_" + tileID)
-								.append("text")
-								.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+						if(tag == 'unknown' && data.repos[d].language == undefined)
+						{	
+							var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+							if(temp_total > 0)
+							{
+								var tmp_repo = d.split('/');
+								var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+								d3.select("#repo_list_" + tileID)
+									.append("text")
+									.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+							}
+							else
+							{
+								d3.select("#repo_list_" + tileID)
+									.append("text")
+									.style('color', '#bbb')
+									.html(d + '<br>');
+							}
 						}
-						else
+						else if(data.repos[d].language == tag)
 						{
-							d3.select("#repo_list_" + tileID)
-								.append("text")
-								.style('color', '#bbb')
-								.html(d + '<br>');
+							var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
+							if(temp_total > 0)
+							{
+								var tmp_repo = d.split('/');
+								var repofull = tmp_repo[0] + '-' + tmp_repo[1];
+								d3.select("#repo_list_" + tileID)
+									.append("text")
+									.html('<a href="javascript:tile(\'' + source + '\',\'gh_repo\',\'' + repofull + '\');">' + d + '</a><br>');
+							}
+							else
+							{
+								d3.select("#repo_list_" + tileID)
+									.append("text")
+									.style('color', '#bbb')
+									.html(d + '<br>');
+							}
 						}
-					}
-				})
+					})
+			}
 		});
 	}
 	// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -1494,21 +1872,21 @@ function tile(source, type, tag, other)
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
 				
-			d3.select("#" + tileID)
-				.append("span")
-				.attr("class","close_button")
-				.html("&otimes;")
-				.on("click",function()
-					{
-						remove_tile(this, tileID);
-					});
-				
-			d3.select("#repo_list_title_" + tileID)
-				.append("text")
-				.html('<p>Questions for ' + other[1] + '</p>')
-				.style('text-decoration', 'underline');
-				
-			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Questions for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 
 		});
@@ -1604,21 +1982,21 @@ function tile(source, type, tag, other)
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
 				
-			d3.select("#" + tileID)
-				.append("span")
-				.attr("class","close_button")
-				.html("&otimes;")
-				.on("click",function()
-					{
-						remove_tile(this, tileID);
-					});
-				
-			d3.select("#repo_list_title_" + tileID)
-				.append("text")
-				.html('<p>Answers for ' + other[1] + '</p>')
-				.style('text-decoration', 'underline');
-				
-			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Answers for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 
 		});
@@ -1714,21 +2092,21 @@ function tile(source, type, tag, other)
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
 				
-			d3.select("#" + tileID)
-				.append("span")
-				.attr("class","close_button")
-				.html("&otimes;")
-				.on("click",function()
-					{
-						remove_tile(this, tileID);
-					});
-				
-			d3.select("#repo_list_title_" + tileID)
-				.append("text")
-				.html('<p>Comments for ' + other[1] + '</p>')
-				.style('text-decoration', 'underline');
-				
-			get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
+				d3.select("#" + tileID)
+					.append("span")
+					.attr("class","close_button")
+					.html("&otimes;")
+					.on("click",function()
+						{
+							remove_tile(this, tileID);
+						});
+					
+				d3.select("#repo_list_title_" + tileID)
+					.append("text")
+					.html('<p>Comments for ' + other[1] + '</p>')
+					.style('text-decoration', 'underline');
+					
+				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 
 		});
