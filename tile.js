@@ -742,7 +742,7 @@ function tile(source, type, tag, other)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "so_otherTags_" + data.id + "_" + "_tile";
+			var tileID = "so_" + data.id + "_" + "otherTags_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -855,7 +855,7 @@ function tile(source, type, tag, other)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "gh_otherLanguages_" + data.id + "_" + "_tile";
+			var tileID = "gh_" + data.id + "_" + "otherLanguages_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -995,7 +995,7 @@ function tile(source, type, tag, other)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "gh_otherRepos_" + data.id + "_" + "_tile";
+			var tileID = "gh_" + data.id + "_" + "otherRepos_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -1120,7 +1120,7 @@ function tile(source, type, tag, other)
 	{
 		d3.json(source,function(error,data)
 		{
-			var tileID = "gh_languages_" + data.id + "_" + set_strip(tag) + "_tile";
+			var tileID = "gh_" + data.id + "_" + set_strip(tag) + "_languages_tile";
 			var tileEl = document.getElementById(tileID);
 			if(tileEl == null)
 			{
@@ -1267,11 +1267,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "gh_comments_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "gh_" + data.id + "_comments_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "gh_comments_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "gh_" + data.id + "_" + set_strip(tag) + "comments_" + other[1] + "_tile";
 			}
 			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
 			
@@ -1435,11 +1435,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "gh_issues_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "gh_" + data.id + "_issues_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "gh_issues_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "gh_" + data.id + "_" + set_strip(tag) + "_issues_" + other[1] + "_tile";
 			}
 			
 			var tileEl = document.getElementById(tileID);
@@ -1582,11 +1582,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "gh_commits_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "gh_" + data.id + "_commits_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "gh_commits_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "gh_" + data.id + "_" + set_strip(tag) + "_commits_" + other[1] + "_tile";
 			}
 			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
 			
@@ -1797,11 +1797,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "so_" + data.id + "_questions_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "so_questions_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "so_" + data.id + "_" + set_strip(tag) + "_questions_" + other[1] + "_tile";
 			}
 			//var tileID = "so_questions_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
@@ -1907,11 +1907,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "so_" + data.id + "_answers_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "so_answers_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "so_" + data.id + "_" + set_strip(tag) + "_answers_" + other[1] + "_tile";
 			}
 			//var tileID = "so_answers_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
@@ -2017,11 +2017,11 @@ function tile(source, type, tag, other)
 			var tileID = "";
 			if(tag == undefined)
 			{
-				var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
+				var tileID = "so_" + data.id + "_comments_" + other[1] + "_tile";
 			}
 			else
 			{
-				var tileID = "so_comments_" + other[1] + "_" + data.id + "_" + set_strip(tag) + "_tile";
+				var tileID = "so_" + data.id + "_" + set_strip(tag) + "_comments_" + other[1] + "_tile";
 			}
 			//var tileID = "so_comments_" + other[1] + "_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
