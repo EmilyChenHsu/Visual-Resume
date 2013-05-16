@@ -30,6 +30,22 @@
 	
     <body>
 		
+		<div class="top">
+			
+			<table>
+				<tr>
+					<td colspan='4' class="end" style="border-bottom: solid"><b>Tile Re-arrangement</b></td>
+				</tr>
+				<tr>
+					<td><a href="javascript:rearrange_tiles('user');">By User</a></td>
+					<td><a href="javascript:rearrange_tiles('gh_first');">GitHub First</a></td>
+					<td><a href="javascript:rearrange_tiles('so_first');">Stack Overflow First</a></td>
+					<td class="end"><a href="javascript:rearrange_tiles('gap');">Fill Spaces</a></td>
+				</tr>
+			</table>
+			
+		</div>
+		
 		<div class="leftBox">
 
 		<h3>Ben Scheirman</h3>

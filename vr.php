@@ -39,6 +39,22 @@
 		</form>
 		-->
 		
+		<div class="top">
+			
+			<table>
+				<tr>
+					<td colspan='4' class="end" style="border-bottom: solid"><b>Tile Re-arrangement</b></td>
+				</tr>
+				<tr>
+					<td><a href="javascript:rearrange_tiles('user');">By User</a></td>
+					<td><a href="javascript:rearrange_tiles('gh_first');">GitHub First</a></td>
+					<td><a href="javascript:rearrange_tiles('so_first');">Stack Overflow First</a></td>
+					<td class="end"><a href="javascript:rearrange_tiles('gap');">Fill Spaces</a></td>
+				</tr>
+			</table>
+			
+		</div>
+		
 		<div class="leftBox">
 		<h3>Paolo Perrotta</h3>
 		<a href="javascript:tile('Data/tgh_data_17791.json', 'gh_all', null);">GitHub</a><br>
@@ -55,13 +71,6 @@
 		<h3>John F. Douthat</h3>
 		<a href="javascript:tile('Data/tgh_data_40605.json', 'gh_all', null);">GitHub</a><br>
 		<a href="javascript:tile('Data/tso_data_2774.json', 'so_all', null);">Stack Overflow</a><br>
-		
-
-		<p>
-			<a href="javascript:rearrange_tiles('user');">re-arrange by user!</a>
-			<br>
-			<a href="javascript:rearrange_tiles('community');">re-arrange by community!</a>
-		</p>
 
 		</div>
 		<!--

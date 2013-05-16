@@ -547,39 +547,214 @@ d3.select("#username_" + tileID)
 					});
 */
 
-function rearrange_tiles(order)
+function rearrange_tiles(order1, order2)
 {
-    if(order === 'user')
+    if(order1 === 'user')
     {
-        /*
-        var temp_coor = global_coordinates.slice(0);
-        temp_coor.sort(function(a,b)
-          {
-            return b.id - a.id;
-          });
-        console.log(global_coordinates);
-        console.log(temp_coor);
-        */
-        global_coordinates.forEach(function(d)
-            {
-                console.log(d);
-            });
-    }
-    else if(order === 'community')
-    {
+        var num_swapped = 0;
+        var temp_size = global_coordinates.length;
         global_coordinates.forEach(function(d, i)
             {
-                console.log(d);
-                var community = d.id.substr(0,2);
-                console.log(community);
+                if(d.id != null)
+                {
+                    var id_array = d.id.split('_');
+                    var num1 = id_array[1];
+                    var temp_first = d.id;
+                    for(var index = i; index < temp_size; index++)
+                    {
+                        if(global_coordinates[index].id != null)
+                        {
+                            id_array = global_coordinates[index].id.split('_');
+                            var num2 = id_array[1];
+                            if(num1 > num2)
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                num_swapped++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        if(num_swapped > 0)
+        {
+            rearrange_tiles('user');
+        }
+    }
+    /*
+    else if(order1 === 'user_second')
+    {
+        var num_swapped = 0;
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var id_array = d.id.split('_');
+                    var num1 = id_array[1];
+                    var community = id_array[0];
+                    var temp_first = d.id;
+                    for(var index = i; index < temp_size; index++)
+                    {
+                        //if(global_coordinates[index].id != null)
+                        if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) == community)
+                        {
+                            id_array = global_coordinates[index].id.split('_');
+                            var num2 = id_array[1];
+                            if(num1 > num2)
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                num_swapped++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        if(num_swapped > 0)
+        {
+            rearrange_tiles('user');
+        }
+    }
+    */
+    else if(order1 === 'gh_first')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var community = d.id.substr(0,2);
+                    if(community === 'so')
+                    {
+                        var temp_first = d.id;
+                        for(var index = i; index < temp_size; index++)
+                        {
+                            if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) === 'gh')
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        /*
+        if(order2 === 'user')
+        {
+            rearrange_tiles('user_second');
+        }
+        */
+    }
+    else if(order1 === 'so_first')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var community = d.id.substr(0,2);
+                    if(community === 'gh')
+                    {
+                        var temp_first = d.id;
+                        for(var index = i; index < temp_size; index++)
+                        {
+                            if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) === 'so')
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        /*
+        if(order2 === 'user')
+        {
+            rearrange_tiles('user_second');
+        }
+        */
+    }
+    else if(order1 === 'gap')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id == null)
+                {
+                    var temp_first = i;
+                    for(var index = i; index < temp_size; index++)
+                    {
+                        if(global_coordinates[index].id != null)
+                        {
+                            exchange(temp_first, index);
+                            break;
+                        }
+                    }
+                }
             });
     }
 }
-
+// Based on INDEX
 function exchange(first, second)
 {
     var first_id = global_coordinates[first].id;
     var second_id = global_coordinates[second].id;
+    
+    if(first_id != null)
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = first_id;
+        global_coordinates[second].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = null;
+        global_coordinates[second].occupied = false;
+    }
+    
+    if(second_id != null)
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+            
+        global_coordinates[first].id = second_id;
+        global_coordinates[first].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+        
+        global_coordinates[first].id = null;
+        global_coordinates[first].occupied = false;
+    }
+}
+// Based on ID
+function swap(first_id, second_id)
+{
+    var first = 0, second = 0;
+    global_coordinates.forEach(function(d,i)
+        {
+            //console.log(d);
+            if(d.id == first_id)
+            {
+                first = i;
+            }
+            if(d.id == second_id)
+            {
+                second = i;
+            }
+        });
     
     if(first_id != null)
     {
