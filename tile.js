@@ -1832,7 +1832,7 @@ function tile(source, type, tag, other)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				var tmp = tag == undefined ? ' >> questions' : tag + ' >> questions';
+				var tmp = tag == undefined ? 'questions' : tag + ' >> questions';
 				var tmp_string = data.displayName + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -1847,16 +1847,11 @@ function tile(source, type, tag, other)
 								if(temp_end > 0)
 								{
 									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
-									return tmp;
+									return ' >> ' + tmp;
 								}
 							}
-							return tmp;
+							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
-						})
-					.attr('title', function(d)
-						{
-							//$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
 						});		
 			
 				d3.select("#" + tileID)
@@ -1942,7 +1937,7 @@ function tile(source, type, tag, other)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				var tmp = tag == undefined ? ' >> answers' : tag + ' >> answers';
+				var tmp = tag == undefined ? 'answers' : tag + ' >> answers';
 				var tmp_string = data.displayName + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -1957,16 +1952,11 @@ function tile(source, type, tag, other)
 								if(temp_end > 0)
 								{
 									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
-									return tmp;
+									return ' >> ' + tmp;
 								}
 							}
-							return tmp;
+							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp + '</a>';
-						})
-					.attr('title', function(d)
-						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
 						});
 					
 				d3.select("#" + tileID)
@@ -2052,7 +2042,7 @@ function tile(source, type, tag, other)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				var tmp = tag == undefined ? ' >> comments' : tag + ' >> comments';
+				var tmp = tag == undefined ? 'comments' : tag + ' >> comments';
 				var tmp_string = data.displayName + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -2067,16 +2057,11 @@ function tile(source, type, tag, other)
 								if(temp_end > 0)
 								{
 									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
-									return tmp;
+									return ' >> ' + tmp;
 								}
 							}
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp + '</a>';
-							return tmp;
-						})
-					.attr('title', function(d)
-						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;
+							return ' >> ' + tmp;
 						});
 				
 				d3.select("#" + tileID)
