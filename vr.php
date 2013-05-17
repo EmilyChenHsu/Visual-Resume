@@ -8,8 +8,8 @@
         <link rel='stylesheet' type='text/css' href='vr.css' />
 		<link rel='stylesheet' type='text/css' href='resources/tipsy/src/stylesheets/tipsy.css' />
         
-        <script src="resources/d3.v3.min.js"></script>
-		<!--<script src="resources/d3.js"></script>-->
+        <!--<script src="resources/d3.v3.min.js"></script>-->
+		<script src="resources/d3.js"></script>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 		<script type="text/javascript" src="resources/underscore-min.js"></script>
 		<script type="text/javascript" src="resources/comma.js"></script>

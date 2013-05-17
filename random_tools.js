@@ -549,32 +549,46 @@ d3.select("#username_" + tileID)
 
 function shift_tiles(start_tile_id)
 {
-    var temp_size = global_coordinates.length;
-    
-    var start_index = 0;
-    global_coordinates.forEach(function(d, i)
-        {
-            if(d.id == start_tile_id)
-            {
-                start_index = i;
-            }
-        });
-    
-    for(var index = temp_size - 1; index > start_index; index--)
+    console.log("Function: shift_tiles()");
+	console.log("Argument 1: " + start_tile_id);
+
+    if(start_tile_id != undefined)
     {
-        if(global_coordinates[index].id != null && index == temp_size - 1)
+        var temp_size = global_coordinates.length;
+        
+        var start_index = 0;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id == start_tile_id)
+                {
+                    start_index = i;
+                }
+            });
+        
+        for(var index = temp_size - 1; index > start_index; index--)
         {
-            index = start_index;
-            break;
+            if(global_coordinates[index].id != null && index == temp_size - 1)
+            {
+                index = start_index;
+                break;
+            }
+            else if(global_coordinates[index].id != null)
+            {
+                exchange(index, index + 1);
+            }
         }
-        else if(global_coordinates[index].id != null)
-        {
-            exchange(index, index + 1);
-        }
+    }
+    else
+    {
+        console.log('yes');
     }
 }
 function rearrange_tiles(order1, order2)
 {
+    console.log("Function: rearrange_tiles()");
+	console.log("Argument 1: " + order1);
+	console.log("Argument 2: " + order2);
+
     if(order1 === 'user')
     {
         var num_swapped = 0;
@@ -724,6 +738,10 @@ function rearrange_tiles(order1, order2)
 // Based on INDEX
 function exchange(first, second)
 {
+    console.log("Function: exchange()");
+	console.log("Argument 1: " + first);
+	console.log("Argument 2: " + second);
+
     var first_id = global_coordinates[first].id;
     var second_id = global_coordinates[second].id;
     
@@ -768,6 +786,10 @@ function exchange(first, second)
 // Based on ID
 function swap(first_id, second_id)
 {
+    console.log("Function: swap()");
+	console.log("Argument 1: " + first_id);
+	console.log("Argument 2: " + second_id);
+
     var first = 0, second = 0;
     global_coordinates.forEach(function(d,i)
         {
@@ -826,6 +848,13 @@ function swap(first_id, second_id)
  */
 function get_so(type, month, user, id, tag)
 {
+    console.log("Function: get_so()");
+	console.log("Argument 1: " + type);
+	console.log("Argument 2: " + month);
+	console.log("Argument 3: " + user);
+	console.log("Argument 4: " + id);
+	console.log("Argument 5: " + tag);
+    
 	var ajaxRequest;  // The variable that makes Ajax possible!
 	
 	try

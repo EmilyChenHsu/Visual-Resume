@@ -195,7 +195,7 @@ function pie_chart(source, type, tag)
                   {
                     var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\",null,\"" + tileID + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   else
                   {
@@ -214,7 +214,7 @@ function pie_chart(source, type, tag)
                   {
                     var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                     var percentage = per_long(otherRepoArray[i].total/fullPie);
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\",null,\"" + tileID + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
                   }
                   else
                   {
@@ -235,11 +235,11 @@ function pie_chart(source, type, tag)
               var repofull = d.data.owner + '-' + d.data.repo;
               //var repofull = d.data.owner + '/' + d.data.repo;
               //String(repofull);
-              click(repofull, "gh_repo");
+              click(repofull, "gh_repo", tileID);
             }
             else
             {
-              tile(source, "gh_otherRepos", null, otherRepoArray);
+              tile(source, "gh_otherRepos", null, otherRepoArray, tileID);
             }
           })
         .on("mouseover",function(d)
@@ -326,11 +326,11 @@ function pie_chart(source, type, tag)
               if(d != 'other')
               {
                 var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
-                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d), null, tileID); }
               }
               else
               {
-                tile(source, "gh_otherRepos", null, otherRepoArray);
+                tile(source, "gh_otherRepos", null, otherRepoArray, tileID);
               }
             });
       
@@ -560,7 +560,7 @@ function pie_chart(source, type, tag)
                     {
                       var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                       var percentage = per_long(otherRepoArray[i].total/fullPie);
-                      content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
+                      content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\",null,\"" + tileID + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
                     }
                     else
                     {
@@ -579,7 +579,7 @@ function pie_chart(source, type, tag)
                     {
                       var repofull = otherRepoArray[i].owner + '-' + otherRepoArray[i].repo;
                       var percentage = per_long(otherRepoArray[i].total/fullPie);
-                      content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
+                      content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_repo\",\"" + repofull + "\",null,\"" + tileID + "\");'>" + otherRepoArray[i].owner + '/' + otherRepoArray[i].repo + "</a>:</td><td>" + percentage + "</td></tr>");
                     }
                     else
                     {
@@ -599,11 +599,11 @@ function pie_chart(source, type, tag)
               {
                 //click(d.data.repo, "gh_repo");
                 var repofull = d.data.owner + '-' + d.data.repo;
-                click(repofull, "gh_repo");
+                click(repofull, "gh_repo", tileID);
               }
               else
               {
-                tile(source, "gh_otherRepos", null, otherRepoArray);
+                tile(source, "gh_otherRepos", null, otherRepoArray, tileID);
               }
             })
           .on("mouseover",function(d)
@@ -690,11 +690,11 @@ function pie_chart(source, type, tag)
               if(d != 'other')
               {
                 var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
-                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d)); }
+                if(temp_total > 0){ tile(source, 'gh_repo', set_strip(d), null, tileID); }
               }
               else
               {
-                tile(source, "gh_otherRepos", null, otherRepoArray);
+                tile(source, "gh_otherRepos", null, otherRepoArray, tileID);
               }
             });
         
@@ -843,7 +843,7 @@ function pie_chart(source, type, tag)
                   for(var i = 0; i < 7; i++)
                   {
                     var percentage = per_long(otherTagArray[i].total/fullPie);
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\",null,\"" + tileID + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
@@ -852,7 +852,7 @@ function pie_chart(source, type, tag)
                   for(var i = 0; i < otherTagArray.length; i++)
                   {
                     var percentage = per_long(otherTagArray[i].total/fullPie);
-                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                    content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\",null,\"" + tileID + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                   }
                   content += "</table>";
                 }
@@ -864,11 +864,11 @@ function pie_chart(source, type, tag)
             {
               if(d.data.tag != "other")
               {
-                click(d.data.tag, "so_tag");
+                click(d.data.tag, "so_tag", tileID);
               }
               else
               {
-                tile(source, "so_otherTags", null, otherTagArray);
+                tile(source, "so_otherTags", null, otherTagArray, tileID);
               }
             })
           .on("mouseover",function(d)
@@ -956,11 +956,11 @@ function pie_chart(source, type, tag)
             {
               if(d != 'other')
               {
-                click(get_strip(d), "so_tag");
+                click(get_strip(d), "so_tag", tileID);
               }
               else
               {
-                tile(source, "so_otherTags", null, otherTagArray);
+                tile(source, "so_otherTags", null, otherTagArray, tileID);
               }
             });
         
@@ -1123,7 +1123,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\",null,\"" + tileID + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -1132,7 +1132,7 @@ function pie_chart(source, type, tag)
                 for(var i = 0; i < otherTagArray.length; i++)
                 {
                   var percentage = per_long(otherTagArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"so_tag\",\"" + set_strip(otherTagArray[i].tag) + "\",null,\"" + tileID + "\");'>" + otherTagArray[i].tag + ":</a></td><td class='right'>" + percentage + "</td></tr>");
                 }
                 content += "</table>";
               }
@@ -1144,11 +1144,11 @@ function pie_chart(source, type, tag)
           {
             if(d.data.tag != "other")
             {
-              click(d.data.tag, "so_tag");
+              click(d.data.tag, "so_tag", tileID);
             }
             else
             {
-              tile(source, "so_otherTags", null, otherTagArray);
+              tile(source, "so_otherTags", null, otherTagArray, tileID);
             }
           })
         .on("mouseover",function(d)
@@ -1234,11 +1234,11 @@ function pie_chart(source, type, tag)
           {
             if(d != 'other')
             {
-              click(get_strip(d), "so_tag");
+              click(get_strip(d), "so_tag", tileID);
             }
             else
             {
-              tile(source, "so_otherTags", null, otherTagArray);
+              tile(source, "so_otherTags", null, otherTagArray, tileID);
             }
           });
       
@@ -1263,9 +1263,9 @@ function pie_chart(source, type, tag)
   
   else { alert("Unknown data type parameter passed to pie_chart(): " + type); }
   
-  function click(tag, type)
+  function click(tag, type, id)
   {
-    tile(source, type, tag);
+    tile(source, type, tag, null, id);
   }
 }
 
@@ -1461,7 +1461,7 @@ function language_pie(source)
                 for(var i = 0; i < 7; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\",null,\"" + tileID + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
                 }
                 content += "</table>";
               }
@@ -1470,7 +1470,7 @@ function language_pie(source)
                 for(var i = 0; i < otherLangArray.length; i++)
                 {
                   var percentage = per_long(otherLangArray[i].total/fullPie);
-                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
+                  content += ("<tr><td class='left'><a class='dark_background' href='javascript:tile(\"" + source + "\",\"gh_languages\",\"" + set_strip(otherLangArray[i].language) + "\",null,\"" + tileID + "\");'>" + otherLangArray[i].language + ":</a></td></tr>");
                 }
                 content += "</table>";
               }
@@ -1481,11 +1481,11 @@ function language_pie(source)
           {
             if(d.data.language != "other")
             {
-              click(d.data.language, "gh_languages");
+              click(d.data.language, "gh_languages", tileID);
             }
             else
             {
-              tile(source, "gh_otherLanguages", null, otherLangArray);
+              tile(source, "gh_otherLanguages", null, otherLangArray, tileID);
             }
           })
         .on("mouseover",function(d)
@@ -1571,11 +1571,11 @@ function language_pie(source)
           {
             if(d != 'other')
             {
-              click(get_strip(d), "gh_languages");
+              click(get_strip(d), "gh_languages", tileID);
             }
             else
             {
-              tile(source, "gh_otherLanguages", null, otherLangArray);
+              tile(source, "gh_otherLanguages", null, otherLangArray, tileID);
             }
           });
       
@@ -1596,8 +1596,8 @@ function language_pie(source)
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
   // End draw pie chart for GitHub languages <==
   // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-  function click(language, type)
+  function click(language, type, id)
   {
-    tile(source, type, language);
+    tile(source, type, language, null, id);
   }
 }
