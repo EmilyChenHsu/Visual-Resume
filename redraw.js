@@ -173,19 +173,19 @@ function redraw(data, id, type, other)
 
 					if(d.type == 'gh')
 					{
-						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other);
+						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other, id);
 					}
 					else if(d.type == 'gh_repo')
 					{
-						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, temp_tag, temp_other);
+						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, temp_tag, temp_other, id);
 					}
 					else if(d.type == 'so_all')
 					{
-						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other);
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other, id);
 					}
 					else if(d.type == 'so_tag')
 					{
-						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other);
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other, id);
 					}
 					
 				});
@@ -334,19 +334,19 @@ function redraw(data, id, type, other)
 					}
 					if(d.type == 'gh')
 					{
-						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other);
+						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, undefined, temp_other, id);
 					}
 					else if(d.type == 'gh_repo')
 					{
-						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, temp_tag, temp_other);
+						tile('Data/tgh_data_' + d.user_id + '.json', 'gh_' + d.title, temp_tag, temp_other, id);
 					}
 					else if(d.type == 'so_all')
 					{
-						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other);
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, undefined, temp_other, id);
 					}
 					else if(d.type == 'so_tag')
 					{
-						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other);
+						tile('Data/tso_data_' + d.user_id + '.json', 'so_' + d.title, temp_tag, temp_other, id);
 					}
 				});
 		
