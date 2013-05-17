@@ -26,6 +26,7 @@ function tile(source, type, tag, other)
 		{
 			var tileID = "so_" + data.id + "_tile";
 			var tileEl = document.getElementById(tileID);
+			
 			if(tileEl == null)
 			{
 				global_coordinates[temp_i].occupied = true;

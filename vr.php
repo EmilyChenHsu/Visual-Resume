@@ -109,6 +109,28 @@
 			// End global graph size variables <==
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 
+			var global_userid_map = new Array();
+			global_userid_map[665] = 1;
+			global_userid_map[50176] = 2;
+			
+			global_userid_map[718] = 3;
+			global_userid_map[42413] = 4;
+			
+			global_userid_map[17791] = 5;
+			global_userid_map[154907] = 6;
+			
+			global_userid_map[38495] = 7;
+			global_userid_map[165079] = 8;
+			
+			global_userid_map[40605] = 9;
+			global_userid_map[2774] = 10;
+			
+			global_userid_map[59140] = 11;
+			global_userid_map[3381] = 12;
+			
+			global_userid_map[378646] = 13;
+			global_userid_map[214365] = 14;
+			
 			var global_coordinates = new Array();
 				var temp_count = 0;
 				var temp_column = 0;

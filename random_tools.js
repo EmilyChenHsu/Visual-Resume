@@ -547,6 +547,32 @@ d3.select("#username_" + tileID)
 					});
 */
 
+function shift_tiles(start_tile_id)
+{
+    var temp_size = global_coordinates.length;
+    
+    var start_index = 0;
+    global_coordinates.forEach(function(d, i)
+        {
+            if(d.id == start_tile_id)
+            {
+                start_index = i;
+            }
+        });
+    
+    for(var index = temp_size - 1; index > start_index; index--)
+    {
+        if(global_coordinates[index].id != null && index == temp_size - 1)
+        {
+            index = start_index;
+            break;
+        }
+        else if(global_coordinates[index].id != null)
+        {
+            exchange(index, index + 1);
+        }
+    }
+}
 function rearrange_tiles(order1, order2)
 {
     if(order1 === 'user')
@@ -558,14 +584,14 @@ function rearrange_tiles(order1, order2)
                 if(d.id != null)
                 {
                     var id_array = d.id.split('_');
-                    var num1 = id_array[1];
+                    var num1 = global_userid_map[id_array[1]];
                     var temp_first = d.id;
                     for(var index = i; index < temp_size; index++)
                     {
                         if(global_coordinates[index].id != null)
                         {
                             id_array = global_coordinates[index].id.split('_');
-                            var num2 = id_array[1];
+                            var num2 = global_userid_map[id_array[1]];
                             if(num1 > num2)
                             {
                                 swap(temp_first, global_coordinates[index].id);
