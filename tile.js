@@ -339,6 +339,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -350,6 +351,7 @@ function tile(source, type, tag, other, fromID)
 									return ' >> <a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag.substr(0,temp_end) + '..</a>';
 								}
 							}
+							*/
 							return ' >> <a href="http://stackoverflow.com/search?q=user:' + data.id + '+[' + set_url(tag) + ']' + '" target="_blank">' + tag + '</a>';
 						})
 					.attr('title', function(d)
@@ -693,6 +695,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -704,12 +707,16 @@ function tile(source, type, tag, other, fromID)
 									return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp.substr(0,temp_end) + "..</a>";
 								}
 							}
+							*/
 							return '>> <a href="https://github.com/' + tmp + '/commits?author=' + data.login + '" target="_blank">' + tmp + "</a>";
 						})
 					.attr('title', function(d)
 						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
+							if(tmp != 'unknown')
+							{
+								$(this).tipsy({gravity: 's', html: true, hoverable: false});
+								return tmp;
+							}
 						});
 
 				d3.select("#" + tileID)
@@ -857,31 +864,13 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				var tmp = tag == undefined ? ' >> questions' : tag + ' >> questions';
+				var tmp = ' >> other tags';
 				var tmp_string = data.displayName + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(function(d)
 						{
-							// If the repo title is too long, we'll need to shorten it
-							if(tmp_string.length > 28)
-							{
-								var tag_length = tmp.length;
-								var temp_diff = tmp_string.length - 28;
-								var temp_end = tag_length - temp_diff;
-								if(temp_end > 0)
-								{
-									//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp.substr(0,temp_end) + '..</a>';
-									return tmp;
-								}
-							}
 							return tmp;
-							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
-						})
-					.attr('title', function(d)
-						{
-							//$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
 						});
 					
 				d3.select("#" + tileID)
@@ -955,30 +944,15 @@ function tile(source, type, tag, other, fromID)
 						return data.name;
 					});
 				
-				var tmp = "other repos";
-				var tmp_string = data.login + ' >> ' + tmp;
+				var tmp = " >> other languages";
+				var tmp_string = data.login + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(function(d)
 						{
-							// If the repo title is too long, we'll need to shorten it
-							if(tmp_string.length > 28)
-							{
-								var repo_length = tmp.length;
-								var temp_diff = tmp_string.length - 28;
-								var temp_end = repo_length - temp_diff;
-								if(temp_end > 0)
-								{
-									return '>> ' + tmp.substr(0,temp_end) + "..";
-								}
-							}
-							return '>> ' + tmp;
-						})
-					.attr('title', function(d)
-						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
+							return tmp;
 						});
+					
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1007,7 +981,7 @@ function tile(source, type, tag, other, fromID)
 				
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
-					.html('<p><b>Other</b> Repositories</p>')
+					.html('<p><b>Other</b> Languages</p>')
 					.style('text-decoration', 'underline');
 						
 						
@@ -1086,6 +1060,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -1097,12 +1072,8 @@ function tile(source, type, tag, other, fromID)
 									return '>> ' + tmp.substr(0,temp_end) + "..";
 								}
 							}
+							*/
 							return '>> ' + tmp;
-						})
-					.attr('title', function(d)
-						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
 						});
 				d3.select("#" + tileID)
 					.append("div")
@@ -1199,6 +1170,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -1210,12 +1182,16 @@ function tile(source, type, tag, other, fromID)
 									return '>> ' + tmp.substr(0,temp_end) + "..";
 								}
 							}
+							*/
 							return '>> ' + tmp;
 						})
 					.attr('title', function(d)
 						{
-							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
+							if(tmp != 'unknown')
+							{
+								$(this).tipsy({gravity: 's', html: true, hoverable: false});
+								return tmp;
+							}
 						});
 				d3.select("#" + tileID)
 					.append("div")
@@ -1712,6 +1688,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -1724,6 +1701,7 @@ function tile(source, type, tag, other, fromID)
 									return ' >> ' + tmp;
 								}
 							}
+							*/
 							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
 						});		
@@ -1796,6 +1774,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -1808,6 +1787,7 @@ function tile(source, type, tag, other, fromID)
 									return ' >> ' + tmp;
 								}
 							}
+							*/
 							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp + '</a>';
 						});
@@ -1880,6 +1860,7 @@ function tile(source, type, tag, other, fromID)
 					.append("text")
 					.html(function(d)
 						{
+							/*
 							// If the repo title is too long, we'll need to shorten it
 							if(tmp_string.length > 28)
 							{
@@ -1892,6 +1873,7 @@ function tile(source, type, tag, other, fromID)
 									return ' >> ' + tmp;
 								}
 							}
+							*/
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp + '</a>';
 							return ' >> ' + tmp;
 						});
