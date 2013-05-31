@@ -621,42 +621,7 @@ function rearrange_tiles(order1, order2)
             rearrange_tiles('user');
         }
     }
-    /*
-    else if(order1 === 'user_second')
-    {
-        var num_swapped = 0;
-        var temp_size = global_coordinates.length;
-        global_coordinates.forEach(function(d, i)
-            {
-                if(d.id != null)
-                {
-                    var id_array = d.id.split('_');
-                    var num1 = id_array[1];
-                    var community = id_array[0];
-                    var temp_first = d.id;
-                    for(var index = i; index < temp_size; index++)
-                    {
-                        //if(global_coordinates[index].id != null)
-                        if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) == community)
-                        {
-                            id_array = global_coordinates[index].id.split('_');
-                            var num2 = id_array[1];
-                            if(num1 > num2)
-                            {
-                                swap(temp_first, global_coordinates[index].id);
-                                num_swapped++;
-                                break;
-                            }
-                        }
-                    }
-                }
-            });
-        if(num_swapped > 0)
-        {
-            rearrange_tiles('user');
-        }
-    }
-    */
+
     else if(order1 === 'gh_first')
     {
         var temp_size = global_coordinates.length;
@@ -679,12 +644,6 @@ function rearrange_tiles(order1, order2)
                     }
                 }
             });
-        /*
-        if(order2 === 'user')
-        {
-            rearrange_tiles('user_second');
-        }
-        */
     }
     else if(order1 === 'so_first')
     {
@@ -708,12 +667,7 @@ function rearrange_tiles(order1, order2)
                     }
                 }
             });
-        /*
-        if(order2 === 'user')
-        {
-            rearrange_tiles('user_second');
-        }
-        */
+
     }
     else if(order1 === 'gap')
     {
