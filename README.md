@@ -3,19 +3,16 @@
 # Using the Tool
 ________________
 
-In order to take full advantage of all of Visual Resume's features, read through this list to familiarize yourself with the tool:
+In order to take full advantage of all of the Visual Resume's features, read through this list to familiarize yourself with the tool:
+
+# Key Interactions and Info
+________________
 
 ## GitHub
 
-* Select a user to view.
-* The initial tile that pops up give a general overview of the user's contributions in GitHub.
-* At the top-left of the tile, the user's **login** is displayed. If you click on it, it will open up a new tab with their official GitHub profile page. If you hover over it, the user's **full name** (if available) will be displayed.
-* Just beneath the user's name, their **tenure** is displayed. This allows you to see how long ago they joined the GitHub community.
-* Below the tenure is the user's **avatar or profile picture**.
+* Hover over the user's **login** name at the top of the tile to see his display name.
 * Below the avatar is the **number of followers** the user has.
-* To the right, we see a radial chart. The default chart gives a **breakdown of the repositories** that the user is most involved in based on the number of their commits, comments and issues in the repository. If you hover over a slice of the chart, you will be shown the repository name, the main programming language used in the repository, and the number of watchers the repository has. If you click on a slice (unless it is the slice for the "other" repositories), it will open up a new tile with information about the user's contributions within that specific repository. If you hover over the slice for the "other" repositories, you can enter the tooltip with your mouse pointer and click the name of a repository that you would like to view; this will also open it in a new tile. You may have also noticed that the names of some of the repositories are cut off in the legend below the radial chart--simply hover over these names to see the full name. Below the chart title, you should notice that you can select **by language** instead of **by repository**. If you select **by language**, you will see a differenct radial chart that breaks down the languages most used (based on an aggregation of commits, comments, and issues) by the user. If you click on one of the slices (or a language in the "other" tooltip), a basic tile will open that lists all of the user's repositories that use the language selected as its primary language.
-* As you look down into the lower half of the tile, you see a chart labeled **"Contributions by Month."** This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's commits, comments, and issues aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just below the chart's title. The grouped chart shows the user's commits, comments, and issues aggregated and displayed side-by-side. The legend below the chart shows the total number of commits, comments, and issues in the current selected date range. Each bar in the chart may be hovered over to show the number of acommits, comments, and issues (depending on which bar it is) there were for the month.
-* At the top-right, there is an x inside of a circle. Click that icon if you wish to **close the tile**.  
+* To the right, we see a radial chart. The default chart gives a **breakdown of the repositories** that the user is most involved in based on the sum of their commits, comments and issues in the repository. If you hover over a slice of the chart, you will be shown the repository name, the main programming language used in the repository, and the number of watchers the repository has. If you click on a slice, it will open up a new tile with information about the user's contributions within that specific repository (or a list of repositories, if the "other" slice is clicked). If you hover over the slice for the "other" repositories, you can enter the tooltip with your mouse pointer and click the name of a repository that you would like to view; this will also open it in a new tile. You may have also noticed that the names of some of the repositories are cut off in the legend below the radial chart--simply hover over these names to see the full name. Below the chart title, you should notice that you can select **by language** instead of **by repository**. If you select **by language**, you will see a different radial chart that breaks down the languages most used (based on an aggregation of commits, comments, and issues in projects that share a primary language) by the user. If you click on one of the slices (or a language in the "other" tooltip), a basic tile will open that lists all of the user's repositories that use the language selected as its primary language.
 
 * In the repository-specific tiles (those that pop up when you click on a slice of the **by repository** radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
 
@@ -33,15 +30,8 @@ In order to take full advantage of all of Visual Resume's features, read through
 
 ## Stack Overflow
 
-* Select a user to view.
-* The initial tile that pops up give a general overview of the user's contributions in Stack Overflow.
-* At the top-left of the tile, the **user's name** is displayed. If you click on it, it will take you to their official Stack Overflow profile page.
-* Just beneath the user's name, their **tenure** is displayed. This allows you to see how long ago they joined the Stack Overflow community.
-* Below the tenure is the user's **avatar or profile picture**.
 * Below the avatar is the **user's reputation** in Stack Overflow (this is calculated based on things like how many questions, answers, or comments they have had upvoted).
 * To the right, we see a radial chart. This gives a **breakdown of the various tags** (programming languages, concepts, etc.) that the user is most involved in based on the number of their questions, comments and answers in the tag. If you hover over a slice of the chart, you will be shown the tag name and the percentage of the user's contributions that have been related to that tag. If you click on a slice (unless it is the slice for the "other" tags), it will open up a new tile with information about the user's contributions within that specific tag. If you hover over the slice for the "other" tags, you can enter the tooltip with your mouse pointer and click the name of a tag that you would like to view; this will also open it in a new tile. You may have also noticed that the names of some of the tags are cut off in the legend below the radial chart--simply hover over these names to see the full name.
-* As you look down into the lower half of the tile, you see a chart labeled **"Contributions by Month."** This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's answers, comments, and questions aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just below the chart's title. The grouped chart shows the user's answers, comments, and questions aggregated and displayed side-by-side. The legend below the chart shows the total number of answers, comments, and questions in the current selected date range. Each bar in the chart may be hovered over to show the number of answers, comments, or questions (depending on which bar it is) there were for the month.
-* At the top-right, there is an x inside of a circle. Click that icon if you wish to **close the tile.**
 
 * In the tag-specific tiles (those that pop up when you click on a slice of the radial chart in the user's general overview tile), the information is very much similar to that displayed in its parent tile. The differences are outlined below:
 
@@ -52,33 +42,29 @@ In order to take full advantage of all of Visual Resume's features, read through
     3. Below the number of comments, the **number of the user's questions in the tag** is listed.
     3. As may be expected, the graphs in the lower half of the tile only show user's contributions within the highlighted tag.
 
+## Both
+
+* Select a user to view (by clicking the [GitHub, Stack Overflow] link under his name on the left side of the screen).
+* The initial tile that pops up give a general overview of the user's contributions in [GitHub, Stack Overflow].
+* Click on a user's [login, display name] to navigate to his [GitHub, Stack Overflow] profile page.
+* Just beneath the user's [login, display name], his **tenure** is displayed. This allows you to see how long ago he joined the [GitHub, Stack Overflow] community.
+* Below the tenure is the user's **avatar** (profile picture).
+* As you look down into the lower half of a tile, you see a chart labeled **"Contributions by Month."** This chart simply shows you the user's contributions broken down month-by-month. Select the date range you would like to view in the chart by dragging your mouse pointer across the chart at the bottom of the tile. The chart comes in two flavors: grouped and stacked. The default is stacked, which shows the user's [commits, comments, and issues **or** questions, answers, and comments] aggregated and stacked upon each other; but you can choose your flavor by clicking either "grouped" or "stacked" just below the chart's title. The grouped chart shows the user's contributions aggregated and displayed side-by-side. The legend below the chart shows the total number of contributions in the current selected date range. Each bar in the chart may be hovered over to show the number of contributions (depending on which bar it is) there were for the month. The bars can also be clicked, which brings up new tiles that list the chosen contributions for the chosen month.
+* Click the 'x' inside of a circle at the top right of a tile to **close the tile**.
+
 ## General
 
 * Main graphs are always displayed on the same, **global scale**.
 * **Closing and opening new tiles** will likely change the global scale. For example, if you remove the tile with the most contributions in a month, the global max will be reduced to the next highest; but if you add a new tile with more contributions in a month than any already displayed, the global max will be increased.
-* The short graphs for date-range selection are all scaled to their own data.
+* The short graphs for date-range selection are all scaled to their own data (i.e. they don't necessarily follow the global scale).
 * Tiles can be **reordered** by swapping the position of two horizontally or vertically adjacent tiles. To do this, simply click the arrows located between the two tiles you wish to swap.
+* Tiles can be **reordered** by clicking one of the four re-ordering options.
+    * **By User** orders the tiles so that tiles from the same user will be adjacent to one another.
+    * **GitHub First** orders the tiles so that all of the GitHub tiles are first.
+    * **Stack Overflow First** orders the tiles so that all of the Stack Overflow tiles are first.
+    * **Fill Spaces** shifts tiles to the left to fill in empty spaces (if present)--automatically run when tiles are re-ordered by any of the other three methods.
 * You are limited to opening only about 30 tiles at once. That's a bit excessive, so you probably don't have to worry about hitting your quota and blowing up the system.
 * It's probably obvious, but our tool allows you to **compare** one user's contributions in various tags, repositories, or communities **and** multiple users' contributions with each other as well.
-
-# Key Interactions
-________________
-
-## GitHub
-
-* Select a user (by clicking his or her name on the left side of the screen).
-* Hover over the user's **login** name at the top of the tile.
-* Click on the user's **login** name at the top of the tile.
-* Click on the **by language** link below the title for the radial chart.
-* Hover over the slices of the chart.
-* Click on a slice of the chart besides 'other.'
-* Click the name of a repository in the list that appears in the new tile (if there are none, select a different language).
-* Click on the **by repository** link below the title for the radial chart.
-* Click the 'x' inside of a circle at the top right of a tile to **close the tile**.  
-
-## Stack Overflow
-
-## General
 ________________
 ## Sample JSON File (GitHub):
 
