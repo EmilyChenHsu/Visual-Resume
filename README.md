@@ -191,3 +191,12 @@ ________________
 ________________
 
 * **GH Commit Data**: It makes a huge difference whether we go with the route `it.out("AUTHOR").out("EMAIL").out("GRAVATAR_HASH").in("GRAVATAR").login.next() == user.login` vs `it.out("AUTHOR").out("EMAIL").in("EMAIL").login.next() == user.login`.
+
+## Branch (version) History
+________________
+
+* **v0.9**: Version used for the demo at the Spring 2013 NSF SCALE Conference in Pittsburg, PA.
+
+* **v1.0**: Version used for the first few pilot studies (mid May, 2013).
+
+* **v1.1**: Current version.
