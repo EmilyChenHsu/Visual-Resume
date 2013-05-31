@@ -858,6 +858,6 @@ function get_so(type, month, user, id, tag)
 		var queryString = "?month1=" + month + "&month2=" + month2 +"&user=" + user + "&type=" + type + "&tag=" + tag;
 	}
     document.getElementById(id).innerHTML = "Loading. This could take a few minutes if you're looking at a super user..";
-	ajaxRequest.open("GET", "so_call.php" + queryString, true);
+	ajaxRequest.open("GET", "so_posts.php" + queryString, true);
 	ajaxRequest.send(null); 
 }

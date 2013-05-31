@@ -65,7 +65,6 @@
             if($_GET['type'] == 'question')
             {       
                 $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1) AND (creation_date between '$datetime1' AND '$datetime2');";
-                //$query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1);";
                 
                 if($result = $mysqli->query($query))
                 {
@@ -74,30 +73,6 @@
                         // ========== //
                         // BEGIN TAGS //
                         // ========== //
-                        /*
-                        $array = array();
-                        if($row['tags'] != null)
-                        {
-                            $array = explode('<',$row['tags']);
-                            
-                            foreach($array as $key=>&$value)
-                            {
-                                if($value != '')
-                                {
-                                    if(substr($value,-1) == '>')
-                                    {
-                                        $value = substr($value,0,-1);
-                                        $array[$key] = $value;
-                                    }
-                                }
-                                else
-                                {
-                                    unset($array[$key]);
-                                }
-                            }
-                            //var_dump($array);
-                        }
-                        */
                         if($tag != null)
                         {
                             if (strpos($row['tags'], $mod_tag) !== false)
@@ -116,18 +91,9 @@
                                     $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (0)</p><p>' . $row['title'] . '</p><hr>';
                                 }
                             }
-                            /*
-                            if (in_array($tag, $array))
-                            {
-                                //$output = $output . $row['title'] . '<br>';
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank">' . $row['title'] . '</a></p>';
-                                //echo '<br>' . $tag . '<br>';
-                            }
-                            */
                         }
                         else
                         {
-                            //$output = $output . $row['title'] . '<br>';
                             $temp_score = $row['score'];
                             if($temp_score > 0)
                             {
@@ -148,8 +114,6 @@
                     }
                 }
                 
-                //echo $query . ' ' . $output . ' ' . $datetime;
-                //echo $query . '<br>' . $output;
                 echo $output;
             }
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -195,14 +159,7 @@
                         if($temp_result = $mysqli->query($temp_query))
                         {
                             while($temp_row = $temp_result->fetch_assoc())
-                            {
-                                /*
-                                $question = new so_post();
-                                $question->id = $temp_row['id'];
-                                $question->tags = $temp_row['tags'];
-                                array_push($question_array, $question);
-                                */
-                                
+                            {                
                                 // This way indexes by the post's id
                                 $question = new so_post();
                                 $question->id = $temp_row['id'];
@@ -228,10 +185,6 @@
                                     $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (0)<br>' . $value->body . '</p><hr>';
                                 }
                             }
-                            //$question_array[$value->parent_id]
-                            //echo '<p>Q_id: ' . $question_array[$value->parent_id]->id . '<br>A_parent_id: ' . $answer_array[$key]->parent_id . '</p>';
-                            //echo '<p>Q_id: ' . $question_array[$value->parent_id]->tags . '<br>A_parent_id: ' . $answer_array[$key]->parent_id . '</p>';
-                            //$output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b><br></a>' . $value->body . '</p><hr>';
                         }
                     }
                     //
