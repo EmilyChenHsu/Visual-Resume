@@ -620,6 +620,7 @@ function rearrange_tiles(order1, order2)
         {
             rearrange_tiles('user');
         }
+        rearrange_tiles('gap');
     }
 
     else if(order1 === 'gh_first')
@@ -644,6 +645,7 @@ function rearrange_tiles(order1, order2)
                     }
                 }
             });
+        rearrange_tiles('gap');
     }
     else if(order1 === 'so_first')
     {
@@ -667,7 +669,7 @@ function rearrange_tiles(order1, order2)
                     }
                 }
             });
-
+        rearrange_tiles('gap');
     }
     else if(order1 === 'gap')
     {
