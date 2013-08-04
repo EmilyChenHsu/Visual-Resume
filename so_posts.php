@@ -72,7 +72,7 @@
                     while($row = $result->fetch_assoc())
                     {
                         // Determine if there are comments present
-                        $commentPresence = ($row['comment_count'] > 0) ? ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
+                        $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
 
                         // ========== //
                         // BEGIN TAGS //
@@ -176,7 +176,7 @@
                         foreach($answer_array as $key=>&$value)
                         {
                             // Determine if there are comments present
-                            $commentPresence = ($value->commentCount > 0) ? ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
+                            $commentPresence = ($value->commentCount > 0) ? ' ' . $value->commentCount . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
                             if (strpos($question_array[$value->parent_id]->tags, $mod_tag) !== false)
                             {
                                 if($value->score > 0)
@@ -204,7 +204,7 @@
                         while($row = $result->fetch_assoc())
                         {
                             // Determine if there are comments present
-                            $commentPresence = ($row['comment_count'] > 0) ? ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
+                            $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
                             $temp_score = $row['score'];
                             if($temp_score > 0)
                             {
