@@ -17,9 +17,9 @@ body
     margin-right:auto;
     margin-top:70px;
     border: none;
-    
+
     background-color: #eee;
-    
+
     font-family: sans-serif;
     font-size: 12px;
 }
@@ -85,7 +85,7 @@ div.gh_user_tile
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -95,7 +95,7 @@ div.gh_repo_user_tile
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -105,7 +105,7 @@ div.gh_language_user_tile
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -115,7 +115,7 @@ div.so_user_tile
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -125,7 +125,7 @@ div.so_tag_user_tile
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -135,7 +135,7 @@ div.so_questions_user_tile, div.so_answers_user_tile, div.so_comments_user_tile,
     position: absolute;
     width:300px;
     height:480px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
     border-radius: 10px;
@@ -145,10 +145,10 @@ div.tile_container
 {
     position:relative;
     float:left;
-    
+
     width:305px;
     height:485px;
-    
+
     background-color: #FFFFFF;
     border:2px solid #aaaaaa;
 }
@@ -165,10 +165,10 @@ div.switch
 div.so_general
 {
     position: absolute;
-    
+
     padding-left: 25px;
     padding-right: 25px;
-    
+
     width:250px;
     height:415px;
     /*
@@ -193,7 +193,7 @@ div.community_title
     top: 0;
     left: 13px;
     border: none;
-    
+
     font-size: 12px;
 }
 
@@ -201,6 +201,9 @@ img.icon
 {
     height: 40px;
     width: auto;
+}
+img.comment-bubble {
+    height: 15px;
 }
 
 .gh_user_tile img.gh_icon
@@ -418,7 +421,7 @@ div.barChart
     top: 205px;
     left:0;
     border: none;
-    
+
     font-size: 12px;
 }
 
@@ -429,7 +432,7 @@ div.shortBarChart
     bottom: 0;
     left:0;
     border: none;
-    
+
     font-size: 12px;
 }
 
@@ -496,7 +499,7 @@ span.close_button
     text-align: center;
     left: 0;
     border: none;
-    
+
     font-size: 12px;
 }
 .gh_repo_user_tile .separator
@@ -553,7 +556,7 @@ span.close_button
     color: #fff;
     opacity: .8;
     padding: 5px;
-    
+
     max-height: 300px;
     overflow-y: scroll;
     z-index: 1;
