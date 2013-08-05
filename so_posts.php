@@ -72,7 +72,15 @@
                     while($row = $result->fetch_assoc())
                     {
                         // Determine if there are comments present
-                        $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
+                        $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
+                        // Determine the score
+                        $postScore = '';
+                        $temp_score = $row['score'];
+                        if($temp_score > 0) {
+                            $postScore = ' ' . $temp_score . ' <img src="media/thumbs_up.png" class="mini-icon">';
+                        } else if($temp_score < 0) {
+                            $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
+                        }
 
                         // ========== //
                         // BEGIN TAGS //
@@ -81,36 +89,12 @@
                         {
                             if (strpos($row['tags'], $mod_tag) !== false)
                             {
-                                $temp_score = $row['score'];
-                                if($temp_score > 0)
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (+' . $temp_score . ')' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                                }
-                                else if($temp_score < 0)
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (' . $temp_score . ')' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                                }
-                                else
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (0)' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                                }
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
                             }
                         }
                         else
                         {
-                            $temp_score = $row['score'];
-                            if($temp_score > 0)
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (+' . $temp_score . ')' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                            }
-                            else if($temp_score < 0)
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (' . $temp_score . ')' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                            }
-                            else
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (0)' . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
-                            }
+                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
                         }
                         // ======== //
                         // END TAGS //
@@ -176,21 +160,18 @@
                         foreach($answer_array as $key=>&$value)
                         {
                             // Determine if there are comments present
-                            $commentPresence = ($value->commentCount > 0) ? ' ' . $value->commentCount . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
-                            if (strpos($question_array[$value->parent_id]->tags, $mod_tag) !== false)
-                            {
-                                if($value->score > 0)
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (+' . $value->score . ')' . $commentPresence . '<br>' . $value->body . '</p><hr>';
-                                }
-                                else if($value->score < 0)
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (' . $value->score . ')' . $commentPresence . '<br>' . $value->body . '</p><hr>';
-                                }
-                                else
-                                {
-                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (0)' . $commentPresence . '<br>' . $value->body . '</p><hr>';
-                                }
+                            $commentPresence = ($value->commentCount > 0) ? ' ' . $value->commentCount . ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
+                            // Determine the score
+                            $postScore = '';
+                            $temp_score = $value->score;
+                            if($temp_score > 0) {
+                                $postScore = ' ' . $temp_score . ' <img src="media/thumbs_up.png" class="mini-icon">';
+                            } else if($temp_score < 0) {
+                                $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
+                            }
+
+                            if (strpos($question_array[$value->parent_id]->tags, $mod_tag) !== false) {
+                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br>' . $value->body . '</p><hr>';
                             }
                         }
                     }
@@ -204,20 +185,17 @@
                         while($row = $result->fetch_assoc())
                         {
                             // Determine if there are comments present
-                            $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="comment-bubble">' : '';
+                            $commentPresence = ($row['comment_count'] > 0) ? ' ' . $row['comment_count'] . ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
+                            // Determine the score
+                            $postScore = '';
                             $temp_score = $row['score'];
-                            if($temp_score > 0)
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (+' . $temp_score . ')' . $commentPresence . '<br>' . $row['body'] . '</p><hr>';
+                            if($temp_score > 0) {
+                                $postScore = ' ' . $temp_score . ' <img src="media/thumbs_up.png" class="mini-icon">';
+                            } else if($temp_score < 0) {
+                                $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
                             }
-                            else if($temp_score < 0)
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (' . $temp_score . ')' . $commentPresence . '<br>' . $row['body'] . '</p><hr>';
-                            }
-                            else
-                            {
-                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (0)' . $commentPresence . '<br>' . $row['body'] . '</p><hr>';
-                            }
+
+                            $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br>' . $row['body'] . '</p><hr>';
                         }
                     }
                 }
