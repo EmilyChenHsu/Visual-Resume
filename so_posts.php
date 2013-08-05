@@ -65,7 +65,7 @@
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
             if($_GET['type'] == 'question')
             {
-                $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1) AND (creation_date between '$datetime1' AND '$datetime2');";
+                $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1) AND (creation_date between '$datetime1' AND '$datetime2') ORDER BY score DESC;";
 
                 if($result = $mysqli->query($query))
                 {
@@ -114,7 +114,7 @@
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
             else if($_GET['type'] == 'answer')
             {
-                $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=2) AND (creation_date between '$datetime1' AND '$datetime2');";
+                $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=2) AND (creation_date between '$datetime1' AND '$datetime2') ORDER BY score DESC;";
                 $output = '';
                 if($result = $mysqli->query($query))
                 {
