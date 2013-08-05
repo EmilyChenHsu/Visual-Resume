@@ -81,6 +81,8 @@
                         } else if($temp_score < 0) {
                             $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
                         }
+                        // Determine the answer count
+                        $answerCount = ($row['answer_count'] > 0) ? ' ' . $row['answer_count'] . ' <img src="media/light_bulb.png" class="mini-icon">' : '';
 
                         // ========== //
                         // BEGIN TAGS //
@@ -89,12 +91,12 @@
                         {
                             if (strpos($row['tags'], $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . $answerCount . '</p><p>' . $row['title'] . '</p><hr>';
                             }
                         }
                         else
                         {
-                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . '</p><p>' . $row['title'] . '</p><hr>';
+                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> ' . $postScore . $commentPresence . $answerCount . '</p><p>' . $row['title'] . '</p><hr>';
                         }
                         // ======== //
                         // END TAGS //
