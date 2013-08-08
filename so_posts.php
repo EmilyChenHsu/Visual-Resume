@@ -82,7 +82,7 @@
                             $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
                         }
                         // Determine the answer count
-                        $answerCount = ($row['answer_count'] > 0) ? ' ' . $row['answer_count'] . ' <img src="media/light_bulb.png" class="mini-icon">' : '';
+                        $answerCount = ($row['answer_count'] > 0) ? ' ' . $row['answer_count'] . ' <img src="media/answer_icon.png" class="mini-icon">' : '';
 
                         // ========== //
                         // BEGIN TAGS //
