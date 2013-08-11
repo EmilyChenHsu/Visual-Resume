@@ -30,15 +30,15 @@ function xLESSy(x,y)
 {
     var x_year = x.substr(0,4);
     var x_month = x.substr(5,2);
-    
+
     var y_year = y.substr(0,4);
     var y_month = y.substr(5,2);
-    
+
     if(x_year < y_year || (x_month < y_month && x_year <= y_year))
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -51,13 +51,13 @@ function date_diff(x,y)
 {
     var x_year = x.substr(0,4);
     var x_month = x.substr(5,2);
-    
+
     var y_year = y.substr(0,4);
     var y_month = y.substr(5,2);
-    
+
     var year_diff = (+x_year - +y_year) * 12;
     var month_diff = +x_month - +y_month;
-    
+
     return (year_diff + month_diff);
 }
 
@@ -65,10 +65,10 @@ function addMonth(date)
 {
     var year = date.substr(0,4);
     year = +year;
-    
+
     var month = date.substr(5,2);
     month = +month;
-    
+
     if(month == 12)
     {
         year++;
@@ -83,7 +83,7 @@ function addMonth(date)
             month = '0' + month;
         }
     }
-    
+
     return (String(year) + '-' + String(month));
 }
 
@@ -95,10 +95,10 @@ function date_add(date, months)
 {
     var year = date.substr(0,4);
     year = +year;
-    
+
     var month = date.substr(5,2);
     month = +month;
-    
+
     month += months;
     if(month < 1)
     {
@@ -108,7 +108,7 @@ function date_add(date, months)
             year--;
         }
     }
-    
+
     if(month > 12)
     {
         while(month > 12)
@@ -123,14 +123,14 @@ function date_add(date, months)
         month = String(month);
         month = '0' + month;
     }
-    
+
     return (String(year) + '-' + String(month));
 }
 
 function date_range(date1,date2)
 {
     result = new Array();
-    
+
     if(date_diff(date1,date2) < 0) // date1 precedes date2
     {
         result[0] = date1;
@@ -188,7 +188,7 @@ function parse_date(date, format)
         else if(date[5] + date[6] == "12")
             return "Dec";
     }
-    
+
     else if(format === 'mmm-yyyy')
     {
         if(date[5] + date[6] == "01")
@@ -216,7 +216,7 @@ function parse_date(date, format)
         else if(date[5] + date[6] == "12")
             return "Dec " + date[0] + date[1] + date[2] + date[3];
     }
-    
+
     else if(format === 'mm/yy')
     {
         var mon = date.substring(5,7);
@@ -224,7 +224,7 @@ function parse_date(date, format)
         var result = new String(mon + '/' + yr);
         return result;
     }
-    
+
     else
     {
         alert('Invalid input in parse_date(date, format).');
@@ -235,18 +235,18 @@ function parse_date(date, format)
 function member_for(thenDate)
 {
     var now = new Date();
-    
+
     var thenDay = thenDate.substr(8,2);
     var thenMonth = +(thenDate.substr(5,2))-1;
     var thenYear = thenDate.substr(0,4);
-    
+
     var then = new Date(thenYear,thenMonth,thenDay);
-    
+
     var one_day = 1000*60*60*24;
     one_year = 365.25;
     one_month = one_year / 12;
     var days = (now.getTime() - then.getTime())/one_day;
-      
+
     if(days <= 1)
     {
         return 'member for 1 day';
@@ -259,7 +259,7 @@ function member_for(thenDate)
     {
         var months = Math.round(days / one_month);
         var years = months / 12;
-      
+
         if(months == 1)
         {
           return 'member for 1 month';
@@ -289,7 +289,7 @@ function member_for(thenDate)
             }
             if(months == 1)
             {
-                return 'member for ' + years + ' years, 1 month'; 
+                return 'member for ' + years + ' years, 1 month';
             }
             else if(months == 0)
             {
@@ -398,7 +398,7 @@ function show_languages()
 function remove_tile(el, id)
 {
     var index = null;
-    
+
     //console.log(global_coordinates);
     global_coordinates.forEach(function(d,i)
         {
@@ -411,9 +411,9 @@ function remove_tile(el, id)
     //console.log(global_coordinates);
     $(el).parent().empty().remove();
     //$('#' + id + "_tip").empty().remove();
-	
+
 	// Remove data from global_data
-	
+
 	global_data.forEach(function(d, i)
 		{
 			if(d[1] === id)
@@ -421,15 +421,15 @@ function remove_tile(el, id)
 				index = i;
 			}
 		});
-	
+
 	if(index != null)
 	{
 		global_data.splice(index,1);
 	}
-	
+
 	// Remove data from global_grouped_y_max_array
 	var index = null;
-	
+
 	global_grouped_y_max_array.forEach(function(d, i)
 		{
 			if(d[1] === id)
@@ -437,19 +437,19 @@ function remove_tile(el, id)
 				index = i;
 			}
 		});
-	
+
 	if(index != null)
 	{
 		global_grouped_y_max_array.splice(index,1);
-		
+
 		var old_ggym = global_grouped_y_max;
 		global_grouped_y_max = d3.max(global_grouped_y_max_array, function(d)
 		{
 			return d[0];
 		});
-        
+
         if(global_grouped_y_max == undefined){ global_grouped_y_max = 0; }
-		
+
 		if(global_grouped_y_max !== old_ggym)
 		{
 			global_data.forEach(function(d)
@@ -465,10 +465,10 @@ function remove_tile(el, id)
 			});
 		}
 	}
-	
+
 	// Remove data from global_stacked_y_max_array
 	index = null;
-	
+
 	global_stacked_y_max_array.forEach(function(d, i)
 		{
 			if(d[1] === id)
@@ -476,19 +476,19 @@ function remove_tile(el, id)
 				index = i;
 			}
 		});
-	
+
 	if(index != null)
 	{
 		global_stacked_y_max_array.splice(index,1);
-		
+
 		var old_ggym = global_stacked_y_max;
 		global_stacked_y_max = d3.max(global_stacked_y_max_array, function(d)
 		{
 			return d[0];
 		});
-		
+
         if(global_stacked_y_max == undefined){ global_stacked_y_max = 0; }
-        
+
 		if(global_stacked_y_max !== old_ggym)
 		{
 			global_data.forEach(function(d)
@@ -555,7 +555,7 @@ function shift_tiles(start_tile_id)
     if(start_tile_id != undefined)
     {
         var temp_size = global_coordinates.length;
-        
+
         var start_index = 0;
         global_coordinates.forEach(function(d, i)
             {
@@ -564,7 +564,7 @@ function shift_tiles(start_tile_id)
                     start_index = i;
                 }
             });
-        
+
         for(var index = temp_size - 1; index > start_index; index--)
         {
             if(global_coordinates[index].id != null && index == temp_size - 1)
@@ -700,13 +700,13 @@ function exchange(first, second)
 
     var first_id = global_coordinates[first].id;
     var second_id = global_coordinates[second].id;
-    
+
     if(first_id != null)
     {
         d3.select('#' + first_id)
             .style('top', global_coordinates[second].top + 'px')
             .style('left', global_coordinates[second].left + 'px');
-        
+
         global_coordinates[second].id = first_id;
         global_coordinates[second].occupied = true;
     }
@@ -715,17 +715,17 @@ function exchange(first, second)
         d3.select('#' + first_id)
             .style('top', global_coordinates[second].top + 'px')
             .style('left', global_coordinates[second].left + 'px');
-        
+
         global_coordinates[second].id = null;
         global_coordinates[second].occupied = false;
     }
-    
+
     if(second_id != null)
     {
         d3.select('#' + second_id)
             .style('top', global_coordinates[first].top + 'px')
             .style('left', global_coordinates[first].left + 'px');
-            
+
         global_coordinates[first].id = second_id;
         global_coordinates[first].occupied = true;
     }
@@ -734,7 +734,7 @@ function exchange(first, second)
         d3.select('#' + second_id)
             .style('top', global_coordinates[first].top + 'px')
             .style('left', global_coordinates[first].left + 'px');
-        
+
         global_coordinates[first].id = null;
         global_coordinates[first].occupied = false;
     }
@@ -759,13 +759,13 @@ function swap(first_id, second_id)
                 second = i;
             }
         });
-    
+
     if(first_id != null)
     {
         d3.select('#' + first_id)
             .style('top', global_coordinates[second].top + 'px')
             .style('left', global_coordinates[second].left + 'px');
-        
+
         global_coordinates[second].id = first_id;
         global_coordinates[second].occupied = true;
     }
@@ -774,17 +774,17 @@ function swap(first_id, second_id)
         d3.select('#' + first_id)
             .style('top', global_coordinates[second].top + 'px')
             .style('left', global_coordinates[second].left + 'px');
-        
+
         global_coordinates[second].id = null;
         global_coordinates[second].occupied = false;
     }
-    
+
     if(second_id != null)
     {
         d3.select('#' + second_id)
             .style('top', global_coordinates[first].top + 'px')
             .style('left', global_coordinates[first].left + 'px');
-            
+
         global_coordinates[first].id = second_id;
         global_coordinates[first].occupied = true;
     }
@@ -793,7 +793,7 @@ function swap(first_id, second_id)
         d3.select('#' + second_id)
             .style('top', global_coordinates[first].top + 'px')
             .style('left', global_coordinates[first].left + 'px');
-        
+
         global_coordinates[first].id = null;
         global_coordinates[first].occupied = false;
     }
@@ -810,9 +810,9 @@ function get_so(type, month, user, id, tag)
 	console.log("Argument 3: " + user);
 	console.log("Argument 4: " + id);
 	console.log("Argument 5: " + tag);
-    
+
 	var ajaxRequest;  // The variable that makes Ajax possible!
-	
+
 	try
     {
 		// Opera 8.0+, Firefox, Safari
@@ -844,6 +844,7 @@ function get_so(type, month, user, id, tag)
 		if(ajaxRequest.readyState == 4){
             console.log(id);
 			document.getElementById(id).innerHTML = ajaxRequest.responseText;
+			add_show_more_link();
             //return ajaxRequest.responseText;
 		}
 	}
@@ -859,5 +860,41 @@ function get_so(type, month, user, id, tag)
 	}
     document.getElementById(id).innerHTML = "Loading. This could take a few minutes if you're looking at a super user..";
 	ajaxRequest.open("GET", "so_posts.php" + queryString, true);
-	ajaxRequest.send(null); 
+	ajaxRequest.send(null);
+}
+
+function add_show_more_link() {
+    $('.hide-end').each(function(i, obj) {
+        jqobj = $(obj);
+        // Change class to 'hide-end-touched' so that this element will be ignored when this function is called next
+        jqobj.attr('class', 'hide-end-touched');
+
+        if (jqobj.height() >= 78) {
+            var temp_id = jqobj.attr('id');
+            var temp_new_id = temp_id + '_toggle';
+            $('<p id="' + temp_new_id + '" class="more">show more</p>').insertAfter(obj);
+            var toggle_element = $('#' + temp_new_id);
+            toggle_element.click(function() {
+                if (toggle_element.attr('class') == 'more') {
+                    toggle_show_hide(temp_id, true);
+                    toggle_element.attr('class', 'less');
+                    toggle_element.text('show less');
+                } else {
+                    toggle_show_hide(temp_id, false);
+                    toggle_element.attr('class', 'more');
+                    toggle_element.text('show more');
+                }
+            });
+
+        }
+    });
+}
+
+function toggle_show_hide(id, show) {
+    var div = $('#' + id);
+    if (show) {
+        div.css('max-height', 'none');
+    } else {
+        div.css('max-height', '78px');
+    }
 }

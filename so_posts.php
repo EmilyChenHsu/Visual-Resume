@@ -53,8 +53,10 @@
             $mysqli = new mysqli($server,$username,$password,$database);
 
             $tag = null;
+            $safeTag = NULL;
             if($_GET['tag'] != null)
             {
+                $safeTag = $_GET['tag'];
                 $tag = unset_url($_GET['tag']);
             }
 
@@ -173,7 +175,7 @@
                             }
 
                             if (strpos($question_array[$value->parent_id]->tags, $mod_tag) !== false) {
-                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br>' . $value->body . '</p><hr>';
+                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br><div class="hide-end" id="answer_' . $value->id . '_' . $safeTag . '">' . $value->body . '</div></p><hr>';
                             }
                         }
                     }
@@ -197,7 +199,7 @@
                                 $postScore = ' ' . $temp_score . ' <img src="media/thumbs_down.png" class="mini-icon">';
                             }
 
-                            $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br>' . $row['body'] . '</p><hr>';
+                            $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> ' . $postScore . $commentPresence . '<br><div class="hide-end" id="answer_' . $row['id'] . '">' . $row['body'] . '</div></p><hr>';
                         }
                     }
                 }
@@ -291,12 +293,12 @@
                         {
                             if(strpos($question_array[$map[$value->parent_id]]->tags, $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a>' . $value->body . '</p><hr>';
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a><div class="hide-end" id="comment_' . $value->id . '_' . $safeTag . '">' . $value->body . '</div></p><hr>';
                             }
                         }
                         else
                         {
-                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a>' . $value->body . '</p><hr>';
+                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $map[$value->parent_id] . '/#comment' . $value->id . '_' . $value->parent_id . '" target="_blank"><b>View Comment</b></p></a><div class="hide-end" id="comment_' . $value->id . '">' . $value->body . '</div></p><hr>';
                         }
 
                     }

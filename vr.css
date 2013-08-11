@@ -413,6 +413,17 @@ div.repos
     font-size: 12px;
     padding-right: 15px;
 }
+div.repos div.hide-end, div.repos div.hide-end-touched {
+    overflow: hidden;
+    max-height: 78px;
+}
+p.more, p.less {
+    font-weight: bold;
+}
+p.more:hover, p.less:hover {
+    color: #aaa;
+    cursor: pointer;
+}
 
 div.barChart
 {
