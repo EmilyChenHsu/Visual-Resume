@@ -9,9 +9,9 @@ function tile(source, type, tag, other, fromID)
 	console.log("Argument 3: " + tag);
 	console.log("Argument 4: " + other);
 	console.log("Argument 5: " + fromID);
-	
+
 	var tileID = "";
-	
+
 	d3.json(source,function(error,data)
 	{
 		if(type === "so_all")
@@ -25,7 +25,7 @@ function tile(source, type, tag, other, fromID)
 			var tmp = get_strip(tag);
 			var tagID = set_strip(tag);
 			tileID = "so_" + data.id + "_" + tagID + "_tile";
-		}	
+		}
 		else if(type === "so")
 		{
 			tileID = "so_general_tile";
@@ -120,17 +120,17 @@ function tile(source, type, tag, other, fromID)
 				var tileID = "so_" + data.id + "_" + set_strip(tag) + "_comments_" + other[1] + "_tile";
 			}
 		}
-		
+
 		var tileEl = document.getElementById(tileID);
 		if(tileEl == null)
 		{
 			var coordinates = new Array();
 			var temp_i = 0;
-			
+
 			if(fromID != null && fromID != undefined)
 			{
 				shift_tiles(fromID);
-				
+
 				global_coordinates.forEach(function(d, i)
 					{
 						if(d.id == fromID)
@@ -155,10 +155,10 @@ function tile(source, type, tag, other, fromID)
 					}
 				}
 			}
-			
+
 			global_coordinates[temp_i].occupied = true;
 			global_coordinates[temp_i].id = tileID;
-			
+
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 			// Begin draw tile for stackoverflow user all ==>
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -195,7 +195,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","pieChart")
 					.attr("id","pieChart_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","barChart")
@@ -230,7 +230,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-					
+
 				d3.select("#" + tileID)
 					.append("hr")
 					.attr("class", "separator");
@@ -238,19 +238,19 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
-				
+
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
 				infoEl.innerHTML = member_for(data.creationDate);
-				
+
 				avEl.innerHTML = "<img class='avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'>";
-			
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","icon")
 					.html("<a href='javascript:tile(\"" + source + "\", \"so\",null,null,\"" + tileID + "\")'><img class='icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a>");
-					
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -259,12 +259,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-								
+
 				d3.select("#username_" + tileID)
 					.append("text")
 					.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 					.style('font-size', global_name_font_size);
-								
+
 				d3.select("#below_avatar_" + tileID)
 					.append("span")
 						.attr("class","smallText")
@@ -277,7 +277,7 @@ function tile(source, type, tag, other, fromID)
 					.append("span")
 						.attr("class","smallText")
 						.html(" rep");
-					
+
 					// This is a sad, sad way to ensure things don't fire early..
 					setTimeout(function()
 					{
@@ -310,21 +310,21 @@ function tile(source, type, tag, other, fromID)
 				var tmp = get_strip(tag);
 				//String(tag);
 				var tagID = set_strip(tag);
-				
+
 				d3.select('body')
 					.append("div")
 					.attr("class","so_tag_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-				
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
@@ -333,7 +333,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp_string = data.displayName + ' >> ' + get_strip(tmp);
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -357,7 +357,7 @@ function tile(source, type, tag, other, fromID)
 					.attr('title', function(d)
 						{
 							$(this).tipsy({gravity: 's', html: true, hoverable: false});
-							return tmp;	
+							return tmp;
 						});
 
 				d3.select("#" + tileID)
@@ -368,7 +368,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","pieChart")
 					.attr("id","pieChart_" + tileID);
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","barChart")
@@ -404,7 +404,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-				
+
 				d3.select("#" + tileID)
 				.append("span")
 				.attr("class","close_button")
@@ -413,23 +413,23 @@ function tile(source, type, tag, other, fromID)
 					{
 						remove_tile(this, tileID);
 					});
-				
+
 				d3.select("#username_" + tileID)
 				.append("text")
 				.html("<a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a>")
 				.style("font-size", global_name_font_size);
-				
+
 				var temp_tag = set_strip(tag);
-				
+
 				tag = get_strip(temp_tag);
 				var temp_commentNum = data.tags[tag].commentCount != undefined ? data.tags[tag].commentCount : 0;
 				var temp_answerNum = data.tags[tag].answerCount != undefined ? data.tags[tag].answerCount : 0;
 				var temp_questionNum = data.tags[tag].questionCount != undefined ? data.tags[tag].questionCount : 0;
-				
+
 				d3.select("#tag_" + tileID)
 					.append('text')
 					.html('Answers: ' + temp_answerNum + '<br>Comments: ' + temp_commentNum + '<br>Questions: ' + temp_questionNum);
-				
+
 				d3.select("#" + tileID)
 					.append("hr")
 					.attr("class", "separator");
@@ -437,7 +437,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
-				
+
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
@@ -471,15 +471,15 @@ function tile(source, type, tag, other, fromID)
 					.attr("id","so_general_tile")
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#so_general_tile")
 					.append("text")
 					.html("<a href='http://stackoverflow.com/' target='_blank'><img class='so_general' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-logo.png'></a><hr>Stack Overflow is <b>a programming Q & A site that's free.</b> Free to ask questions, free to answer questions, free to read, free to index, built with plain old HTML, no fake rot13 text on the home page, no scammy google-cloaking tactics, no salespeople, no JavaScript windows dropping down in front of the answer asking for $12.95 to go away. You can register if you want to collect karma and win valuable flair that will appear next to your name, but otherwise, it's just free. And fast. Very, very fast.");
-				
+
 				d3.select("#so_general_tile")
 					.append("text")
 					.html("<hr><center><table class='so_links'><tr><td colspan='2' style='padding-right:20px'><a href='http://stackoverflow.com/about'>our mission</a></td><td colspan='2'><a href='http://stackexchange.com/about/management'>management</a></td><td colspan='2' style='padding-left:20px'><a href='http://stackexchange.com/about/team'>team</a></td></tr><tr><td colspan='3' style='padding-left:25px'><a href='http://stackexchange.com/about/hiring'>we're hiring</a></td><td colspan='3'><a href='http://stackexchange.com/about/contact'>contact us</a></td></tr></table></center>");
-					
+
 				d3.select("#so_general_tile")
 					.append("span")
 					.attr("class","close_button")
@@ -558,8 +558,8 @@ function tile(source, type, tag, other, fromID)
 							{
 								return "none";
 							}
-						});	
-				
+						});
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","barChart")
@@ -594,7 +594,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("hr")
 					.attr("class", "separator");
@@ -602,20 +602,20 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
-					
+
 				userEl = document.getElementById("username_" + tileID);
 				infoEl = document.getElementById("info_" + tileID);
 				avEl = document.getElementById("avatar_" + tileID);
 				folEl = document.getElementById("followers_" + tileID);
-				
+
 				infoEl.innerHTML = member_for(data.creationDate);
 				avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
-			
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","icon")
 					.html("<a href='https://github.com/explore' target='_blank'><img class='gh_icon' src='media/gh_logo.png'></a>");
-					
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -624,7 +624,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-								
+
 				d3.select("#username_" + tileID)
 					.append("text")
 					.html("<a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a>")
@@ -634,7 +634,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-					
+
 					// This is a sad, sad way to ensure things don't fire early..
 					setTimeout(function()
 					{
@@ -666,21 +666,21 @@ function tile(source, type, tag, other, fromID)
 				String(tag);
 				var tmp = get_strip(tag);
 				tmp = tmp.replace("-","/");
-				
+
 				d3.select('body')
 					.append("div")
 					.attr("class","gh_repo_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -689,7 +689,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -727,7 +727,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","pieChart")
 					.attr("id","pieChart_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","barChart")
@@ -762,7 +762,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class", "legend_div")
 					.attr("id", "legend_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("hr")
 					.attr("class", "separator");
@@ -770,12 +770,12 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","shortBarChart")
 					.attr("id","short_stacked_" + tileID);
-					
+
 				userEl = document.getElementById("username_" + tileID);
 				//avEl = document.getElementById("avatar_" + tileID);
-					
+
 				//avEl.innerHTML = "<img class='avatar' src='" + data.avatar + "'>";
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -784,13 +784,13 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-				
+
 				var temp_language = data.repos[tmp].language != null ? data.repos[tmp].language : 'unavailable';
-					
+
 				var temp_commentNum = data.repos[tmp].commentCount != undefined ? data.repos[tmp].commentCount : 0;
 				var temp_commitNum = data.repos[tmp].commitCount != undefined ? data.repos[tmp].commitCount : 0;
 				var temp_issueNum = data.repos[tmp].issueCount != undefined ? data.repos[tmp].issueCount : 0;
-				
+
 				d3.select("#info_" + tileID)
 					.append("text")
 					.html('Language: ');
@@ -808,13 +808,13 @@ function tile(source, type, tag, other, fromID)
 					.attr('title', function(d)
 							{
 								$(this).tipsy({gravity: 's', html: true, hoverable: false});
-								return temp_language;	
+								return temp_language;
 							});
-					
+
 				d3.select("#info_" + tileID)
 					.append("text")
-					.html('<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);	
-			
+					.html('<br>Forked: ' + data.repos[tmp].isFork + '<br>Commits: ' + temp_commitNum + '<br>Comments: ' + temp_commentNum + '<br>Issues: ' + temp_issueNum);
+
 				// This is a sad, sad way to ensure things don't fire early..
 				setTimeout(function()
 				{
@@ -841,21 +841,21 @@ function tile(source, type, tag, other, fromID)
 			// Begin draw tile for user's "other" tags ==>
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 			else if(type === "so_otherTags")
-			{			
+			{
 				d3.select('body')
 					.append("div")
 					.attr("class","gh_otherTags_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
@@ -872,7 +872,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							return tmp;
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -889,7 +889,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -898,12 +898,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-				
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p><b>Other</b> Tags</p>')
 					.style('text-decoration', 'underline');
-								
+
 				other.forEach(function(d)
 					{
 						d3.select("#repo_list_" + tileID)
@@ -927,14 +927,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -943,7 +943,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp = " >> other languages";
 				var tmp_string = data.login + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -952,7 +952,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							return tmp;
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -969,7 +969,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -978,27 +978,27 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-				
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p><b>Other</b> Languages</p>')
 					.style('text-decoration', 'underline');
-						
-						
+
+
 				var otherlangs = new Array();
-				
+
 				other.forEach(function(d)
 					{
 						console.log(d);
 						otherlangs.push(d.language);
 					});
-				
+
 				_.keys(data.repos).forEach(function(d)
 					{
 						var repo = d;
 						String(repo);
 						console.log(d);
-						
+
 						var temp_total = d.total;
 						if($.inArray(data.repos[repo].language, otherlangs) != -1)
 						{
@@ -1037,14 +1037,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -1053,7 +1053,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp = "other repos";
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -1091,7 +1091,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1100,16 +1100,16 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-				
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p><b>Other</b> Repositories</p>')
 					.style('text-decoration', 'underline');
-								
+
 				other.forEach(function(d)
 					{
 						console.log(d);
-						
+
 						var temp_total = d.total;
 						if(temp_total > 0)
 						{
@@ -1125,7 +1125,7 @@ function tile(source, type, tag, other, fromID)
 								.style('color', '#bbb')
 								.html(d.owner + '/' + d.repo + '<br>');
 						}
-						
+
 					})
 			}
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -1141,21 +1141,21 @@ function tile(source, type, tag, other, fromID)
 				String(tag);
 				tag = get_strip(tag);
 				var tmp = tag;
-				
+
 				d3.select('body')
 					.append("div")
 					.attr("class","gh_language_user_tile")
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -1164,7 +1164,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
@@ -1209,7 +1209,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1218,16 +1218,16 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-			
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p><b>' + tag + '</b> Repositories</p>')
 					.style('text-decoration', 'underline');
-								
+
 				_.keys(data.repos).forEach(function(d)
 					{
 						if(tag == 'unknown' && data.repos[d].language == undefined)
-						{	
+						{
 							var temp_total = data.repos[d].commitCount + data.repos[d].issueCount + data.repos[d].commentCount;
 							if(temp_total > 0)
 							{
@@ -1282,14 +1282,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -1298,9 +1298,9 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				if(tag != undefined) { tag = get_strip(tag) };
-				
+
 				var tmp = tag == undefined ? 'comments' : tag + ' >> comments';
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -1309,7 +1309,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							return '>> ' + tmp;
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1322,7 +1322,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1331,13 +1331,13 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Comments for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
-				
+
+
 				if(tag == undefined)
 				{
 					_.keys(data.comments).forEach(function(d,i)
@@ -1408,16 +1408,16 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				if(tag != undefined) { tag = get_strip(tag) };
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -1426,7 +1426,7 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				var tmp = tag == undefined ? 'issues' : tag + ' >> issues';
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -1435,7 +1435,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							return '>> ' + tmp;
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1448,7 +1448,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1457,12 +1457,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Issues for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
+
 				if(tag == undefined)
 				{
 					_.keys(data.issues).forEach(function(d,i)
@@ -1534,14 +1534,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='gh_icon' src='media/gh_logo.png'> >> <img class='small_avatar' src='" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=https://github.com/" + data.login + "/ target='_blank'>" + data.login + "</a> ")
@@ -1550,9 +1550,9 @@ function tile(source, type, tag, other, fromID)
 						$(this).tipsy({gravity: 's', html: true, hoverable: false});
 						return data.name;
 					});
-				
+
 				if(tag != undefined) { tag = get_strip(tag) };
-				
+
 				var tmp = tag == undefined ? 'commits' : tag + ' >> commits';
 				var tmp_string = data.login + ' >> ' + tmp;
 				d3.select("#breadcrumbs_" + tileID)
@@ -1561,7 +1561,7 @@ function tile(source, type, tag, other, fromID)
 						{
 							return '>> ' + tmp;
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1574,7 +1574,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1583,12 +1583,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Commits for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
+
 				if(tag == undefined)
 				{
 					_.keys(data.commits).forEach(function(d,i)
@@ -1603,7 +1603,7 @@ function tile(source, type, tag, other, fromID)
 										{
 											var url_array = data.commits[d].url.split('/');
 											var api_string = url_array[2].split('.');
-											
+
 											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
 											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b> (' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
 										}
@@ -1620,7 +1620,7 @@ function tile(source, type, tag, other, fromID)
 				else
 				{
 					tag = get_strip(tag);
-					
+
 					_.keys(data.commits).forEach(function(d,i)
 					{
 						console.log(tag);
@@ -1634,9 +1634,9 @@ function tile(source, type, tag, other, fromID)
 										{
 											var url_array = data.commits[d].url.split('/');
 											var api_string = url_array[2].split('.');
-											
+
 											console.log(url_array);
-											
+
 											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
 											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b>(' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
 										}
@@ -1666,14 +1666,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
@@ -1704,8 +1704,8 @@ function tile(source, type, tag, other, fromID)
 							*/
 							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=questions" target="_blank">' + tmp + '</a>';
-						});		
-			
+						});
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1718,7 +1718,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1727,12 +1727,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Questions for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
+
 				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -1752,14 +1752,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
@@ -1791,7 +1791,7 @@ function tile(source, type, tag, other, fromID)
 							return ' >> ' + tmp;
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=answers" target="_blank">' + tmp + '</a>';
 						});
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1804,7 +1804,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1813,12 +1813,12 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Answers for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
+
 				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -1838,14 +1838,14 @@ function tile(source, type, tag, other, fromID)
 					.attr("id",tileID)
 					.style('top', coordinates[0] + 'px')
 					.style('left', coordinates[1] + 'px');
-					
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","breadcrumbs")
 					.attr("id","breadcrumbs_" + tileID)
 					.append('text')
 					.html("<img class='so_icon' src='http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png'>>> <img class='small_avatar' src='http://www.gravatar.com/avatar/" + data.avatar + "'> ");
-					
+
 				d3.select("#breadcrumbs_" + tileID)
 					.append("text")
 					.html(" <a href=http://stackoverflow.com/users/" + data.id + "/ target='_blank'>" + data.displayName + "</a> ")
@@ -1877,7 +1877,7 @@ function tile(source, type, tag, other, fromID)
 							//return ' >> <a href="http://stackoverflow.com/users/' + data.id + '?tab=comments" target="_blank">' + tmp + '</a>';
 							return ' >> ' + tmp;
 						});
-				
+
 				d3.select("#" + tileID)
 					.append("div")
 					.attr("class","below_avatar")
@@ -1890,7 +1890,7 @@ function tile(source, type, tag, other, fromID)
 					.append("div")
 					.attr("class","repos")
 					.attr("id","repo_list_" + tileID);
-				
+
 				d3.select("#" + tileID)
 					.append("span")
 					.attr("class","close_button")
@@ -1899,18 +1899,18 @@ function tile(source, type, tag, other, fromID)
 						{
 							remove_tile(this, tileID);
 						});
-					
+
 				d3.select("#repo_list_title_" + tileID)
 					.append("text")
 					.html('<p>Comments for ' + other[1] + '</p>')
 					.style('text-decoration', 'underline');
-					
+
 				get_so(other[0], other[1], data.id, "repo_list_" + tileID, tag);
 			}
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
 			// End draw tile for user's SO comments <==
 			// ===== ===== ===== ===== ===== ===== ===== ===== ===== //
-			
+
 			else { console.log("Unknown data type parameter passed to tile()"); }
 		}
 		});
