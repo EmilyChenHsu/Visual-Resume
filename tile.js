@@ -1348,9 +1348,10 @@ function tile(source, type, tag, other, fromID)
 								.append('text')
 								.html(function()
 									{
+									    var parentType = (data.comments[d].parent_type != '') ? ' (' + data.comments[d].parent_type + ')' : '';
 										if(data.comments[d].parent_url != '')
 										{
-											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></p></a><p>' + data.comments[d].body + '</p><hr>';
+											return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></a>' + parentType + '</p><p>' + data.comments[d].body + '</p><hr>';
 										}
 										else
 										{
@@ -1370,13 +1371,14 @@ function tile(source, type, tag, other, fromID)
 								.append('text')
 								.html(function()
 									{
+									    var parentType = (data.comments[d].parent_type != '') ? ' (' + data.comments[d].parent_type + ')' : '';
 										if(data.comments[d].parent_url != '')
 										{
 											var url_array = data.comments[d].parent_url.split('/');
 											var this_repo = url_array[3] + '/' + url_array[4];
 											if(tag == this_repo)
 											{
-												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></p></a><p>' + data.comments[d].body + '</p><hr>';
+												return '<p><a href="' + data.comments[d].parent_url + '#issuecomment-' + data.comments[d].id + '" target="_blank"><b>View Comment</b></a>' + parentType + '</p><p>' + data.comments[d].body + '</p><hr>';
 											}
 											else
 											{
