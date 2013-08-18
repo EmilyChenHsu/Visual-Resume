@@ -1473,13 +1473,14 @@ function tile(source, type, tag, other, fromID)
 								.append('text')
 								.html(function()
 									{
+									    var commentPresence = (data.issues[d].comments > 0) ? ' ' + data.issues[d].comments + ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
 										if(data.issues[d].url != undefined)
 										{
-											return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].title + '</p><hr>';
+											return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></a>' + commentPresence + '</p><p>' + data.issues[d].title + '</p><hr>';
 										}
 										else
 										{
-											return '<p>' + data.issues[d].title + '</p><hr>';
+											return '<p>' + data.issues[d].title + commentPresence + '</p><hr>';
 										}
 									});
 						}
@@ -1500,13 +1501,14 @@ function tile(source, type, tag, other, fromID)
 										var this_repo = url_array[3] + '/' + url_array[4];
 										if(tag == this_repo)
 										{
+										    var commentPresence = (data.issues[d].comments > 0) ? ' ' + data.issues[d].comments + ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
 											if(data.issues[d].url != undefined)
 											{
-												return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></p></a><p>' + data.issues[d].title + '</p><hr>';
+												return '<p><a href="' + data.issues[d].url + '" target="_blank"><b>View Issue</b></a>' + commentPresence + '</p><p>' + data.issues[d].title + '</p><hr>';
 											}
 											else
 											{
-												return '<p>' + data.issues[d].title + '</p><hr>';
+												return '<p>' + data.issues[d].title + commentPresence + '</p><hr>';
 											}
 										}
 										else
