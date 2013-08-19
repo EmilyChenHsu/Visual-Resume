@@ -1603,18 +1603,19 @@ function tile(source, type, tag, other, fromID)
 								.append('text')
 								.html(function()
 									{
+									    var commentPresence = (data.commits[d].comments > 0) ? ' ' + data.commits[d].comments + ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
 										if(data.commits[d].url != undefined)
 										{
 											var url_array = data.commits[d].url.split('/');
 											var api_string = url_array[2].split('.');
 
 											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
-											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b> (' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></a> (' + data.commits[d].repo + ')' + commentPresence + '</p><p>' + data.commits[d].message + '</p><hr>';
 										}
 										else
 										{
 											var url = 'https://github.com/' + data.commits[d].repo + '/commit/' + data.commits[d].hash;
-											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b> (' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></a> (' + data.commits[d].repo + ')' + commentPresence + '</p><p>' + data.commits[d].message + '</p><hr>';
 											//return '<p><b>Commit URL Missing</b></p><p>' + data.commits[d].message + '</p><hr>';
 										}
 									});
@@ -1634,6 +1635,7 @@ function tile(source, type, tag, other, fromID)
 								.append('text')
 								.html(function()
 									{
+									    var commentPresence = (data.commits[d].comments > 0) ? ' ' + data.commits[d].comments + ' <img src="media/comment_bubble.png" class="mini-icon">' : '';
 										if(data.commits[d].url != undefined)
 										{
 											var url_array = data.commits[d].url.split('/');
@@ -1642,12 +1644,12 @@ function tile(source, type, tag, other, fromID)
 											console.log(url_array);
 
 											var url = url_array[0] + '/' + url_array[1] + '/' + api_string[1] + '.' + api_string[2] + '/' + url_array[4] + '/' + url_array[5] + '/' + url_array[6].slice(0,-1) + '/' + url_array[7];
-											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b>(' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></a> (' + data.commits[d].repo + ')' + commentPresence + '</p><p>' + data.commits[d].message + '</p><hr>';
 										}
 										else
 										{
 											var url = 'https://github.com/' + tag + '/commit/' + data.commits[d].hash;
-											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b>(' + data.commits[d].repo + ')</p></a><p>' + data.commits[d].message + '</p><hr>';
+											return '<p><a href="' + url + '" target="_blank"><b>View Commit</b></a> (' + data.commits[d].repo + ')' + commentPresence + '</p><p>' + data.commits[d].message + '</p><hr>';
 										}
 									});
 						}
