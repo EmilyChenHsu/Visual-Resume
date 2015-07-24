@@ -185,4 +185,6 @@ ________________
 
 * **v1.0**: Version used for the first few pilot studies (mid May, 2013).
 
-* **v1.1**: Current version.
+* **v1.1**: Version used for CSCW2016.
+
+* **v2.0**: Current Version.
