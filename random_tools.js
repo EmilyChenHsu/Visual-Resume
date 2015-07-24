@@ -349,6 +349,26 @@ function show_stacked()
         {
             $("#stacked_" + temp_tileID).fadeIn('slow');
         });
+        $("#topgrouped_" + temp_tileID+"_quality_commits").fadeOut('slow',function()
+        {
+            $("#topstacked_" + temp_tileID+"_quality_commits").fadeIn('slow');
+        });
+        $("#grouped_" + temp_tileID+"_quality_commits").fadeOut('slow',function()
+        {
+            $("#stacked_" + temp_tileID+"_quality_commits").fadeIn('slow');
+        });
+        $("#topgrouped_" + temp_tileID+"_quality_issues").fadeOut('slow',function()
+        {
+            $("#topstacked_" + temp_tileID+"_quality_issues").fadeIn('slow');
+        });
+        $("#grouped_" + temp_tileID+"_quality_issues").fadeOut('slow',function()
+        {
+            $("#stacked_" + temp_tileID+"_quality_issues").fadeIn('slow');
+        });
+        $("#topgrouped_" + temp_tileID+"_quality_answers").fadeOut('slow',function()
+        {
+            $("#topstacked_" + temp_tileID+"_quality_answers").fadeIn('slow');
+        });
     });
     global_grouped = false;
 }
@@ -362,6 +382,26 @@ function show_grouped()
         $("#stacked_" + temp_tileID).fadeOut('slow',function()
         {
             $("#grouped_" + temp_tileID).fadeIn('slow');
+        });
+        $("#topstacked_" + temp_tileID+"_quality_commits").fadeOut('slow',function()
+        {
+            $("#topgrouped_" + temp_tileID+"_quality_commits").fadeIn('slow');
+        });
+        $("#stacked_" + temp_tileID+"_quality_commits").fadeOut('slow',function()
+        {
+            $("#grouped_" + temp_tileID+"_quality_commits").fadeIn('slow');
+        });
+        $("#topstacked_" + temp_tileID+"_quality_issues").fadeOut('slow',function()
+        {
+            $("#topgrouped_" + temp_tileID+"_quality_issues").fadeIn('slow');
+        });
+        $("#stacked_" + temp_tileID+"_quality_issues").fadeOut('slow',function()
+        {
+            $("#grouped_" + temp_tileID+"_quality_issues").fadeIn('slow');
+        });
+        $("#topgrouped_" + temp_tileID+"_quality_answers").fadeOut('slow',function()
+        {
+            $("#topstacked_" + temp_tileID+"_quality_answers").fadeIn('slow');
         });
     });
     global_grouped = true;
@@ -460,9 +500,89 @@ function remove_tile(el, id)
 				set_date_range(temp_data);
 				var cf = cf.dimension(function(d) { return d.fullDate; });
 				var temp_data = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
-				redraw(temp_data, temp_tileID, "stacked");
-				redraw(temp_data, temp_tileID, "grouped");
-			});
+				if(temp_tileID.indexOf("gh")>-1 || temp_tileID.indexOf("so")>-1){
+                            var tabs = document.getElementsByTagName("a");
+                            for(var x=0; x<tabs.length; x++) {
+                            name = tabs[x].getAttribute("name");
+                            if (name == 'tab') {
+                              if (tabs[x].className == "active") {
+                                
+                                  if((tabs[x].id).indexOf(temp_tileID)>-1){
+                                    var tabn="";
+                                    var tabtile="#legend_";
+                                    var rtileid=temp_tileID;
+                                    var top="";
+                                    var reopt="";
+                                    if((tabs[x].id).indexOf("tabs_tests")>-1){
+                                      tabn="tests";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_commits";
+                                      top="top";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_core")>-1){
+                                      tabn="centrality";
+                                      rtileid=temp_tileID+"_quality_commits";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_close")>-1){
+                                      tabn="openclose";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_issues";
+                                      top="top";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_merge")>-1){
+                                      tabn="merge";
+                                      rtileid=temp_tileID+"_quality_issues";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_commit")>-1){
+                                      tabn="commits";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_issue")>-1){
+                                      tabn="issues";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_comment")>-1){
+                                      tabn="comments";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_question")>-1){
+                                      tabn="questions";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_answer")>-1){
+                                      tabn="answers";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_socomment")>-1){
+                                      tabn="comments";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_accepted")>-1){
+                                      tabn="accepted";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_answers";
+                                      top="top";
+                                      reopt="so";
+                                    }
+                                    d3.select(tabtile+rtileid).selectAll('svg').remove();
+                                    legend(rtileid, "bar", reopt,tabn);
+                                    redraw(temp_data, rtileid, "stacked",tabn,top);
+                                    redraw(temp_data, rtileid, "grouped",tabn,top);
+                                  }
+                              } 
+                            }
+                            }   
+                          }
+                          else{
+                            redraw(temp_data, temp_tileID, "stacked");
+                            redraw(temp_data, temp_tileID, "grouped");
+                          }
+                            
+                        });
 		}
 	}
 	
@@ -499,9 +619,89 @@ function remove_tile(el, id)
 				set_date_range(temp_data);
 				var cf = cf.dimension(function(d) { return d.fullDate; });
 				var temp_data = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
-				redraw(temp_data, temp_tileID, "grouped");
-				redraw(temp_data, temp_tileID, "stacked");
-			});
+				if(temp_tileID.indexOf("gh")>-1 || temp_tileID.indexOf("so")>-1){
+                            var tabs = document.getElementsByTagName("a");
+                            for(var x=0; x<tabs.length; x++) {
+                            name = tabs[x].getAttribute("name");
+                            if (name == 'tab') {
+                              if (tabs[x].className == "active") {
+                                
+                                  if((tabs[x].id).indexOf(temp_tileID)>-1){
+                                    var tabn="";
+                                    var tabtile="#legend_";
+                                    var rtileid=temp_tileID;
+                                    var top="";
+                                    var reopt="";
+                                    if((tabs[x].id).indexOf("tabs_tests")>-1){
+                                      tabn="tests";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_commits";
+                                      top="top";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_core")>-1){
+                                      tabn="centrality";
+                                      rtileid=temp_tileID+"_quality_commits";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_close")>-1){
+                                      tabn="openclose";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_issues";
+                                      top="top";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_merge")>-1){
+                                      tabn="merge";
+                                      rtileid=temp_tileID+"_quality_issues";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_commit")>-1){
+                                      tabn="commits";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_issue")>-1){
+                                      tabn="issues";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_comment")>-1){
+                                      tabn="comments";
+                                      reopt="gh";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_question")>-1){
+                                      tabn="questions";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_answer")>-1){
+                                      tabn="answers";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_socomment")>-1){
+                                      tabn="comments";
+                                      reopt="so";
+                                    }
+                                    if((tabs[x].id).indexOf("tabs_accepted")>-1){
+                                      tabn="accepted";
+                                      tabtile="#toplegend_";
+                                      rtileid=temp_tileID+"_quality_answers";
+                                      top="top";
+                                      reopt="so";
+                                    }
+                                    d3.select(tabtile+rtileid).selectAll('svg').remove();
+                                    legend(rtileid, "bar", reopt,tabn);
+                                    redraw(temp_data, rtileid, "stacked",tabn,top);
+                                    redraw(temp_data, rtileid, "grouped",tabn,top);
+                                  }
+                              } 
+                            }
+                            }   
+                          }
+                          else{
+                            redraw(temp_data, temp_tileID, "stacked");
+                            redraw(temp_data, temp_tileID, "grouped");
+                          }
+                            
+                        });
 		}
 	}
 }
@@ -547,24 +747,218 @@ d3.select("#username_" + tileID)
 					});
 */
 
-function rearrange_tiles(order)
+function shift_tiles(start_tile_id)
 {
-    if(order === 'user')
+    console.log("Function: shift_tiles()");
+	console.log("Argument 1: " + start_tile_id);
+
+    if(start_tile_id != undefined)
     {
-        var temp_coor = global_coordinates.slice(0);
-        temp_coor.sort(function(a,b)
-          {
-            return b.id - a.id;
-          });
-        console.log(global_coordinates);
-        console.log(temp_coor);
+        var temp_size = global_coordinates.length;
+        
+        var start_index = 0;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id == start_tile_id)
+                {
+                    start_index = i;
+                }
+            });
+        
+        for(var index = temp_size - 1; index > start_index; index--)
+        {
+            if(global_coordinates[index].id != null && index == temp_size - 1)
+            {
+                index = start_index;
+                break;
+            }
+            else if(global_coordinates[index].id != null)
+            {
+                exchange(index, index + 1);
+            }
+        }
+    }
+    else
+    {
+        console.log('yes');
     }
 }
+function rearrange_tiles(order1, order2)
+{
+    console.log("Function: rearrange_tiles()");
+	console.log("Argument 1: " + order1);
+	console.log("Argument 2: " + order2);
 
+    if(order1 === 'user')
+    {
+        var num_swapped = 0;
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var id_array = d.id.split('_');
+                    var num1 = global_userid_map[id_array[1]];
+                    var temp_first = d.id;
+                    for(var index = i; index < temp_size; index++)
+                    {
+                        if(global_coordinates[index].id != null)
+                        {
+                            id_array = global_coordinates[index].id.split('_');
+                            var num2 = global_userid_map[id_array[1]];
+                            if(num1 > num2)
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                num_swapped++;
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        if(num_swapped > 0)
+        {
+            rearrange_tiles('user');
+        }
+        rearrange_tiles('gap');
+    }
+
+    else if(order1 === 'gh_first')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var community = d.id.substr(0,2);
+                    if(community === 'so')
+                    {
+                        var temp_first = d.id;
+                        for(var index = i; index < temp_size; index++)
+                        {
+                            if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) === 'gh')
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        rearrange_tiles('gap');
+    }
+    else if(order1 === 'so_first')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id != null)
+                {
+                    var community = d.id.substr(0,2);
+                    if(community === 'gh')
+                    {
+                        var temp_first = d.id;
+                        for(var index = i; index < temp_size; index++)
+                        {
+                            if(global_coordinates[index].id != null && global_coordinates[index].id.substr(0,2) === 'so')
+                            {
+                                swap(temp_first, global_coordinates[index].id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        rearrange_tiles('gap');
+    }
+    else if(order1 === 'gap')
+    {
+        var temp_size = global_coordinates.length;
+        global_coordinates.forEach(function(d, i)
+            {
+                if(d.id == null)
+                {
+                    var temp_first = i;
+                    for(var index = i; index < temp_size; index++)
+                    {
+                        if(global_coordinates[index].id != null)
+                        {
+                            exchange(temp_first, index);
+                            break;
+                        }
+                    }
+                }
+            });
+    }
+}
+// Based on INDEX
 function exchange(first, second)
 {
+    console.log("Function: exchange()");
+	console.log("Argument 1: " + first);
+	console.log("Argument 2: " + second);
+
     var first_id = global_coordinates[first].id;
     var second_id = global_coordinates[second].id;
+    
+    if(first_id != null)
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = first_id;
+        global_coordinates[second].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + first_id)
+            .style('top', global_coordinates[second].top + 'px')
+            .style('left', global_coordinates[second].left + 'px');
+        
+        global_coordinates[second].id = null;
+        global_coordinates[second].occupied = false;
+    }
+    
+    if(second_id != null)
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+            
+        global_coordinates[first].id = second_id;
+        global_coordinates[first].occupied = true;
+    }
+    else
+    {
+        d3.select('#' + second_id)
+            .style('top', global_coordinates[first].top + 'px')
+            .style('left', global_coordinates[first].left + 'px');
+        
+        global_coordinates[first].id = null;
+        global_coordinates[first].occupied = false;
+    }
+}
+// Based on ID
+function swap(first_id, second_id)
+{
+    console.log("Function: swap()");
+	console.log("Argument 1: " + first_id);
+	console.log("Argument 2: " + second_id);
+
+    var first = 0, second = 0;
+    global_coordinates.forEach(function(d,i)
+        {
+            //console.log(d);
+            if(d.id == first_id)
+            {
+                first = i;
+            }
+            if(d.id == second_id)
+            {
+                second = i;
+            }
+        });
     
     if(first_id != null)
     {
@@ -610,6 +1004,13 @@ function exchange(first, second)
  */
 function get_so(type, month, user, id, tag)
 {
+    console.log("Function: get_so()");
+	console.log("Argument 1: " + type);
+	console.log("Argument 2: " + month);
+	console.log("Argument 3: " + user);
+	console.log("Argument 4: " + id);
+	console.log("Argument 5: " + tag);
+    
 	var ajaxRequest;  // The variable that makes Ajax possible!
 	
 	try
@@ -657,6 +1058,6 @@ function get_so(type, month, user, id, tag)
 		var queryString = "?month1=" + month + "&month2=" + month2 +"&user=" + user + "&type=" + type + "&tag=" + tag;
 	}
     document.getElementById(id).innerHTML = "Loading. This could take a few minutes if you're looking at a super user..";
-	ajaxRequest.open("GET", "so_call.php" + queryString, true);
+	ajaxRequest.open("GET", "so_posts.php" + queryString, true);
 	ajaxRequest.send(null); 
 }

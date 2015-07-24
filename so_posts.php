@@ -11,6 +11,7 @@
                 public $tags = null;
                 public $body = null;
                 public $type = null;
+                public $score = 0;
             }
             
             function unset_url($tag)
@@ -43,15 +44,21 @@
             $output = '';
             $user_id = $_GET['user'];
 
-            $server = "cse.unl.edu";
-            $username = "stackoverflow";
-            $password = "BU}uE@";
-            $database = "stackoverflow";
+            //$server = "cse.unl.edu";
+            //$username = "stackoverflow";
+            //$password = "BU}uE@";
+            //$database = "stackoverflow";
+
+            $server = "127.0.0.1";
+            $username = "root";
+            $password = "";
+            $database = "springpojects";
             
             $mysqli = new mysqli($server,$username,$password,$database);
             
             $tag = null;
-            if($_GET['tag'] != null)
+
+            if((isset($_GET['tag']) ? $_GET['tag'] : null) != null)
             {
                 $tag = unset_url($_GET['tag']);
             }
@@ -64,7 +71,6 @@
             if($_GET['type'] == 'question')
             {       
                 $query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1) AND (creation_date between '$datetime1' AND '$datetime2');";
-                //$query = "SELECT * FROM se_posts WHERE (owner_user_id=$user_id) AND (post_type_id=1);";
                 
                 if($result = $mysqli->query($query))
                 {
@@ -73,49 +79,40 @@
                         // ========== //
                         // BEGIN TAGS //
                         // ========== //
-                        /*
-                        $array = array();
-                        if($row['tags'] != null)
-                        {
-                            $array = explode('<',$row['tags']);
-                            
-                            foreach($array as $key=>&$value)
-                            {
-                                if($value != '')
-                                {
-                                    if(substr($value,-1) == '>')
-                                    {
-                                        $value = substr($value,0,-1);
-                                        $array[$key] = $value;
-                                    }
-                                }
-                                else
-                                {
-                                    unset($array[$key]);
-                                }
-                            }
-                            //var_dump($array);
-                        }
-                        */
                         if($tag != null)
                         {
                             if (strpos($row['tags'], $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a></p><p>' . $row['title'] . '</p><hr>';
+                                $temp_score = $row['score'];
+                                if($temp_score > 0)
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (+' . $temp_score . ')</p><p>' . $row['title'] . '</p><hr>';
+                                }
+                                else if($temp_score < 0)
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (' . $temp_score . ')</p><p>' . $row['title'] . '</p><hr>';
+                                }
+                                else
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (0)</p><p>' . $row['title'] . '</p><hr>';
+                                }
                             }
-                            /*
-                            if (in_array($tag, $array))
-                            {
-                                //$output = $output . $row['title'] . '<br>';
-                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank">' . $row['title'] . '</a></p>';
-                                //echo '<br>' . $tag . '<br>';
-                            }
-                            */
                         }
                         else
                         {
-                            //$output = $output . $row['title'] . '<br>';
-                            $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a></p><p>' . $row['title'] . '</p><hr>';
+                            $temp_score = $row['score'];
+                            if($temp_score > 0)
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (+' . $temp_score . ')</p><p>' . $row['title'] . '</p><hr>';
+                            }
+                            else if($temp_score < 0)
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (' . $temp_score . ')</p><p>' . $row['title'] . '</p><hr>';
+                            }
+                            else
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/questions/' . $row['id'] . '" target="_blank"><b>View Question</b></a> (0)</p><p>' . $row['title'] . '</p><hr>';
+                            }
                         }
                         // ======== //
                         // END TAGS //
@@ -123,8 +120,6 @@
                     }
                 }
                 
-                //echo $query . ' ' . $output . ' ' . $datetime;
-                //echo $query . '<br>' . $output;
                 echo $output;
             }
             // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -159,6 +154,7 @@
                             $answer->id = $row['id'];
                             $answer->parent_id = $row['parent_id'];
                             $answer->body = $row['body'];
+                            $answer->score = $row['score'];
                             array_push($answer_array, $answer);
                         }
                         
@@ -169,14 +165,7 @@
                         if($temp_result = $mysqli->query($temp_query))
                         {
                             while($temp_row = $temp_result->fetch_assoc())
-                            {
-                                /*
-                                $question = new so_post();
-                                $question->id = $temp_row['id'];
-                                $question->tags = $temp_row['tags'];
-                                array_push($question_array, $question);
-                                */
-                                
+                            {                
                                 // This way indexes by the post's id
                                 $question = new so_post();
                                 $question->id = $temp_row['id'];
@@ -189,12 +178,19 @@
                         {
                             if (strpos($question_array[$value->parent_id]->tags, $mod_tag) !== false)
                             {
-                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b><br></a>' . $value->body . '</p><hr>';
+                                if($value->score > 0)
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (+' . $value->score . ')<br>' . $value->body . '</p><hr>';
+                                }
+                                else if($value->score < 0)
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (' . $value->score . ')<br>' . $value->body . '</p><hr>';
+                                }
+                                else
+                                {
+                                    $output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b></a> (0)<br>' . $value->body . '</p><hr>';
+                                }
                             }
-                            //$question_array[$value->parent_id]
-                            //echo '<p>Q_id: ' . $question_array[$value->parent_id]->id . '<br>A_parent_id: ' . $answer_array[$key]->parent_id . '</p>';
-                            //echo '<p>Q_id: ' . $question_array[$value->parent_id]->tags . '<br>A_parent_id: ' . $answer_array[$key]->parent_id . '</p>';
-                            //$output = $output . '<p><a href="http://stackoverflow.com/a/' . $value->id . '" target="_blank"><b>View Answer</b><br></a>' . $value->body . '</p><hr>';
                         }
                     }
                     //
@@ -206,7 +202,19 @@
                     {
                         while($row = $result->fetch_assoc())
                         {
-                            $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b><br></a>' . $row['body'] . '</p><hr>';
+                            $temp_score = $row['score'];
+                            if($temp_score > 0)
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (+' . $temp_score . ')<br>' . $row['body'] . '</p><hr>';
+                            }
+                            else if($temp_score < 0)
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (' . $temp_score . ')<br>' . $row['body'] . '</p><hr>';
+                            }
+                            else
+                            {
+                                $output = $output . '<p><a href="http://stackoverflow.com/a/' . $row['id'] . '" target="_blank"><b>View Answer</b></a> (0)<br>' . $row['body'] . '</p><hr>';
+                            }
                         }
                     }
                 }

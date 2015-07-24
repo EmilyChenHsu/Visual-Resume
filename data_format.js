@@ -22,10 +22,13 @@ function data_format(source, type, tag)
                             var qc = toInt(data.activity[d].questionCount);
                             var ac = toInt(data.activity[d].answerCount);
                             var cc = toInt(data.activity[d].commentCount);
+                            var acc = toInt(data.activity[d].acceptedCount);
+                            var nacc = toInt(data.activity[d].nonacceptedCount);
                       
                             var monthTotal = qc + ac + cc;
                           
                             var y0 = 0;
+                            var y10=0;
                       
                             var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
                             graphData[i] =
@@ -61,6 +64,23 @@ function data_format(source, type, tag)
                                   y0:y0,
                                   y1:y0 += qc,
                                   title:"questions"
+                                },
+                                {type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:nacc,
+                                  y0:y10,
+                                  y1:y10 += nacc,
+                                  title:"nonaccepted"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:acc,
+                                  y0:y10,
+                                  y1:y10 += acc,
+                                  title:"accepted"
                                 }]
                             };
                     
@@ -104,6 +124,23 @@ function data_format(source, type, tag)
                           y0:y0,
                           y1:y0 += 0,
                           title:"questions"
+                        },
+                        {type: type,
+                                user_id: data.id,
+                                month: tempDate,
+                          value:0,
+                          y0:y0,
+                          y1:y0 += 0,
+                          title:"nonaccepted"
+                        },
+                        {
+                                type: type,
+                                user_id: data.id,
+                                month: tempDate,
+                          value:0,
+                          y0:y0,
+                          y1:y0 += 0,
+                          title:"accepted"
                         }]
                     };
                 }
@@ -172,6 +209,24 @@ function data_format(source, type, tag)
                                         y0:0,
                                         y1:0,
                                         title:"questions"
+                                    },
+                                    {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        value:0,
+                                        y0:0,
+                                        y1:0,
+                                        title:"nonaccepted"
+                                    },
+                                    {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        value:0,
+                                        y0:0,
+                                        y1:0,
+                                        title:"accepted"
                                     }]
                             };
                             graphData.push(tempObject);
@@ -239,10 +294,13 @@ function data_format(source, type, tag)
                       var qc = toInt(data.tags[tag].activity[d].questionCount);
                       var ac = toInt(data.tags[tag].activity[d].answerCount);
                       var cc = toInt(data.tags[tag].activity[d].commentCount);
+                      var acc = toInt(data.tags[tag].activity[d].acceptedCount);
+                      var nacc = toInt(data.tags[tag].activity[d].nonacceptedCount);
                       
                       var monthTotal = qc + ac + cc;
                     
                       var y0 = 0;
+                      var y10=0;
                       
                       var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
                       graphData[i] =
@@ -281,6 +339,26 @@ function data_format(source, type, tag)
                             y0:y0,
                             y1:y0 += qc,
                             title:"questions"
+                          },
+                          {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:d,
+                            value:nacc,
+                            y0:y10,
+                            y1:y10 += nacc,
+                            title:"nonaccepted"
+                          },
+                          {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:d,
+                            value:acc,
+                            y0:y10,
+                            y1:y10 += acc,
+                            title:"accepted"
                           }]
                       };
                 
@@ -352,6 +430,26 @@ function data_format(source, type, tag)
                                 y0:0,
                                 y1:0,
                                 title:"questions"
+                              },
+                              {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:tempDate,
+                                value:0,
+                                y0:0,
+                                y1:0,
+                                title:"nonaccepted"
+                              },
+                              {
+                                type: type,
+                                tag: tag,
+                                user_id: data.id,
+                                month:tempDate,
+                                value:0,
+                                y0:0,
+                                y1:0,
+                                title:"accepted"
                               }]
                           };
                           graphData.push(tempObject);
@@ -419,10 +517,23 @@ function data_format(source, type, tag)
                             var ic = toInt(data.activity[d].issueCount);
                             var cic = toInt(data.activity[d].commitCount);
                             var cc = toInt(data.activity[d].commentCount);
+                            var citp=toInt(data.activity[d].passCommit);
+                            var citf=toInt(data.activity[d].failCommit);
+                            var cihc=toInt(data.activity[d].highCentral);
+                            var cimc=toInt(data.activity[d].medianCentral);
+                            var cilc=toInt(data.activity[d].lowCentral);
+                            var ioi=toInt(data.activity[d].openIssue);
+                            var ici=toInt(data.activity[d].closeIssue);
+                            var im=toInt(data.activity[d].mergedPR);
+                            var inm=toInt(data.activity[d].nonmergedPR);
                       
                             var monthTotal = ic + cic + cc;
                           
                             var y0 = 0;
+                            var y11=0;
+                            var y12=0;
+                            var y13=0;
+                            var y14=0;
                       
                             var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
                             graphData[i] =
@@ -457,8 +568,90 @@ function data_format(source, type, tag)
                                   y0:y0,
                                   y1:y0 += ic,
                                   title:"issues"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:citp,
+                                  y0:y11,
+                                  y1:y11 += citp,
+                                  title:"pass"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:citf,
+                                  y0:y11,
+                                  y1:y11 += citf,
+                                  title:"fail"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:cilc,
+                                  y0:y12,
+                                  y1:y12 += cilc,
+                                  title:"low"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:cimc,
+                                  y0:y12,
+                                  y1:y12 += cimc,
+                                  title:"median"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:cihc,
+                                  y0:y12,
+                                  y1:y12 += cihc,
+                                  title:"high"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:ici,
+                                  y0:y13,
+                                  y1:y13 += ici,
+                                  title:"close"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:ioi,
+                                  y0:y13,
+                                  y1:y13 += ioi,
+                                  title:"open"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:inm,
+                                  y0:y14,
+                                  y1:y14 += inm,
+                                  title:"nonmerged"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:im,
+                                  y0:y14,
+                                  y1:y14 += im,
+                                  title:"merged"
                                 }]
                             };
+                            
                         });
                 }
                 else
@@ -501,6 +694,87 @@ function data_format(source, type, tag)
                                   y0:y0,
                                   y1:y0 += 0,
                                   title:"issues"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"pass"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"fail"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"high"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"median"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"low"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"open"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"close"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"nonmerged"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                  value:0,
+                                  y0:y0,
+                                  y1:y0 += 0,
+                                  title:"merged"
                                 }]
                             };
                 }
@@ -519,6 +793,7 @@ function data_format(source, type, tag)
                   return 0;
                 }
                 graphData.sort(byDate);
+                
                 // ===== ===== ===== ===== === ===== //
                 
                 // ===== Fill in missing dates ===== //
@@ -569,7 +844,88 @@ function data_format(source, type, tag)
                                         y0:0,
                                         y1:0,
                                         title:"issues"
-                                    }]
+                                    },
+                                    {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"pass"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"fail"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"high"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"median"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"low"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"open"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"close"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"nonmerged"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                  value:0,
+                                  y0:0,
+                                  y1:0,
+                                  title:"merged"
+                                }]
                             };
                             graphData.push(tempObject);
                             
@@ -581,6 +937,7 @@ function data_format(source, type, tag)
                 
                 // ===== Sort the data by date again ===== //
                 graphData.sort(byDate);
+                
                 // ===== ===== ===== ===== === ===== ==== //
                         
                 var temp_max = d3.max(graphData, function(d)
@@ -612,7 +969,22 @@ function data_format(source, type, tag)
                 empty_graph(tileID, "stacked", "gh");
                 empty_graph(tileID, "grouped", "gh");
                 short_chart(graphData, tileID);
-                
+
+                //var temp_data = graphData;
+                //var cf = crossfilter(temp_data);
+                //set_date_range(temp_data);
+                //var cf = cf.dimension(function(d) { return d.fullDate; });
+                //var temp_data = cf.filterRange([global_start_date,global_end_date]).top(Infinity);
+                /*
+                if(global_date_range!=null){
+                  var cf = crossfilter(graphData);
+                  set_date_range(graphData);
+                  var cf = cf.dimension(function(d) { return d.fullDate; });
+                  var graphData = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
+                }
+                redraw(graphData, tileID, "stacked","tests");
+                redraw(graphData, tileID, "grouped","tests");
+                */
             })
         }
     // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
@@ -629,15 +1001,16 @@ function data_format(source, type, tag)
             {
                 var tempDate = global_start_date;
                 
-                var tileID = "gh_" + data.id + "_" + tag + "_tile";
+                var tileID = "gh_" + data.id + "_" + set_strip(tag) + "_tile";
             
                 var graphData = new Array();
-                    
+                  //console.log("dataformat repo before: "+tag);  
                 // Some finangling to get the 'tag' to the correct format as a string
                 String(tag);
                 var tmp = tag.replace("-","/");
                 tmp = get_strip(tmp);
                 tag = tmp;
+                //console.log("dataformat repo: "+tag);
                     
                     
                 _.keys(data.repos[tag].activity).forEach(function(d,i)
@@ -645,10 +1018,23 @@ function data_format(source, type, tag)
                     var ic = toInt(data.repos[tag].activity[d].issueCount);
                     var cic = toInt(data.repos[tag].activity[d].commitCount);
                     var cc = toInt(data.repos[tag].activity[d].commentCount);
+                    var citp=toInt(data.repos[tag].activity[d].passCommit);
+                            var citf=toInt(data.repos[tag].activity[d].failCommit);
+                            var cihc=toInt(data.repos[tag].activity[d].highCentral);
+                            var cimc=toInt(data.repos[tag].activity[d].medianCentral);
+                            var cilc=toInt(data.repos[tag].activity[d].lowCentral);
+                            var ioi=toInt(data.repos[tag].activity[d].openIssue);
+                            var ici=toInt(data.repos[tag].activity[d].closeIssue);
+                            var im=toInt(data.repos[tag].activity[d].mergedPR);
+                            var inm=toInt(data.repos[tag].activity[d].nonmergedPR);
               
                     var monthTotal = ic + cic + cc;
                   
                     var y0 = 0;
+                    var y11=0;
+                            var y12=0;
+                            var y13=0;
+                            var y14=0;
               
                     var fullDate = new Date(d.substr(0,4),(+d.substr(5,7) - 1));
                     graphData[i] =
@@ -687,7 +1073,97 @@ function data_format(source, type, tag)
                           y0:y0,
                           y1:y0 += ic,
                           title:"issues"
-                        }]
+                        },
+                        {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:citp,
+                                  y0:y11,
+                                  y1:y11 += citp,
+                                  title:"pass"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:citf,
+                                  y0:y11,
+                                  y1:y11 += citf,
+                                  title:"fail"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:cilc,
+                                  y0:y12,
+                                  y1:y12 += cilc,
+                                  title:"low"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:cimc,
+                                  y0:y12,
+                                  y1:y12 += cimc,
+                                  title:"median"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:cihc,
+                                  y0:y12,
+                                  y1:y12 += cihc,
+                                  title:"high"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:ici,
+                                  y0:y13,
+                                  y1:y13 += ici,
+                                  title:"close"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:ioi,
+                                  y0:y13,
+                                  y1:y13 += ioi,
+                                  title:"open"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:inm,
+                                  y0:y14,
+                                  y1:y14 += inm,
+                                  title:"nonmerged"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:d,
+                                        repo: tag,
+                                  value:im,
+                                  y0:y14,
+                                  y1:y14 += im,
+                                  title:"merged"
+                                }]
                     };
             
                 });
@@ -758,7 +1234,97 @@ function data_format(source, type, tag)
                                         y0:0,
                                         y1:0,
                                         title:"issues"
-                                    }]
+                                    },
+                                    {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"pass"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"fail"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"low"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"median"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"high"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"close"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"open"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"nonmerged"
+                                },
+                                {
+                                        type: type,
+                                        user_id: data.id,
+                                        month:tempDate,
+                                        repo: tag,
+                                  value:0,
+                                        y0:0,
+                                        y1:0,
+                                  title:"merged"
+                                }]
                             };
                             graphData.push(tempObject);
                             
@@ -804,6 +1370,16 @@ function data_format(source, type, tag)
                 empty_graph(tileID, "stacked", "gh");
                 empty_graph(tileID, "grouped", "gh");
                 short_chart(graphData, tileID);
+                /*
+                if(global_date_range!=null){
+                  var cf = crossfilter(graphData);
+                  set_date_range(graphData);
+                  var cf = cf.dimension(function(d) { return d.fullDate; });
+                  var graphData = cf.filterRange([global_date_range[0],global_date_range[1]]).top(Infinity);
+                }
+                redraw(graphData, tileID, "stacked","tests");
+                redraw(graphData, tileID, "grouped","tests");
+                */
             })
         }
     // ===== ===== ===== ===== ===== ===== ===== ===== ===== //
