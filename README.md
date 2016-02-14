@@ -1,5 +1,11 @@
 # GitHub & Stack Overflow Resume - API README
 
+# Installation Instruction
+
+Visual Resume is a script language based tool, so installation or decompression is not required. Please paste all file of this directory into your published web folder (such as ../public_html/Visual-Resume/). First time of running Visual Resume may cause extra time to load the data since there is no data cache.
+
+________________
+
 # Using the Tool
 ________________
 
@@ -177,6 +183,17 @@ ________________
 ________________
 
 * **GH Commit Data**: It makes a huge difference whether we go with the route `it.out("AUTHOR").out("EMAIL").out("GRAVATAR_HASH").in("GRAVATAR").login.next() == user.login` vs `it.out("AUTHOR").out("EMAIL").in("EMAIL").login.next() == user.login`.
+
+## File Included
+________________
+Important source code files
+* data_format.js: Stackoverflow and Github user data JSON formating.
+* drag_drop.js: d3 SVG element drag & drop function.
+* gh_user_general.js: general Github information decoding from data JSON.
+* so_user_general.js: general Stackoverflow information decoding from data JSON.
+* short_chart.js: generate bar chart.
+* pie_chart.js: generate pie chart.
+* Data: folder where stores JSON data files of Stackoverflow and Github profiles.
 
 ## Branch (version) History
 ________________
