@@ -184,9 +184,9 @@ Important source code files
 * gh_user_general.js: general Github information decoding from data JSON.
 * so_user_general.js: general Stackoverflow information decoding from data JSON.
 * short_chart.js: generate bar chart.
+* pie_chart.js: generate pie chart.
 * empty_graph.js: initialize profile card with empty graphs.
 * redraw.js: refresh charts when switching data source.
-* pie_chart.js: generate pie chart.
 * Data: folder where stores JSON data files of Stackoverflow and Github profiles.
 
 ## Branch (version) History
