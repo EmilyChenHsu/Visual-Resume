@@ -4,15 +4,11 @@
 
 Visual Resume is a script language based tool, so installation or decompression is not required. Please paste all file of this directory into your published web folder (such as ../public_html/Visual-Resume/). First time of running Visual Resume may cause extra time to load the data since there is no data cache.
 
-________________
-
 # Using the Tool
-________________
 
 In order to take full advantage of all of the Visual Resume's features, read through this list to familiarize yourself with the tool:
 
 # Key Interactions and Info
-________________
 
 ## GitHub
 
@@ -71,7 +67,7 @@ ________________
     * **Fill Spaces** shifts tiles to the left to fill in empty spaces (if present)--automatically run when tiles are re-ordered by any of the other three methods.
 * You are limited to opening only about 30 tiles at once. That's a bit excessive, so you probably don't have to worry about hitting your quota and blowing up the system.
 * It's probably obvious, but our tool allows you to **compare** one user's contributions in various tags, repositories, or communities **and** multiple users' contributions with each other as well.
-________________
+
 ## Sample JSON File (GitHub):
 
     {
@@ -141,10 +137,9 @@ ________________
             }
         }    
     }
-________________
-________________
+    
+
 # Design Decisions
-________________
 
 The Visual Resume tool is aimed at exposing user contributions in various online coding communities (currently, Stack Overflow and GitHub) and displaying these contributions with graphs and other visualizations.  No other tool that we have come across shows as much detailed information as the Visual Resume tool, and no other tool shows contributions in both coding question and answer sites and code hosting sites.  Additionally, the Visual Resume tool allows viewers to perform side-by-side comparisons of multiple users or the same user in multiple contexts (e.g. comparing Joe in Stack Overflow with Joe in GitHub **or** Joe's contributions in Rails on GitHub with Joe's contributions in CakePHP on GitHub).  Information gathered for the tool is displayed in "tiles," which are vertical boxes that can be opened, closed, and (hopefully) rearranged.
 
@@ -153,14 +148,13 @@ For GitHub, viewers are able to see a breakdown of a user's number of commits, c
 For Stack Overflow, viewers see the number of a user's questions, comments, and answers--both in general and within a specific tag.  Like GitHub, this activity is displayed in bar charts that facilitate discovery of possible patterns or trajectories.  Instead of a repository breakdown (as in GitHub), viewers see a tag breakdown that shows which tags (coding languages, concepts, etc.) a user most contributes to.  The drill down here shows a user's contributions unique to a certain tag, and a chart is displayed that shows "related" tags (those tags that are most often tagged along with the tag in question for questions our user in view is connected to).  Monthly activity (questions, comments, answers) is shown in this tile as well.
 
 ## Stack Overflow
-________________
+
 
 * **Grouped chart**: Allows viewers to see each contribution type (`comment`, `question`, `answer`) compared side by side, since stacked only gives a good sense of the aggregate.
 
 * **Stacked chart**: Shows a user's aggregate contribution for a month, which gives a good idea of overall monthly activity.
 
 ## GitHub
-________________
 
 * **Commits**: Use `author` instead of `committer`, because the author is the one who actually wrote the code for the commit (-Use `committer` instead of `author`, because it shows that a user has the "power" to commit-)
 
@@ -173,19 +167,17 @@ ________________
 * **Stacked chart**: Shows a user's aggregate contribution for a month, which gives a good idea of overall monthly activity.
 
 ## Both
-________________
 
 * **Tenure**: Shows how long a user has been around in order to give context for the amount of contributions or the reputation level or something similar. This will give someone insight as to why there is no activity for early months, for example.
 
 * **Avatar**: Perhaps a user's picture tells us something about them. Does it show something they're really into? Or maybe they're really weird..
 
 ## Notes
-________________
 
 * **GH Commit Data**: It makes a huge difference whether we go with the route `it.out("AUTHOR").out("EMAIL").out("GRAVATAR_HASH").in("GRAVATAR").login.next() == user.login` vs `it.out("AUTHOR").out("EMAIL").in("EMAIL").login.next() == user.login`.
 
 ## File Included
-________________
+
 Important source code files
 * data_format.js: Stackoverflow and Github user data JSON formating.
 * drag_drop.js: d3 SVG element drag & drop function.
@@ -196,7 +188,6 @@ Important source code files
 * Data: folder where stores JSON data files of Stackoverflow and Github profiles.
 
 ## Branch (version) History
-________________
 
 * **v0.9**: Version used for the demo at the Spring 2013 NSF SCALE Conference in Pittsburg, PA.
 
